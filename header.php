@@ -1,22 +1,34 @@
 <html>
 
 <head>
-    <title>titulo</title>
+    <title>Controle de acesso</title>
 </head>
 
-<body>
+<body style="margin: 0;">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
-        <a class="navbar-brand pr-5" href="index.php">Ta funfando</a>
+    <nav style="
+    text-align: center;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: DarkGrey;
+    color: white;
+    ">
+        <a href="?pagina=home">Home</a>
         
-        <div id="navbar">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="./turma.php">link 1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">link 2</a>
+        <div>
+            <ul>
+                <li>
+                    <a href="?pagina=turma">Gerenciar turmas</a>
                 </li>
             </ul>
         </div>
     </nav>
+
+
+<?php
+    //debug
+    ini_set('display_errors', 1); 
+    ini_set('display_startup_errors', 1); 
+    error_reporting(E_ALL);
+?>
