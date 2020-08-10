@@ -1,0 +1,22 @@
+<h1>Gerenciador de turmas</h1>
+
+<a href="?pagina=turma&action=create">Adicionar turma</a>
+<br> <br>
+<hr>
+<br>
+<table border='2'>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>ALTERAÇÃO</th>
+        <th>DELEÇÃO</th>
+    </tr>
+    {% for turma in turmas %}
+        <tr>
+            <th>{{turma.Cod_turma}}</th>
+            <th>{{turma.Nome}}</th>
+            <th><a href="pagina=admin&action=edit&id={{turma.id}}">ALTERAÇÃO</a></th>
+            <th><a href="?pagina=admin&action=delete&id={{turma.id}}">DELEÇÃO</a></th>
+        </tr>
+    {% endfor %}
+</table>

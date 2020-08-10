@@ -1,40 +1,36 @@
-<?php 
-    include('header.php');
-    session_start();
-?>
+<?php
 
-    <div class="principal">
+// debug
+ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+function print_r_pre($mixed = null) {
+  echo '<pre>';
+  print_r($mixed);
+  echo '</pre>';
+  return null;
+}
 
-    <?php 
+require_once 'app/core/Core.php';
 
-        $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 'home';
+require_once 'app/controller/TurmaController.php';
+require_once 'app/controller/ErrorController.php';
 
-        switch($pagina){
+require_once 'app/model/Turma.php';
 
-            case 'turma':
-                include_once 'view/turma.php';
-            break;
+require_once 'lib/database/Connection.php';
 
-            case 'addTurma':
-                include_once 'view/addTurma.php';
-            break;
+require 'vendor/autoload.php';
 
-            case 'viewTurma':
-                include_once 'view/viewTurma.php';
-            break;
-            
-            
-            case 'home':
-            break;
+$template = file_get_contents('app/template/estrutura.html');
 
-            default:
-            break;
-        }
-    ?>
+ob_start();
+    $core = new Core;
+    $core->start($_GET);
 
-    </div>
-</body>
+    $saida = ob_get_contents();
+ob_end_clean();
 
-<?php 
-    include('footer.php');
+//carrega o controller apropriado na {{area_dinamica}} do template
+$tplPronto = str_replace('{{area_dinamica}}', $saida, $template);
+echo $tplPronto;
+
 ?>

@@ -13,7 +13,7 @@ if(isset($_SESSION['added'])){
     <h1>Turmas:</h1>
     <p><a href="?pagina=addTurma">Adicionar</a> uma turma.</p>
 
-<?php 
+<?php
 
     require_once("model/tabelaTurma.php");
 
