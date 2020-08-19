@@ -45,6 +45,46 @@
 
         }
 
+        public function edit($turmaID){
+            $loader = new \Twig\Loader\FilesystemLoader('app/view');
+            $twig = new \Twig\Environment($loader);
+            $template = $twig->load('editTurma.html');
+
+            $turma = Turma::selecionaPorId($turmaID);
+
+            $parametros = array();
+            $parametros['Cod_turma'] = $turma->Cod_turma;
+            $parametros['Nome'] = $turma->Nome;
+
+            $conteudo = $template->render($parametros);
+            echo $conteudo;
+        }
+
+        public function update(){
+            try{
+                Turma::update($_POST);
+
+                echo '<script>alert("Turma alterada com sucesso!");</script>';
+                echo '<script>location.href="?pagina=turma";</script>';
+            } catch(Exception $e){
+                echo '<script>alert("'.$e->getMessage().'");</script>';
+                echo '<script>location.href="?pagina=turma&action=edit&id='.$_POST["id"].'";</script>';
+            }
+        }
+
+        public function delete($codTurma){
+            try{
+                Turma::delete($codTurma);
+
+                echo '<script>alert("Turma deletada com sucesso!");</script>';
+                echo '<script>location.href="?pagina=turma";</script>';
+            } catch(Exception $e){
+                echo '<script>alert("'.$e->getMessage().'");</script>';
+                echo '<script>location.href="?pagina=turma";</script>';
+            }
+
+        }
+
     }
 
 ?>

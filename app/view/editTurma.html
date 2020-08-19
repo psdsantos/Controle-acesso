@@ -1,0 +1,12 @@
+<h1>Alterar Turma</h1>
+
+<html>
+    <form action="?pagina=turma&action=update" method="POST">
+        <p>Nome: <input name="nomeTurma" type="text" value="{{Nome}}" required></p>
+        <input type="submit" value="Alterar">
+
+        <input type="hidden" name="id" value="{{Cod_turma}}">
+    </form>
+
+    <p><a href="?pagina=turma">Ver turmas.</a></p>
+</html>

@@ -15,8 +15,8 @@
         <tr>
             <th>{{turma.Cod_turma}}</th>
             <th>{{turma.Nome}}</th>
-            <th><a href="pagina=admin&action=edit&id={{turma.id}}">ALTERAÇÃO</a></th>
-            <th><a href="?pagina=admin&action=delete&id={{turma.id}}">DELEÇÃO</a></th>
+            <th><a href="?pagina=turma&action=edit&id={{turma.Cod_turma}}">ALTERAÇÃO</a></th>
+            <th><a href="?pagina=turma&action=delete&id={{turma.Cod_turma}}">DELEÇÃO</a></th>
         </tr>
     {% endfor %}
 </table>
