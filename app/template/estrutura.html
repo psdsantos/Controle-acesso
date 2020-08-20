@@ -4,13 +4,49 @@
 <head>
     <title>Controle de acesso</title>
     <link rel="stylesheet" href="app/template/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
+    <script src="vendor\components\jquery\jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready( function () {
+            $('#tabela').DataTable( {
+
+                "columnDefs": [
+                    {"className": "dt-center", "targets": "_all"}
+                ],
+
+                  "language": {
+                      "lengthMenu": "Mostrar _MENU_ itens por página",
+                      "zeroRecords": "Nenhum registro encontrado",
+                      "info": "Mostrando página _PAGE_ de _PAGES_",
+                      "infoEmpty": "Não há registros",
+                      "search": "Procurar:",
+                      "paginate": {
+                          "first":      "Primeiro",
+                          "last":       "Último",
+                          "next":       "Próximo",
+                          "previous":   "Anterior"
+                      }
+                  }
+
+              } );
+        } );
+    </script>
 </head>
 
 
     <!-- Side navigation -->
     <div class="sidenav">
+        <a href="#">Pedro Silva</a>
+        <a id="matricula">201800000</a>
+        <hr>
+
+      <a href="?pagina=lab">Usuários</a>
       <a href="?pagina=turma">Turmas</a>
-      <a href="?pagina=lab">Laboratórios</a>
+      <a href="?pagina=lab">Categorias</a>
+      <a href="?pagina=lab">Histórico</a>
       <br><br>
       <a href="#">Logout</a>
     </div>
@@ -19,23 +55,3 @@
     <div class="main">
       {{area_dinamica}}
     </div>
-    <!--
-    <nav style="
-    text-align: center;
-    width: 100%;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    background-color: DarkGrey;
-    color: white;
-    ">
-        <a href="?pagina=home">Home</a>
-
-        <div>
-            <ul>
-                <li>
-                    <a href="?pagina=turma">Gerenciar turmas</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    -->

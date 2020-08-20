@@ -4,19 +4,26 @@
 <br> <br>
 <hr>
 <br>
-<table border='2'>
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>ALTERAÇÃO</th>
-        <th>DELEÇÃO</th>
-    </tr>
-    {% for turma in turmas %}
-        <tr>
-            <th>{{turma.Cod_turma}}</th>
-            <th>{{turma.Nome}}</th>
-            <th><a href="?pagina=turma&action=edit&id={{turma.Cod_turma}}">ALTERAÇÃO</a></th>
-            <th><a href="?pagina=turma&action=delete&id={{turma.Cod_turma}}">DELEÇÃO</a></th>
-        </tr>
-    {% endfor %}
-</table>
+
+<div style="width: 70%; margin: auto;">
+    <table id="tabela" class="display nowrap dataTable dtr-inline collapsed" style="width: 100%;" role="grid">
+        <thead>
+            <tr role="row">
+                <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 105px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">ID</th>
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending">Nome</th>
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 77px;" aria-label="Office: activate to sort column ascending">Alterar</th>
+                <th class="dt-body-right sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 28px;" aria-label="Age: activate to sort column ascending">Apagar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for turma in turmas %}
+                <tr role="row">
+                    <td>{{turma.Cod_turma}}</td>
+                    <td>{{turma.Nome}}</td>
+                    <td><a href="?pagina=turma&action=edit&id={{turma.Cod_turma}}">Alterar</a></td>
+                    <td><a href="?pagina=turma&action=delete&id={{turma.Cod_turma}}">Apagar</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
