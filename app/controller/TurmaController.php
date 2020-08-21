@@ -2,7 +2,7 @@
 
     class TurmaController{
         public function index(){
-            try{
+            // try{
 
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
@@ -16,9 +16,11 @@
                 $conteudo = $template->render($parametros);
                 echo $conteudo;
 
-            } catch(Exception $e){
-                echo $e->getMessage();
-            }
+            // } catch(Exception $e){
+            //     echo $e->getMessage();
+            // }
+
+            
         }
 
         public function create(){
