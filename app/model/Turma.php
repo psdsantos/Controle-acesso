@@ -25,7 +25,6 @@
 
         public static function selecionaPorId($turmaID){
             $con = Connection::getConn();
-            print_r_pre($turmaID);
             $sql = "SELECT * FROM turma WHERE Cod_turma = :id";
             $sql = $con->prepare($sql);
             $sql->bindValue(':id', $turmaID, PDO::PARAM_INT);

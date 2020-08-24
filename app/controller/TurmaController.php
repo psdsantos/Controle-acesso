@@ -20,7 +20,7 @@
             //     echo $e->getMessage();
             // }
 
-            
+
         }
 
         public function create(){
@@ -74,6 +74,22 @@
             }
         }
 
+        public function predelete($turmaID){
+            $loader = new \Twig\Loader\FilesystemLoader('app/view');
+            $twig = new \Twig\Environment($loader);
+            $template = $twig->load('deleteTurma.html');
+
+            $turma = Turma::selecionaPorId($turmaID);
+
+            $parametros = array();
+            $parametros['Cod_turma'] = $turma->Cod_turma;
+            $parametros['Nome'] = $turma->Nome;
+
+            $conteudo = $template->render($parametros);
+            echo $conteudo;
+
+        }
+
         public function delete($codTurma){
             try{
                 Turma::delete($codTurma);
@@ -84,7 +100,6 @@
                 echo '<script>alert("'.$e->getMessage().'");</script>';
                 echo '<script>location.href="?pagina=turma";</script>';
             }
-
         }
 
     }

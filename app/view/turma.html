@@ -1,11 +1,4 @@
-<h1>Gerenciador de turmas</h1>
-
-<a href="?pagina=turma&action=create">Adicionar turma</a>
-<br> <br>
-<hr>
-<br>
-
-<div style="width: 70%; margin: auto;">
+<div style="padding-top: 50px; width: 70%; margin: auto;">
     <table id="tabela" class="display nowrap dataTable dtr-inline collapsed" style="width: 100%;" role="grid">
         <thead>
             <tr role="row">
@@ -21,9 +14,14 @@
                     <td>{{turma.Cod_turma}}</td>
                     <td>{{turma.Nome}}</td>
                     <td><a href="?pagina=turma&action=edit&id={{turma.Cod_turma}}">Alterar</a></td>
-                    <td><a href="?pagina=turma&action=delete&id={{turma.Cod_turma}}">Apagar</a></td>
+                    <td><a href="?pagina=turma&action=predelete&id={{turma.Cod_turma}}">Apagar</a></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-</div>
+
+    <br>
+    <br>
+    <a class="btn btn-primary" href="?pagina=turma&action=create">Adicionar turma</a>
+
+</div

@@ -5,6 +5,8 @@
     <title>Controle de acesso</title>
     <link rel="stylesheet" href="app/template/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
     <script src="vendor\components\jquery\jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
@@ -39,16 +41,18 @@
 
     <!-- Side navigation -->
     <div class="sidenav">
-        <a href="#">Pedro Silva</a>
-        <a id="matricula">201800000</a>
+        <a id="nome" href="#">
+            Pedro Silva
+            <p id="matricula">201800000</p>
+        </a>
         <hr>
 
       <a href="?pagina=lab">Usuários</a>
       <a href="?pagina=turma">Turmas</a>
       <a href="?pagina=lab">Categorias</a>
       <a href="?pagina=lab">Histórico</a>
-      <br><br>
-      <a href="#">Logout</a>
+
+      <a id="logout" href="#">Logout</a>
     </div>
 
     <!-- Page content -->

@@ -1,0 +1,14 @@
+<h1>Deseja realmente apagar a turma:</h1>
+
+<html>
+    <form action="?pagina=turma&action=delete&id={{Cod_turma}}" method="POST">
+        <p>Nome: <input name="nomeTurma" type="text" value="{{Nome}}" disabled></p>
+        <input class="btn btn-danger" type="submit" value="Apagar">
+
+        <input type="hidden" name="id" value="{{Cod_turma}}">
+    </form>
+
+    <br><br>
+
+    <a class="btn btn-primary" href="?pagina=turma">Voltar</a>
+</html>

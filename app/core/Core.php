@@ -14,7 +14,7 @@
                 $controller = ucfirst($urlGet['pagina']).'Controller';
             }
             else {
-                $controller = 'TurmasController';
+                $controller = 'TurmaController';
             }
 
 
