@@ -1,0 +1,14 @@
+<h1>Alterar Coordenacao</h1>
+
+<html>
+    <form action="?pagina=coordenacao&action=update" method="POST">
+        <p>Nome: <input name="nomeCoordenacao" type="text" value="{{Nome}}" required></p>
+        <input type="submit" value="Alterar">
+
+        <input type="hidden" name="id" value="{{Cod_coordenacao}}">
+    </form>
+
+    <br><br>
+
+    <a class="btn btn-primary" href="?pagina=coordenacao">Voltar</a>
+</html>

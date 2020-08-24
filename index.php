@@ -14,9 +14,11 @@ require_once 'app/core/Core.php';
 require_once 'app/controller/ErrorController.php';
 require_once 'app/controller/TurmaController.php';
 require_once 'app/controller/CategoriaController.php';
+require_once 'app/controller/CoordenacaoController.php';
 
 require_once 'app/model/Turma.php';
 require_once 'app/model/Categoria.php';
+require_once 'app/model/Coordenacao.php';
 
 require_once 'lib/database/Connection.php';
 

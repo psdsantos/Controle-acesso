@@ -1,0 +1,14 @@
+<h1>Deseja realmente apagar a coordenacao:</h1>
+
+<html>
+    <form action="?pagina=coordenacao&action=delete&id={{Cod_coordenacao}}" method="POST">
+        <p>Nome: <input name="nomeCoordenacao" type="text" value="{{Nome}}" disabled></p>
+        <input class="btn btn-danger" type="submit" value="Apagar">
+
+        <input type="hidden" name="id" value="{{Cod_coordenacao}}">
+    </form>
+
+    <br><br>
+
+    <a class="btn btn-primary" href="?pagina=coordenacao">Voltar</a>
+</html>
