@@ -1,0 +1,27 @@
+<div style="padding-top: 50px; width: 70%; margin: auto;">
+    <table id="tabela" class="display nowrap dataTable dtr-inline collapsed" style="width: 100%;" role="grid">
+        <thead>
+            <tr role="row">
+                <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 105px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">ID</th>
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending">Nome</th>
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 77px;" aria-label="Office: activate to sort column ascending">Alterar</th>
+                <th class="dt-body-right sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 28px;" aria-label="Age: activate to sort column ascending">Apagar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+                <tr role="row">
+                    <td>{{categoria.Cod_categoria}}</td>
+                    <td>{{categoria.Descricao}}</td>
+                    <td><a href="?pagina=categoria&action=edit&id={{categoria.Cod_categoria}}">Alterar</a></td>
+                    <td><a href="?pagina=categoria&action=predelete&id={{categoria.Cod_categoria}}">Apagar</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+    <a class="btn btn-primary" href="?pagina=categoria&action=create">Adicionar categoria</a>
+
+</div

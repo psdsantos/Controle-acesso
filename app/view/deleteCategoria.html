@@ -1,0 +1,14 @@
+<h1>Deseja realmente apagar a categoria:</h1>
+
+<html>
+    <form action="?pagina=categoria&action=delete&id={{Cod_categoria}}" method="POST">
+        <p>Descricao: <input name="descCategoria" type="text" value="{{Descricao}}" disabled></p>
+        <input class="btn btn-danger" type="submit" value="Apagar">
+
+        <input type="hidden" name="id" value="{{Cod_categoria}}">
+    </form>
+
+    <br><br>
+
+    <a class="btn btn-primary" href="?pagina=categoria">Voltar</a>
+</html>
