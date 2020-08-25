@@ -43,9 +43,10 @@
 
             $con = Connection::getConn();
 
-            $sql = 'INSERT INTO coordenacao (Nome) VALUES (:nom)';
+            $sql = 'INSERT INTO coordenacao (Nome, Sigla) VALUES (:nom, :sigla)';
             $sql = $con->prepare($sql);
             $sql->bindValue(':nom', $dadosReq['nomeCoordenacao']);
+            $sql->bindValue(':sigla', $dadosReq['siglaCoordenacao']);
             $res = $sql->execute();
 
             if($res == false){
@@ -67,14 +68,15 @@
 
             $con = Connection::getConn();
 
-            $sql = 'UPDATE coordenacao SET Nome = :nome WHERE Cod_coordenacao = :id';
+            $sql = 'UPDATE coordenacao SET Nome = :nome, Sigla = :sigla WHERE Cod_coordenacao = :id';
             $sql = $con->prepare($sql);
             $sql->bindValue(':nome', $dadosPost['nomeCoordenacao']);
+            $sql->bindValue(':sigla', $dadosPost['siglaCoordenacao']);
             $sql->bindValue(':id', $dadosPost['id']);
             $res = $sql->execute();
 
             if($res == false){
-                throw new Exception("Falha ao inserir publicação");
+                throw new Exception("Falha ao alterar coordenação");
 
                 return false;
             }

@@ -3,6 +3,7 @@
 <html>
     <form action="?pagina=coordenacao&action=delete&id={{Cod_coordenacao}}" method="POST">
         <p>Nome: <input name="nomeCoordenacao" type="text" value="{{Nome}}" disabled></p>
+        <p>Sigla: <input name="siglaCoordenacao" type="text" value="{{Sigla}}" disabled></p>
         <input class="btn btn-danger" type="submit" value="Apagar">
 
         <input type="hidden" name="id" value="{{Cod_coordenacao}}">
