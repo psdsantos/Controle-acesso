@@ -2,8 +2,6 @@
 
     class TurmaController{
         public function index(){
-            // try{
-
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('turma.html');
@@ -15,12 +13,6 @@
 
                 $conteudo = $template->render($parametros);
                 echo $conteudo;
-
-            // } catch(Exception $e){
-            //     echo $e->getMessage();
-            // }
-
-
         }
 
         public function create(){
@@ -57,6 +49,7 @@
             $parametros = array();
             $parametros['Cod_turma'] = $turma->Cod_turma;
             $parametros['Nome'] = $turma->Nome;
+            $parametros['Sigla'] = $turma->Sigla;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
@@ -84,6 +77,7 @@
             $parametros = array();
             $parametros['Cod_turma'] = $turma->Cod_turma;
             $parametros['Nome'] = $turma->Nome;
+            $parametros['Sigla'] = $turma->Sigla;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;

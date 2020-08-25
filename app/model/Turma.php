@@ -15,11 +15,6 @@
                 $resultado[] = $row;
             }
 
-            // if(!$resultado){
-            //     throw new Exception("Não foi encontrado nenhum registro no banco");
-            // }
-            // Não precisa disso, o DataTables verifica pra vc
-
             return $resultado;
         }
 
@@ -48,9 +43,10 @@
 
             $con = Connection::getConn();
 
-            $sql = 'INSERT INTO turma (Nome) VALUES (:nom)';
+            $sql = 'INSERT INTO turma (Nome, Sigla) VALUES (:nom, :sigla)';
             $sql = $con->prepare($sql);
             $sql->bindValue(':nom', $dadosReq['nomeTurma']);
+            $sql->bindValue(':sigla', $dadosReq['siglaTurma']);
             $res = $sql->execute();
 
             if($res == false){
@@ -72,9 +68,10 @@
 
             $con = Connection::getConn();
 
-            $sql = 'UPDATE turma SET Nome = :nome WHERE Cod_turma = :id';
+            $sql = 'UPDATE turma SET Nome = :nome, Sigla = :sigla WHERE Cod_turma = :id';
             $sql = $con->prepare($sql);
             $sql->bindValue(':nome', $dadosPost['nomeTurma']);
+            $sql->bindValue(':sigla', $dadosPost['siglaTurma']);
             $sql->bindValue(':id', $dadosPost['id']);
             $res = $sql->execute();
 

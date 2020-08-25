@@ -12,7 +12,7 @@
 
             if( isset($urlGet['pagina']) ){
                 $controller = ucfirst($urlGet['pagina']).'Controller';
-                print_r_pre($controller);
+                //print_r_pre($controller);
             }
             else {
                 $controller = 'TurmaController';

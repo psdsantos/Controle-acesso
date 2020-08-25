@@ -15,11 +15,6 @@
                 $resultado[] = $row;
             }
 
-            // if(!$resultado){
-            //     throw new Exception("Não foi encontrado nenhum registro no banco");
-            // }
-            // Não precisa disso, o DataTables verifica pra vc
-
             return $resultado;
         }
 

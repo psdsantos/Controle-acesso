@@ -3,6 +3,7 @@
         <thead>
             <tr role="row">
                 <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 105px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">ID</th>
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending">Sigla</th>
                 <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending">Nome</th>
                 <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 77px;" aria-label="Office: activate to sort column ascending">Alterar</th>
                 <th class="dt-body-right sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 28px;" aria-label="Age: activate to sort column ascending">Apagar</th>
@@ -12,6 +13,7 @@
             {% for turma in turmas %}
                 <tr role="row">
                     <td>{{turma.Cod_turma}}</td>
+                    <td>{{turma.Sigla}}</td>
                     <td>{{turma.Nome}}</td>
                     <td><a href="?pagina=turma&action=edit&id={{turma.Cod_turma}}">Alterar</a></td>
                     <td><a href="?pagina=turma&action=predelete&id={{turma.Cod_turma}}">Apagar</a></td>
@@ -24,4 +26,4 @@
     <br>
     <a class="btn btn-primary" href="?pagina=turma&action=create">Adicionar turma</a>
 
-</div
+</div>
