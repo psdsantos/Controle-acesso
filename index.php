@@ -8,6 +8,7 @@ function print_r_pre($mixed = null) {
   echo '</pre>';
   return null;
 }
+require_once __DIR__ . '/vendor/autoload.php';
 
 require_once 'app/core/Core.php';
 
@@ -21,8 +22,7 @@ require_once 'app/model/Categoria.php';
 require_once 'app/model/Coordenacao.php';
 
 require_once 'lib/database/Connection.php';
-
-require 'vendor/autoload.php';
+echo"falksdjf";
 
 $template = file_get_contents('app/template/estrutura.html');
 
