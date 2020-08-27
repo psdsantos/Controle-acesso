@@ -1,4 +1,9 @@
 <div style="padding-top: 50px; width: 70%; margin: auto;">
+
+    <a class="btn btn-primary" href="?pagina=categoria&action=create">Adicionar categoria</a>
+    <br>
+    <br>
+
     <table id="tabela" class="display nowrap dataTable dtr-inline collapsed" style="width: 100%;" role="grid">
         <thead>
             <tr role="row">
@@ -13,15 +18,11 @@
                 <tr role="row">
                     <td>{{categoria.Cod_categoria}}</td>
                     <td>{{categoria.Descricao}}</td>
-                    <td><a href="?pagina=categoria&action=edit&id={{categoria.Cod_categoria}}">Alterar</a></td>
-                    <td><a href="?pagina=categoria&action=predelete&id={{categoria.Cod_categoria}}">Apagar</a></td>
+                    <td><a href="?pagina=categoria&action=edit&id={{categoria.Cod_categoria}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
+                    <td><a href="?pagina=categoria&action=predelete&id={{categoria.Cod_categoria}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-
-    <br>
-    <br>
-    <a class="btn btn-primary" href="?pagina=categoria&action=create">Adicionar categoria</a>
 
 </div

@@ -4,7 +4,7 @@
         public static function selecionaTodos(){
             $con = Connection::getConn();
 
-            $sql = "SELECT * FROM categoria ORDER BY cod_categoria DESC";
+            $sql = "SELECT * FROM categoria ORDER BY Cod_categoria DESC";
             $sql = $con->prepare($sql);
             $sql->execute();
 
@@ -24,11 +24,11 @@
             $sql = $con->prepare($sql);
             $sql->bindValue(':id', $categoriaID, PDO::PARAM_INT);
             $sql-> execute();
-
+            //print_r_pre($categoriaID);
             $resultado = $sql->fetchObject('Categoria');
 
             if(!$resultado){
-                throw new Exception("Não foi encontrado nenhum registro no banco");
+                echo("Não foi encontrado nenhum registro no banco");
             }
 
             return $resultado;

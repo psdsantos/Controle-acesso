@@ -16,13 +16,14 @@ require_once 'app/controller/ErrorController.php';
 require_once 'app/controller/TurmaController.php';
 require_once 'app/controller/CategoriaController.php';
 require_once 'app/controller/CoordenacaoController.php';
+require_once 'app/controller/UsuarioController.php';
 
 require_once 'app/model/Turma.php';
 require_once 'app/model/Categoria.php';
 require_once 'app/model/Coordenacao.php';
+require_once 'app/model/Usuario.php';
 
 require_once 'lib/database/Connection.php';
-echo"falksdjf";
 
 $template = file_get_contents('app/template/estrutura.html');
 
@@ -35,6 +36,7 @@ ob_end_clean();
 
 //carrega o controller apropriado na {{area_dinamica}} do template
 $tplPronto = str_replace('{{area_dinamica}}', $saida, $template);
+
 echo $tplPronto;
 
 ?>

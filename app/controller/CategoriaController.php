@@ -15,6 +15,23 @@
             $conteudo = $template->render($parametros);
             echo $conteudo;
 
+            session_start();
+            if(isset($_SESSION['success'])){
+                if($_SESSION['success']){
+                    echo "<script>
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Categoria criada com sucesso',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        background: '#f5f5f5',
+                        backdrop: `rgba(0,0,0,0)`
+                    })
+                    </script>";
+                }
+                unset($_SESSION['success']);
+            }
         }
 
         public function create(){
@@ -29,14 +46,16 @@
         }
 
         public function insert(){
+            session_start();
             try{
                 Categoria::insert($_POST);
 
-                echo '<script>alert("Categoria inserida com sucesso!");</script>';
-                echo '<script>location.href="?pagina=categoria";</script>';
+                $_SESSION["success"] = "true";
+                header('Location:?pagina=categoria');
             } catch(Exception $e){
-                echo '<script>alert("'.$e->getMessage().'");</script>';
-                echo '<script>location.href="?pagina=categoria&action=create";</script>';
+                echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
+                  location.href="?pagina=categoria&action=create";
+                });</script>';
             }
 
         }

@@ -1,0 +1,23 @@
+<h1>Deseja realmente apagar o usuário:</h1>
+
+<html>
+    <form id="usuarioForm" action="?pagina=usuario&action=delete&id={{matricula}}" method="POST">
+        <p>Matricula: <input name="matriculaUsuario" type="text" value="{{matricula}}" disabled></p>
+        <p>Nome: <input name="nomeUsuario" type="text" value="{{Nome}}" disabled></p>
+
+        <label for="categ">Categoria:</label>
+        <input value="{{categoria.Descricao}}" disabled>
+
+        <br><br>
+        <label for="categ">Categoria:</label>
+        <input value="{{coordenacao.Descricao}}" disabled>
+
+        <input class="btn btn-danger" type="submit" value="Apagar">
+
+        <input type="hidden" name="id" value="{{matricula}}">
+    </form>
+
+    <br><br>
+
+    <a class="btn btn-secondary" href="?pagina=usuario">Voltar</a>
+</html>

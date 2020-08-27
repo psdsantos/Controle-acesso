@@ -1,4 +1,9 @@
 <div style="padding-top: 50px; width: 70%; margin: auto;">
+        <a class="btn btn-primary" href="?pagina=turma&action=create">Adicionar turma</a>
+
+            <br>
+            <br>
+
     <table id="tabela" class="display nowrap dataTable dtr-inline collapsed" style="width: 100%;" role="grid">
         <thead>
             <tr role="row">
@@ -15,15 +20,11 @@
                     <td>{{turma.Cod_turma}}</td>
                     <td>{{turma.Sigla}}</td>
                     <td>{{turma.Nome}}</td>
-                    <td><a href="?pagina=turma&action=edit&id={{turma.Cod_turma}}">Alterar</a></td>
-                    <td><a href="?pagina=turma&action=predelete&id={{turma.Cod_turma}}">Apagar</a></td>
+                    <td><a href="?pagina=turma&action=edit&id={{turma.Cod_turma}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
+                    <td><a href="?pagina=turma&action=predelete&id={{turma.Cod_turma}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-
-    <br>
-    <br>
-    <a class="btn btn-primary" href="?pagina=turma&action=create">Adicionar turma</a>
 
 </div>

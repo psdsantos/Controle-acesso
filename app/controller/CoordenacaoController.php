@@ -6,13 +6,31 @@
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('coordenacao.html');
 
-                $objCoordenacaos = Coordenacao::selecionaTodos();
+                $objCoordenacoes = Coordenacao::selecionaTodos();
 
                 $parametros = array();
-                $parametros['coordenacaos'] = $objCoordenacaos;
+                $parametros['coordenacoes'] = $objCoordenacoes;
 
                 $conteudo = $template->render($parametros);
                 echo $conteudo;
+
+                session_start();
+                if(isset($_SESSION['success'])){
+                    if($_SESSION['success']){
+                        echo "<script>
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Coordenação criada com sucesso',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            background: '#f5f5f5',
+                            backdrop: `rgba(0,0,0,0)`
+                        })
+                        </script>";
+                    }
+                    unset($_SESSION['success']);
+                }
         }
 
         public function create(){
@@ -27,14 +45,16 @@
         }
 
         public function insert(){
+            session_start();
             try{
                 Coordenacao::insert($_POST);
 
-                echo '<script>alert("Coordenacao inserida com sucesso!");</script>';
-                echo '<script>location.href="?pagina=coordenacao";</script>';
+                $_SESSION["success"] = "true";
+                header('Location:?pagina=coordenacao');
             } catch(Exception $e){
-                echo '<script>alert("'.$e->getMessage().'");</script>';
-                echo '<script>location.href="?pagina=coordenacao&action=create";</script>';
+                echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
+                  location.href="?pagina=coordenacao&action=create";
+                });</script>';
             }
 
         }
