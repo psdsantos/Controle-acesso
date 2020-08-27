@@ -15,8 +15,8 @@
                 echo $conteudo;
 
                 session_start();
-                if(isset($_SESSION['success'])){
-                    if($_SESSION['success']){
+                if(isset($_SESSION['criado'])){
+                    if($_SESSION['criado']){
                         echo "<script>
                         Swal.fire({
                             position: 'top-end',
@@ -29,8 +29,41 @@
                         })
                         </script>";
                     }
-                    unset($_SESSION['success']);
+                    unset($_SESSION['criado']);
                 }
+                if(isset($_SESSION['alterado'])){
+                    if($_SESSION['alterado']){
+                        echo "<script>
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Turma alterada com sucesso',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            background: '#f5f5f5',
+                            backdrop: `rgba(0,0,0,0)`
+                        })
+                        </script>";
+                    }
+                    unset($_SESSION['alterado']);
+                }
+                if(isset($_SESSION['apagado'])){
+                    if($_SESSION['apagado']){
+                        echo "<script>
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Turma apagada com sucesso',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            background: '#f5f5f5',
+                            backdrop: `rgba(0,0,0,0)`
+                        })
+                        </script>";
+                    }
+                    unset($_SESSION['apagado']);
+                }
+
         }
 
         public function create(){
@@ -45,11 +78,11 @@
         }
 
         public function insert(){
-            session_start();
             try{
                 Turma::insert($_POST);
 
-                $_SESSION["success"] = "true";
+                session_start();
+                $_SESSION["criado"] = "true";
                 header('Location:?pagina=turma');
             } catch(Exception $e){
                 echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
@@ -78,9 +111,9 @@
         public function update(){
             try{
                 Turma::update($_POST);
-
-                echo '<script>alert("Turma alterada com sucesso!");</script>';
-                echo '<script>location.href="?pagina=turma";</script>';
+                session_start();
+                $_SESSION["alterado"] = "true";
+                header('Location:?pagina=turma');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';
                 echo '<script>location.href="?pagina=turma&action=edit&id='.$_POST["id"].'";</script>';
@@ -101,15 +134,15 @@
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
-
         }
 
         public function delete($codTurma){
             try{
                 Turma::delete($codTurma);
 
-                echo '<script>alert("Turma deletada com sucesso!");</script>';
-                echo '<script>location.href="?pagina=turma";</script>';
+                session_start();
+                $_SESSION["apagado"] = "true";
+                header('Location:?pagina=turma');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';
                 echo '<script>location.href="?pagina=turma";</script>';

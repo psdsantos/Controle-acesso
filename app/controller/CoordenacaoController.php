@@ -15,13 +15,13 @@
                 echo $conteudo;
 
                 session_start();
-                if(isset($_SESSION['success'])){
-                    if($_SESSION['success']){
+                if(isset($_SESSION['criado'])){
+                    if($_SESSION['criado']){
                         echo "<script>
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
-                            title: 'Coordenação criada com sucesso',
+                            title: 'Coordenacao criada com sucesso',
                             showConfirmButton: false,
                             timer: 1500,
                             background: '#f5f5f5',
@@ -29,7 +29,39 @@
                         })
                         </script>";
                     }
-                    unset($_SESSION['success']);
+                    unset($_SESSION['criado']);
+                }
+                if(isset($_SESSION['alterado'])){
+                    if($_SESSION['alterado']){
+                        echo "<script>
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Coordenacao alterada com sucesso',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            background: '#f5f5f5',
+                            backdrop: `rgba(0,0,0,0)`
+                        })
+                        </script>";
+                    }
+                    unset($_SESSION['alterado']);
+                }
+                if(isset($_SESSION['apagado'])){
+                    if($_SESSION['apagado']){
+                        echo "<script>
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Coordenacao apagada com sucesso',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            background: '#f5f5f5',
+                            backdrop: `rgba(0,0,0,0)`
+                        })
+                        </script>";
+                    }
+                    unset($_SESSION['apagado']);
                 }
         }
 
@@ -49,7 +81,8 @@
             try{
                 Coordenacao::insert($_POST);
 
-                $_SESSION["success"] = "true";
+                session_start();
+                $_SESSION["criado"] = "true";
                 header('Location:?pagina=coordenacao');
             } catch(Exception $e){
                 echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
@@ -79,8 +112,9 @@
             try{
                 Coordenacao::update($_POST);
 
-                echo '<script>alert("Coordenacao alterada com sucesso!");</script>';
-                echo '<script>location.href="?pagina=coordenacao";</script>';
+                session_start();
+                $_SESSION["alterado"] = "true";
+                header('Location:?pagina=coordenacao');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';
                 echo '<script>location.href="?pagina=coordenacao&action=edit&id='.$_POST["id"].'";</script>';
@@ -108,8 +142,9 @@
             try{
                 Coordenacao::delete($codCoordenacao);
 
-                echo '<script>alert("Coordenacao deletada com sucesso!");</script>';
-                echo '<script>location.href="?pagina=coordenacao";</script>';
+                session_start();
+                $_SESSION["apagado"] = "true";
+                header('Location:?pagina=coordenacao');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';
                 echo '<script>location.href="?pagina=coordenacao";</script>';

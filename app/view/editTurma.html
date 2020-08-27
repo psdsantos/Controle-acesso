@@ -4,12 +4,12 @@
     <form action="?pagina=turma&action=update" method="POST">
         <p>Nome: <input name="nomeTurma" type="text" value="{{Nome}}" required></p>
         <p>Sigla: <input name="siglaTurma" type="text" value="{{Sigla}}" required></p>
-        <input type="submit" value="Alterar">
+        <input class="btn btn-primary"type="submit" value="Alterar">
 
         <input type="hidden" name="id" value="{{Cod_turma}}">
     </form>
 
     <br><br>
 
-    <a class="btn btn-primary" href="?pagina=turma">Voltar</a>
+    <a class="btn btn-secondary" href="?pagina=turma">Voltar</a>
 </html>

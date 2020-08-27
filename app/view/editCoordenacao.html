@@ -4,12 +4,12 @@
     <form action="?pagina=coordenacao&action=update" method="POST">
         <p>Nome: <input name="nomeCoordenacao" type="text" value="{{Nome}}" required></p>
         <p>Sigla: <input name="siglaCoordenacao" type="text" value="{{Sigla}}" required></p>
-        <input type="submit" value="Alterar">
+        <input class="btn btn-primary" type="submit" value="Alterar">
 
-        <input type="hidden" name="id" value="{{Cod_coordenacao}}">
+        <input  type="hidden" name="id" value="{{Cod_coordenacao}}">
     </form>
 
     <br><br>
 
-    <a class="btn btn-primary" href="?pagina=coordenacao">Voltar</a>
+    <a class="btn btn-secondary" href="?pagina=coordenacao">Voltar</a>
 </html>

@@ -5,8 +5,12 @@
         <p>Matricula: <input name="matriculaUsuario" type="text" value="{{matricula}}" disabled></p>
         <p>Nome: <input name="nomeUsuario" type="text" value="{{Nome}}" required></p>
 
+        {% set categ = callstatic('Categoria', 'selecionaPorId', Categoria_cod_categoria) %}
+        {% set coord = callstatic('Coordenacao', 'selecionaPorId', Coordenacao_cod_coordenacao) %}
+
         <label for="categ">Categoria:</label>
         <select name="categoriaUsuario" id="categ" form="usuarioForm">
+            <option value="{{Categoria_cod_categoria}}"selected="selected"> {{categ.Descricao}} </option>
             {% for categoria in categorias %}
                 <option value="{{categoria.Cod_categoria}}">{{categoria.Descricao}}</option>
             {% endfor %}
@@ -14,6 +18,7 @@
         <br><br>
         <label for="coord">Coordenação:</label>
         <select name="coordenacaoUsuario" id="coord" form="usuarioForm">
+            <option value="{{Coordenacao_cod_coordenacao}}" selected="selected"> {{coord.Sigla}} </option>
             {% for coordenacao in coordenacoes %}
                 <option value="{{coordenacao.Cod_coordenacao}}">{{coordenacao.Nome}}</option>
             {% endfor %}

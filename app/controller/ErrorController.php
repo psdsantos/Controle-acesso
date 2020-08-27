@@ -2,7 +2,7 @@
 
     class ErrorController{
         public function index(){
-            echo "Página de erro";
+            echo "404 - Página não encontrada";
         }
     }
 

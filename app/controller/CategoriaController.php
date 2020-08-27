@@ -16,8 +16,8 @@
             echo $conteudo;
 
             session_start();
-            if(isset($_SESSION['success'])){
-                if($_SESSION['success']){
+            if(isset($_SESSION['criado'])){
+                if($_SESSION['criado']){
                     echo "<script>
                     Swal.fire({
                         position: 'top-end',
@@ -30,7 +30,39 @@
                     })
                     </script>";
                 }
-                unset($_SESSION['success']);
+                unset($_SESSION['criado']);
+            }
+            if(isset($_SESSION['alterado'])){
+                if($_SESSION['alterado']){
+                    echo "<script>
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Categoria alterada com sucesso',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        background: '#f5f5f5',
+                        backdrop: `rgba(0,0,0,0)`
+                    })
+                    </script>";
+                }
+                unset($_SESSION['alterado']);
+            }
+            if(isset($_SESSION['apagado'])){
+                if($_SESSION['apagado']){
+                    echo "<script>
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Categoria apagada com sucesso',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        background: '#f5f5f5',
+                        backdrop: `rgba(0,0,0,0)`
+                    })
+                    </script>";
+                }
+                unset($_SESSION['apagado']);
             }
         }
 
@@ -46,11 +78,11 @@
         }
 
         public function insert(){
-            session_start();
             try{
                 Categoria::insert($_POST);
 
-                $_SESSION["success"] = "true";
+                session_start();
+                $_SESSION["criado"] = "true";
                 header('Location:?pagina=categoria');
             } catch(Exception $e){
                 echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
@@ -79,8 +111,9 @@
             try{
                 Categoria::update($_POST);
 
-                echo '<script>alert("Categoria alterada com sucesso!");</script>';
-                echo '<script>location.href="?pagina=categoria";</script>';
+                session_start();
+                $_SESSION["alterado"] = "true";
+                header('Location:?pagina=categoria');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';
                 echo '<script>location.href="?pagina=categoria&action=edit&id='.$_POST["id"].'";</script>';
@@ -107,8 +140,9 @@
             try{
                 Categoria::delete($codCategoria);
 
-                echo '<script>alert("Categoria deletada com sucesso!");</script>';
-                echo '<script>location.href="?pagina=categoria";</script>';
+                session_start();
+                $_SESSION["apagado"] = "true";
+                header('Location:?pagina=categoria');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';
                 echo '<script>location.href="?pagina=categoria";</script>';
