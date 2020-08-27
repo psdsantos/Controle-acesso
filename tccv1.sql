@@ -1,19 +1,21 @@
 CREATE TABLE Turma (
   Cod_turma INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
   Nome VARCHAR(20)  NOT NULL    ,
+  Sigla VARCHAR(10)  NOT NULL    ,
 PRIMARY KEY(Cod_turma));
 
 
 
 CREATE TABLE Coordenacao (
-  cod_coordenacao INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  Cod_coordenacao INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
   Nome VARCHAR(30)  NOT NULL    ,
+  Sigla VARCHAR(10)  NOT NULL    ,
 PRIMARY KEY(cod_coordenacao));
 
 
 
 CREATE TABLE Categoria (
-  cod_categoria INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  Cod_categoria INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
   Descricao VARCHAR(50)  NOT NULL    ,
 PRIMARY KEY(cod_categoria));
 
@@ -49,7 +51,7 @@ COMMENT = 'Statius_usuario  0 - Inativo  1 - Ativo' ;
 
 
 CREATE TABLE Requisitante (
-  cod_requisitante INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  Cod_requisitante INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
   Coordenacao_cod_coordenacao INTEGER UNSIGNED  NOT NULL  ,
   Turma_Cod_turma INTEGER UNSIGNED  NOT NULL  ,
   Nome VARCHAR(50)  NOT NULL  ,
@@ -92,7 +94,7 @@ INDEX Usuario_has_Requisitante_FKIndex2(Requisitante_cod_requisitante),
 
 
 CREATE TABLE Registro_Acesso (
-  cod_registro INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  Cod_registro INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
   Usuario_has_Requisitante_Cod_Autorizacao INTEGER UNSIGNED  NOT NULL  ,
   Usuario_matricula INTEGER UNSIGNED  NULL  ,
   Data_acesso DATE  NOT NULL  ,
