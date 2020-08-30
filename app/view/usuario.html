@@ -1,34 +1,28 @@
-<div style="padding-top: 50px; width: 70%; margin: auto;">
-        <a class="btn btn-primary" href="?pagina=usuario&action=create">Adicionar usuário</a>
+{% extends "/template/base.html" %}
+{% from "/template/base.html" import th, icon %}
 
-            <br>
-            <br>
+    {%block entidade %} usuário {% endblock %}
 
-    <table id="tabela" class="display nowrap dataTable dtr-inline collapsed" style="width: 100%;" role="grid">
-        <thead>
+    {% block theader %}
+        {{ th("100px", "Matricula") }}
+        {{ th("350px", "Nome") }}
+        {{ th("80px", "Categoria") }}
+        {{ th("80px", "Coordenação") }}
+        {{ th("28px", "Alterar") }}
+        {{ th("28px", "Apagar") }}
+    {% endblock %}
+
+    {% block tbody %}
+        {% for usuario in usuarios %}
             <tr role="row">
-                <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 105px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">Matricula</th>
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending">Nome</th>
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending">Categoria</th>
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending">Coordenação</th>
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 77px;" aria-label="Office: activate to sort column ascending">Alterar</th>
-                <th class="dt-body-right sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 28px;" aria-label="Age: activate to sort column ascending">Apagar</th>
+                <td>{{usuario.matricula}}</td>
+                <td>{{usuario.Nome}}</td>
+                {% set categ = callstatic('Categoria', 'selecionaPorId', usuario.Categoria_cod_categoria) %}
+                <td>{{categ.Descricao}}</td>
+                {% set coord = callstatic('Coordenacao', 'selecionaPorId', usuario.Coordenacao_cod_coordenacao) %}
+                <td>{{coord.Sigla}}</td>
+                <td><a href="?pagina=usuario&action=edit&id={{usuario.matricula}}">{{ icon("pencil.svg") }}</a></td>
+                <td><a href="?pagina=usuario&action=predelete&id={{usuario.matricula}}">{{ icon("bin.svg") }}</a></td>
             </tr>
-        </thead>
-        <tbody>
-            {% for usuario in usuarios %}
-                <tr role="row">
-                    <td>{{usuario.matricula}}</td>
-                    <td>{{usuario.Nome}}</td>
-                    {% set categ = callstatic('Categoria', 'selecionaPorId', usuario.Categoria_cod_categoria) %}
-                    <td>{{categ.Descricao}}</td>
-                    {% set coord = callstatic('Coordenacao', 'selecionaPorId', usuario.Coordenacao_cod_coordenacao) %}
-                    <td>{{coord.Sigla}}</td>
-                    <td><a href="?pagina=usuario&action=edit&id={{usuario.matricula}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
-                    <td><a class="iconDelete" href="?pagina=usuario&action=predelete&id={{usuario.matricula}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-</div>
+        {% endfor %}
+    {% endblock %}

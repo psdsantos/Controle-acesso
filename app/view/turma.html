@@ -1,20 +1,17 @@
-<div style="padding-top: 50px; width: 70%; margin: auto;">
-        <a class="btn btn-primary" href="?pagina=turma&action=create">Adicionar turma</a>
+{% extends "/template/base.html" %}
+{% from "/template/base.html" import th, icon %}
 
-            <br>
-            <br>
+    {%block entidade %} usuário {% endblock %}
 
-    <table id="tabela" class="display nowrap dataTable dtr-inline collapsed" style="width: 100%;" role="grid">
-        <thead>
-            <tr role="row">
-                <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 105px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">ID</th>
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending">Sigla</th>
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending">Nome</th>
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 77px;" aria-label="Office: activate to sort column ascending">Alterar</th>
-                <th class="dt-body-right sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 28px;" aria-label="Age: activate to sort column ascending">Apagar</th>
-            </tr>
-        </thead>
-        <tbody>
+    {% block theader %}
+        {{ th("100px", "ID") }}
+        {{ th("28px", "Sigla") }}
+        {{ th("350px", "Nome") }}
+        {{ th("28px", "Alterar") }}
+        {{ th("28px", "Apagar") }}
+    {% endblock %}
+
+    {% block tbody %}
             {% for turma in turmas %}
                 <tr role="row">
                     <td>{{turma.Cod_turma}}</td>
@@ -23,8 +20,5 @@
                     <td><a href="?pagina=turma&action=edit&id={{turma.Cod_turma}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
                     <td><a href="?pagina=turma&action=predelete&id={{turma.Cod_turma}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-</div>
+        {% endfor %}
+    {% endblock %}

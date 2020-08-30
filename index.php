@@ -25,7 +25,7 @@ require_once 'app/model/Usuario.php';
 
 require_once 'lib/database/Connection.php';
 
-$template = file_get_contents('app/template/estrutura.html');
+$template = file_get_contents('app/view/template/estrutura.html');
 
 ob_start();
     $core = new Core;

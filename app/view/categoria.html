@@ -1,28 +1,22 @@
-<div style="padding-top: 50px; width: 70%; margin: auto;">
+{% extends "/template/base.html" %}
+{% from "/template/base.html" import th, icon %}
 
-    <a class="btn btn-primary" href="?pagina=categoria&action=create">Adicionar categoria</a>
-    <br>
-    <br>
+    {%block entidade %} categoria {% endblock %}
 
-    <table id="tabela" class="display nowrap dataTable dtr-inline collapsed" style="width: 100%;" role="grid">
-        <thead>
+    {% block theader %}
+        {{ th("100px", "ID") }}
+        {{ th("350px", "Categoria") }}
+        {{ th("28px", "Alterar") }}
+        {{ th("28px", "Apagar") }}
+    {% endblock %}
+
+    {% block tbody %}
+        {% for categoria in categorias %}
             <tr role="row">
-                <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 105px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">ID</th>
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending">Nome</th>
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 77px;" aria-label="Office: activate to sort column ascending">Alterar</th>
-                <th class="dt-body-right sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 28px;" aria-label="Age: activate to sort column ascending">Apagar</th>
+                <td>{{categoria.Cod_categoria}}</td>
+                <td>{{categoria.Descricao}}</td>
+                <td><a href="?pagina=categoria&action=edit&id={{categoria.Cod_categoria}}">{{ icon("pencil.svg") }}</a></td>
+                <td><a href="?pagina=categoria&action=predelete&id={{categoria.Cod_categoria}}">{{ icon("bin.svg") }}</a></td>
             </tr>
-        </thead>
-        <tbody>
-            {% for categoria in categorias %}
-                <tr role="row">
-                    <td>{{categoria.Cod_categoria}}</td>
-                    <td>{{categoria.Descricao}}</td>
-                    <td><a href="?pagina=categoria&action=edit&id={{categoria.Cod_categoria}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
-                    <td><a href="?pagina=categoria&action=predelete&id={{categoria.Cod_categoria}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
-                </tr>
             {% endfor %}
-        </tbody>
-    </table>
-
-</div>
+    {% endblock %}
