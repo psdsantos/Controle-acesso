@@ -1,9 +1,11 @@
-<h1>Alterar Usuario</h1>
+{% extends "/template/edit.html" %}
+{% from "/template/edit.html" import submit, input %}
 
-<html>
-    <form id="usuarioForm" action="?pagina=usuario&action=update" method="POST">
-        <p>Matricula: <input name="matriculaUsuario" type="text" value="{{matricula}}" disabled></p>
-        <p>Nome: <input name="nomeUsuario" type="text" value="{{Nome}}" required></p>
+{% set  entidade = "usuario" %}
+
+    {% block form %}
+        <p>Matricula: {{ input("text", "matriculaUsuario", matricula, "disabled")}}</p>
+        <p>Nome: {{ input("text", "nomeUsuario", Nome, required)}}</p>
 
         {% set categ = callstatic('Categoria', 'selecionaPorId', Categoria_cod_categoria) %}
         {% set coord = callstatic('Coordenacao', 'selecionaPorId', Coordenacao_cod_coordenacao) %}
@@ -18,7 +20,7 @@
         <br><br>
         <label for="coord">Coordenação:</label>
         <select name="coordenacaoUsuario" id="coord" form="usuarioForm">
-            <option value="{{Coordenacao_cod_coordenacao}}" selected="selected"> {{coord.Sigla}} </option>
+            <option value="{{Coordenacao_cod_coordenacao}}" selected="selected"> {{coord.Nome}} </option>
             {% for coordenacao in coordenacoes %}
                 <option value="{{coordenacao.Cod_coordenacao}}">{{coordenacao.Nome}}</option>
             {% endfor %}
@@ -27,10 +29,5 @@
 
         <input type="hidden" name="id" value="{{matricula}}">
 
-        <input class="btn btn-primary" type="submit" value="Alterar">
-    </form>
-
-    <br><br>
-
-    <a class="btn btn-secondary" href="?pagina=usuario">Voltar</a>
-</html>
+        {{ submit("Alterar") }}
+    {% endblock %}

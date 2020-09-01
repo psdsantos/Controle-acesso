@@ -1,0 +1,12 @@
+{% extends "/template/edit.html" %}
+{% from "/template/edit.html" import submit, input %}
+
+{% set  entidade = "categoria" %}
+
+    {% block form %}
+        <p>Descrição: {{ input("text", "descCategoria", Descricao, "required") }}</p>
+
+        {{ submit("Alterar") }}
+
+        <input type="hidden" name="id" value="{{Cod_categoria}}">
+    {% endblock %}

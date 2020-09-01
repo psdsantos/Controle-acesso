@@ -1,0 +1,22 @@
+<!-- Remember to set entidade on child -->
+<h1>Alterar {{entidade}}</h1>
+
+<html>
+    <form id="{{entidade}}Form" action="?pagina={{entidade}}&action=update" method="POST">
+        {% block form %}
+            use a form on block form
+        {% endblock %}
+    </form>
+
+    <br><br>
+
+    <a class="btn btn-secondary" href="?pagina={{entidade}}">Voltar</a>
+</html>
+
+{% macro submit(value="defaultmacrovalue") %}
+    <input class="btn btn-primary" type="submit" value="{{value}}">
+{% endmacro %}
+
+{% macro input(type="text", name="defaultmacroname", value="defaultmacrovalue", option="") %}
+    <input class=" " type="{{type}}" name="{{name}}" value="{{value}}" {{option}}>
+{% endmacro %}

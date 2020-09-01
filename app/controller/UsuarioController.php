@@ -81,7 +81,7 @@
         public function create(){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('addUsuario.html');
+            $template = $twig->load('add/addUsuario.html');
 
             $objCategoria = Categoria::selecionaTodos();
             $objCoordenacao = Coordenacao::selecionaTodos();
@@ -102,7 +102,7 @@
                 $_SESSION["criado"] = "true";
                 header('Location:?pagina=usuario');
             } catch(Exception $e){
-                echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
+                echo '<script>Swal.fire({icon: "error", text: "'.$e->getMessage().'"}).then((value) => {
                   location.href="?pagina=usuario&action=create";
                 });</script>';
             }
@@ -124,7 +124,7 @@
 
                 return forward_static_call([$class, $method], $args);
             }));
-            $template = $twig->load('editUsuario.html');
+            $template = $twig->load('edit/editUsuario.html');
 
             $usuario = Usuario::selecionaPorId($usuarioID);
             $objCategoria = Categoria::selecionaTodos();
@@ -171,7 +171,7 @@
 
                 return forward_static_call([$class, $method], $args);
             }));
-            $template = $twig->load('deleteUsuario.html');
+            $template = $twig->load('/delete/deleteUsuario.html');
 
             $usuario = Usuario::selecionaPorId($usuarioID);
 

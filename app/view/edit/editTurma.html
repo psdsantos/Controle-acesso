@@ -1,0 +1,13 @@
+{% extends "/template/edit.html" %}
+{% from "/template/edit.html" import submit, input %}
+
+{% set  entidade = "turma" %}
+
+    {% block form %}
+        <p>Nome: {{ input("text", "nomeTurma", Nome, "required") }}</p>
+        <p>Nome: {{ input("text", "siglaTurma", Sigla, "required") }}</p>
+
+        {{ submit("Alterar") }}
+
+        <input type="hidden" name="id" value="{{Cod_turma}}">
+    {% endblock %}

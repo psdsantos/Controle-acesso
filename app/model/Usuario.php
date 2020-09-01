@@ -63,7 +63,7 @@
 
         public static function update($dadosPost){
             if( empty($dadosPost['nomeUsuario']) ){
-                throw new Exception("Preencha o nome da usuario");
+                throw new Exception("Preencha o nome do usuario");
 
                 return false;
             }

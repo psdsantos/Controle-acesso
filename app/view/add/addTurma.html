@@ -1,0 +1,11 @@
+{% extends "/template/add.html" %}
+{% from "/template/add.html" import submit, input %}
+
+{% set entidade = "turma" %}
+
+    {% block form %}
+        <p>Nome: {{ input("text", "nomeTurma", " ", "required") }}</p>
+        <p>Sigla: {{ input("text", "siglaTurma", " ", "required") }}</p>
+
+        {{ submit("Adicionar") }}
+    {% endblock %}

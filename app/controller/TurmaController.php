@@ -69,7 +69,7 @@
         public function create(){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('addTurma.html');
+            $template = $twig->load('add/addTurma.html');
 
             $parametros = array();
 
@@ -95,7 +95,7 @@
         public function edit($turmaID){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('editTurma.html');
+            $template = $twig->load('edit/editTurma.html');
 
             $turma = Turma::selecionaPorId($turmaID);
 
@@ -123,7 +123,7 @@
         public function predelete($turmaID){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('deleteTurma.html');
+            $template = $twig->load('delete/deleteTurma.html');
 
             $turma = Turma::selecionaPorId($turmaID);
 

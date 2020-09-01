@@ -1,0 +1,13 @@
+{% extends "/template/edit.html" %}
+{% from "/template/edit.html" import submit, input %}
+
+{% set  entidade = "coordenacao" %}
+
+    {% block form %}
+        <p>Nome: {{ input("text", "nomeCoordenacao", Nome, "required") }}</p>
+        <p>Sigla: {{ input("text", "siglaCoordenacao", Sigla, "required") }}</p>
+        
+        {{ submit("Alterar") }}
+
+        <input type="hidden" name="id" value="{{Cod_coordenacao}}">
+    {% endblock %}

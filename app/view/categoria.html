@@ -1,7 +1,7 @@
 {% extends "/template/base.html" %}
 {% from "/template/base.html" import th, icon %}
 
-    {%block entidade %} categoria {% endblock %}
+    {% set entidade = "categoria" %}
 
     {% block theader %}
         {{ th("100px", "ID") }}

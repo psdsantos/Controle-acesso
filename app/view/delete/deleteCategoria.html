@@ -1,0 +1,12 @@
+{% extends "/template/delete.html" %}
+{% from "/template/delete.html" import submit, input %}
+
+{% set entidade = "categoria" %}
+{% set primaryk = Cod_categoria %}
+
+    {% block form %}
+        <p>Descricao: {{ input("text", "descCategoria", Descricao, "disabled") }}</p>
+        {{ submit("Apagar") }}
+
+        <input type="hidden" name="id" value="{{Cod_categoria}}">
+    {% endblock %}

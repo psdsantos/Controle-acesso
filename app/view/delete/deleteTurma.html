@@ -1,0 +1,13 @@
+{% extends "/template/delete.html" %}
+{% from "/template/delete.html" import submit, input %}
+
+{% set entidade = "turma" %}
+{% set primaryk = Cod_turma %}
+
+    {% block form %}
+        <p>Nome: {{ input("text", "nomeTurma", Nome, "disabled") }}</p>
+        <p>Sigla: {{ input("text", "siglaTurma", Sigla, "disabled") }}</p>
+        {{ submit("Apagar") }}
+
+        <input type="hidden" name="id" value="{{Cod_turma}}">
+    {% endblock %}

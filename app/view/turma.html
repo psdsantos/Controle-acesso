@@ -1,7 +1,7 @@
 {% extends "/template/base.html" %}
 {% from "/template/base.html" import th, icon %}
 
-    {%block entidade %} usuário {% endblock %}
+    {% set entidade = "turma" %}
 
     {% block theader %}
         {{ th("100px", "ID") }}

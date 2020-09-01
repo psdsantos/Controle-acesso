@@ -68,7 +68,7 @@
         public function create(){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('addCoordenacao.html');
+            $template = $twig->load('add/addCoordenacao.html');
 
             $parametros = array();
 
@@ -95,7 +95,7 @@
         public function edit($coordenacaoID){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('editCoordenacao.html');
+            $template = $twig->load('edit/editCoordenacao.html');
 
             $coordenacao = Coordenacao::selecionaPorId($coordenacaoID);
 
@@ -124,7 +124,7 @@
         public function predelete($coordenacaoID){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('deleteCoordenacao.html');
+            $template = $twig->load('delete/deleteCoordenacao.html');
 
             $coordenacao = Coordenacao::selecionaPorId($coordenacaoID);
 

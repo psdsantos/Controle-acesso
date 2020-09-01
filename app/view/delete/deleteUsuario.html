@@ -1,0 +1,22 @@
+{% extends "/template/delete.html" %}
+{% from "/template/delete.html" import submit, input %}
+
+{% set entidade = "usuario" %}
+{% set primaryk = matricula %}
+
+    {% block form %}
+        <p>Matricula: {{ input("text", "matriculaUsuario", matricula, "disabled") }}</p>
+        <p>Nome: {{ input("text", "nomeUsuario", Nome, "disabled") }}</p>
+
+        {% set categ = callstatic('Categoria', 'selecionaPorId', Categoria_cod_categoria) %}
+        {% set coord = callstatic('Coordenacao', 'selecionaPorId', Coordenacao_cod_coordenacao) %}
+
+        <label for="categ">Categoria:</label>
+        <input value="{{categ.Descricao}}" disabled>
+        <br><br>
+        <label for="categ">Coordenacao:</label>
+        <input value="{{coord.Nome}}" disabled>
+        <br><br>
+
+        {{ submit("Apagar") }}
+    {% endblock %}

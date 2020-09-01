@@ -69,7 +69,7 @@
         public function create(){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('addCategoria.html');
+            $template = $twig->load('add/addCategoria.html');
 
             $parametros = array();
 
@@ -95,7 +95,7 @@
         public function edit($categoriaID){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('editCategoria.html');
+            $template = $twig->load('edit/editCategoria.html');
 
             $categoria = Categoria::selecionaPorId($categoriaID);
 
@@ -123,7 +123,7 @@
         public function predelete($categoriaID){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('deleteCategoria.html');
+            $template = $twig->load('delete/deleteCategoria.html');
 
             $categoria = Categoria::selecionaPorId($categoriaID);
 
