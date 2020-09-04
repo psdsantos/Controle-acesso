@@ -46,17 +46,35 @@
     <div class="sidenav">
 
         {% if loggedin == true %}
-            {{"fon"}}
+            <a id="nome" href="#">
+                Pedro Silva
+                <p id="matricula">201800000</p>
+            </a>
         {% else %}
-            {{"trab"}}
+            <!-- Login -->
+            <div class="text-center">
+                <form class="form-signin">
+                     <p class="mb-3 font-weight-normal">Acessar o sistema</p>
+
+                     <label for="inputMatricula" class="sr-only">Matricula</label>
+                     <input type="text" autocomplete="username" id="inputMatricula" class="form-control mb-3" placeholder="Matrícula" required autofocus>
+
+                     <label for="inputPassword" class="sr-only">Senha</label>
+                     <input type="password" autocomplete="current-password" id="inputPassword" class="form-control" placeholder="Senha" required>
+
+                     <div class="checkbox mb-3">
+                       <label>
+                         <input type="checkbox" value="remember-me"> Lembrar senha
+                       </label>
+                     </div>
+
+                     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                </form>
+            </div>
         {% endif %}
 
-        <a id="nome" href="#">
-            Pedro Silva
-            <p id="matricula">201800000</p>
-        </a>
 
-        <hr>
+        <hr style="background-color: #aaa">
 
 
       <a href="?pagina=home">Página inicial</a>

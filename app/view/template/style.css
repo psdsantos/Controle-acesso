@@ -1,7 +1,7 @@
 /* The sidebar menu */
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 15%; /* Set the width of the sidebar */
+  width: 15vw; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -11,11 +11,16 @@
   padding-top: 20px;
 }
 
+.sidenav form {
+    color: #AAA;
+    font-size: 20px;
+}
+
 /* The navigation menu links */
 .sidenav a {
   padding: 25px 8px 5px 16px;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 24px;
   color: #AAA;
   display: block;
 }
@@ -64,6 +69,28 @@ fill: #C82333
     display: block;
 }
 
+.homepg img{
+    border-radius: 5%;
+    margin-right: 30px;
+}
+
+.homepg ul {
+    text-align: justify;
+    font-size: 24px;
+    width: 60%;
+    margin: auto;
+}
+
+.homepg li {
+    margin-bottom: 24px;
+}
+
+.container {
+    width: 100%;
+    text-align: center;
+}
+
+
 /* form signin */
 .form-signin {
   width: 100%;
@@ -84,7 +111,7 @@ fill: #C82333
 .form-signin .form-control:focus {
   z-index: 2;
 }
-.form-signin input[type="email"] {
+.form-signin input[type="text"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
