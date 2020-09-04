@@ -12,12 +12,12 @@
 
             if( isset($urlGet['pagina']) ){
                 $controller = ucfirst($urlGet['pagina']).'Controller';
-                //print_r_pre($controller);
             }
             else {
-                $controller = 'TurmaController';
+                $controller = 'HomeController';
             }
 
+            //print_r_pre($controller);
             if( !class_exists($controller) ){
                 $controller = 'ErrorController';
             }
@@ -30,4 +30,4 @@
 
             call_user_func_array( array(new $controller, $action), array('id' => $id) );
         }
-        }
+    }

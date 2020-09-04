@@ -1,7 +1,8 @@
 <!-- Remember to set entidade and primaryk on child -->
-<h1>Deseja realmente apagar permanentemente a {{entidade}}:</h1>
 
-<html>
+<div class="text-center">
+
+    <h1>Deseja realmente apagar permanentemente a {{entidade}}:</h1>
     <form id="{{entidade}}Form" action="?pagina={{entidade}}&action=delete&id={{primaryk}}" method="POST">
         {% block form %}
             use a form on block form
@@ -11,7 +12,7 @@
     <br><br>
 
     <a class="btn btn-primary" href="?pagina={{entidade}}">Voltar</a>
-</html>
+</div>
 
 {% macro submit(value="defaultmacrovalue") %}
     <input class="btn btn-danger" type="submit" value="{{value}}">

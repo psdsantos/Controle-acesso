@@ -44,13 +44,22 @@
 
     <!-- Side navigation -->
     <div class="sidenav">
+
+        {% if loggedin == true %}
+            {{"fon"}}
+        {% else %}
+            {{"trab"}}
+        {% endif %}
+
         <a id="nome" href="#">
             Pedro Silva
             <p id="matricula">201800000</p>
         </a>
+
         <hr>
 
 
+      <a href="?pagina=home">Página inicial</a>
       <a href="?pagina=historico">Histórico</a>
       <a href="?pagina=turma">Turmas</a>
       <a href="?pagina=coordenacao">Coordenações</a>
@@ -62,6 +71,8 @@
     </div>
 
     <!-- Page content -->
-    <div class="main">
-      {{area_dinamica}}
+    <div style="margin-left: 15%"> <!-- Same as sidebar width -->
+        <div class="main">
+            {{"area_dinamica"}}
+        </div>
     </div>

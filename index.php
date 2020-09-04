@@ -12,6 +12,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 require_once 'app/core/Core.php';
 
+require_once 'app/controller/HomeController.php';
 require_once 'app/controller/ErrorController.php';
 require_once 'app/controller/TurmaController.php';
 require_once 'app/controller/CategoriaController.php';
@@ -25,7 +26,6 @@ require_once 'app/model/Usuario.php';
 
 require_once 'lib/database/Connection.php';
 
-$template = file_get_contents('app/view/template/estrutura.html');
 
 ob_start();
     $core = new Core;
@@ -33,10 +33,17 @@ ob_start();
 
     $saida = ob_get_contents();
 ob_end_clean();
+$template = file_get_contents('app/view/template/estrutura.html');
 
-//carrega o controller apropriado na {{area_dinamica}} do template
-$tplPronto = str_replace('{{area_dinamica}}', $saida, $template);
+$loader = new \Twig\Loader\FilesystemLoader('app/view/template');
+$twig = new \Twig\Environment($loader);
+$template = $twig->load("estrutura.html");
 
-echo $tplPronto;
+$parametros = array();
+
+$conteudo = $template->render($parametros);
+
+$conteudo = str_replace('area_dinamica', $saida, $conteudo);
+echo $conteudo;
 
 ?>

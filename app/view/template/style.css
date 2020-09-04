@@ -1,7 +1,7 @@
 /* The sidebar menu */
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 200px; /* Set the width of the sidebar */
+  width: 15%; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -15,9 +15,39 @@
 .sidenav a {
   padding: 25px 8px 5px 16px;
   text-decoration: none;
-  font-size: 22px;
-  color: #999;
+  font-size: 30px;
+  color: #AAA;
   display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #FFF;
+}
+
+/* Style page content */
+.main {
+  padding-top: 5%;
+  width: 70%;
+  margin: auto;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+body {
+    background: #FAFAFA;
+}
+
+.iconDelete {
+fill: #000;
+}
+
+.iconDelete:hover {
+fill: #C82333
 }
 
 #nome {
@@ -31,38 +61,36 @@
 
 #logout {
     padding: 50px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #999;
     display: block;
 }
 
-input {
-    width: 500px;
+/* form signin */
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
 }
-
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-  color: #f1f1f1;
+.form-signin .checkbox {
+  font-weight: 400;
 }
-
-/* Style page content */
-.main {
-  margin-left: 200px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
 }
-
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+.form-signin .form-control:focus {
+  z-index: 2;
 }
-
-
-.iconDelete {
-fill: #000;
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
-
-.iconDelete:hover {
-fill: #C82333
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
