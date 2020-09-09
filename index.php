@@ -20,6 +20,7 @@ require_once 'app/controller/CoordenacaoController.php';
 require_once 'app/controller/UsuarioController.php';
 require_once 'app/controller/RequisitanteController.php';
 require_once 'app/controller/AutorizacaoController.php';
+require_once 'app/controller/RegistroController.php';
 
 require_once 'app/model/Turma.php';
 require_once 'app/model/Categoria.php';
@@ -27,6 +28,7 @@ require_once 'app/model/Coordenacao.php';
 require_once 'app/model/Usuario.php';
 require_once 'app/model/Requisitante.php';
 require_once 'app/model/Autorizacao.php';
+require_once 'app/model/Registro.php';
 
 require_once 'lib/database/Connection.php';
 

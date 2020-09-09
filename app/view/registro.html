@@ -1,0 +1,27 @@
+{% extends "/template/base.html" %}
+{% from "/template/base.html" import th, icon %}
+
+    {% set entidade = "registro" %}
+
+    {% block theader %}
+        {{ th("350px", "Usuário") }}
+        {{ th("350px", "Requisitante") }}
+        {{ th("80px", "Data do acesso") }}
+        {{ th("80px", "Hora do acesso") }}
+        {{ th("28px", "Laboratorio") }}
+    {% endblock %}
+
+    {% block tbody %}
+        {% for registro in registros %}
+            <tr role="row">
+                {% set user = callstatic('Usuario', 'selecionaPorId', registro.Usuario_matricula) %}
+                <td>{{user.Nome}}</td>
+                <td>{{registro.Data_acesso}}</td>
+                <td>{{registro.Hora_acesso}}</td>
+                {% set aut = callstatic('Autorizacao', 'selecionaPorId', registro.Usuario_has_Requisitante_Cod_Autorizacao) %}
+                {% set req = callstatic('Requisitante', 'selecionaPorId', aut.Requisitante_cod_requisitante ) %}
+                <td>{{req.Nome}}</td>
+                <td>{{registro.Laboratorio}}</td>
+            </tr>
+        {% endfor %}
+    {% endblock %}
