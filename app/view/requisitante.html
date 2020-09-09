@@ -1,0 +1,26 @@
+{% extends "/template/base.html" %}
+{% from "/template/base.html" import th, icon %}
+
+    {% block theader %}
+        {{ th("300px", "Nome") }}
+        {{ th("100px", "Turma") }}
+        {{ th("100px", "Coordenação") }}
+        {{ th("20px", "Acessos autorizados") }}
+    {% endblock %}
+
+    {% block tbody %}
+        {% for requisitante in requisitantes %}
+            <tr role="row">
+                <td>{{requisitante.Nome}}</td>
+                <!--<td>{{requisitante.Cod_requisitante}}</td>-->
+                {% set tur = callstatic('Turma', 'selecionaPorId', requisitante.Turma_Cod_turma) %}
+                <td>{{tur.Nome}}</td>
+                {% set coord = callstatic('Coordenacao', 'selecionaPorId', requisitante.Coordenacao_cod_coordenacao) %}
+                <td>{{coord.Sigla}}</td>
+                    <!--Mostrar todas as autorizacoes deste requisitante-->
+                <td><a href="?pagina=requisitante&action=   #   &id={{requisitante.Cod_requisitante}}"><img src="lib\img\eye.svg" width="25" height="25"></a></td>
+                <!--<td><a href="?pagina=requisitante&action=edit&id={{requisitante.Cod_requisitante}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>-->
+                <!--<td><a href="?pagina=requisitante&action=predelete&id={{requisitante.Cod_requisitante}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>-->
+            </tr>
+        {% endfor %}
+    {% endblock %}

@@ -4,7 +4,7 @@
         public static function selecionaTodos(){
             $con = Connection::getConn();
 
-            $sql = "SELECT * FROM coordenacao ORDER BY cod_coordenacao DESC";
+            $sql = "SELECT * FROM coordenacao ORDER BY Cod_coordenacao DESC";
             $sql = $con->prepare($sql);
             $sql->execute();
 

@@ -73,19 +73,26 @@
             </div>
         {% endif %}
 
+        {% if loggedin == true %}
+
+        {% endif %}
 
         <hr style="background-color: #aaa">
 
-
-      <a href="?pagina=home">Página inicial</a>
-      <a href="?pagina=historico">Histórico</a>
-      <a href="?pagina=turma">Turmas</a>
-      <a href="?pagina=coordenacao">Coordenações</a>
-      <a href="?pagina=categoria">Categorias</a>
-      <a href="?pagina=usuario">Usuários</a>
-      <a href="?pagina=requisitante">Requisitantes</a>
-
-      <a id="logout" href="#">Logout</a>
+        <a href="?pagina=home">Página inicial</a>
+        <a href="?pagina=historico">Histórico</a>
+        <a href="?pagina=autorizacao">Autorizações</a>
+        <a href="?pagina=requisitante">Requisitantes</a>
+        <button class="dropdown-btn">Admin
+            <img style="position: relative; left: 150px;" src="lib\img\caret-down.svg" width="25px" height="25px">
+        </button>
+        <div class="dropdown-container">
+            <a href="?pagina=usuario">Usuários</a>
+            <a href="?pagina=categoria">Categorias de usuários</a>
+            <a href="?pagina=coordenacao">Coordenações</a>
+            <a href="?pagina=turma">Turmas</a>
+        </div>
+        <a id="logout" href="#">Logout</a>
     </div>
 
     <!-- Page content -->
@@ -94,3 +101,23 @@
             {{"area_dinamica"}}
         </div>
     </div>
+
+    <footer>
+        <script type="text/javascript">
+            //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+
+            for (i = 0; i < dropdown.length; i++) {
+              dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                  dropdownContent.style.display = "none";
+                } else {
+                  dropdownContent.style.display = "block";
+                }
+              });
+            }
+        </script>
+    </footer>

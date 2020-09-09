@@ -1,31 +1,31 @@
 <?php
 
-    class Turma{
+    class Requisitante{
         public static function selecionaTodos(){
             $con = Connection::getConn();
 
-            $sql = "SELECT * FROM turma ORDER BY Cod_turma DESC";
+            $sql = "SELECT * FROM requisitante ORDER BY Cod_requisitante DESC";
             $sql = $con->prepare($sql);
             $sql->execute();
 
             $resultado = array();
 
             // converter a query em um objeto
-            while($row = $sql->fetchObject('Turma')){
+            while($row = $sql->fetchObject('Requisitante')){
                 $resultado[] = $row;
             }
 
             return $resultado;
         }
 
-        public static function selecionaPorId($turmaID){
+        public static function selecionaPorId($requisitanteID){
             $con = Connection::getConn();
-            $sql = "SELECT * FROM turma WHERE Cod_turma = :id";
+            $sql = "SELECT * FROM requisitante WHERE Cod_requisitante = :id";
             $sql = $con->prepare($sql);
-            $sql->bindValue(':id', $turmaID, PDO::PARAM_INT);
+            $sql->bindValue(':id', $requisitanteID, PDO::PARAM_INT);
             $sql-> execute();
 
-            $resultado = $sql->fetchObject('Turma');
+            $resultado = $sql->fetchObject('Requisitante');
 
             if(!$resultado){
                 throw new Exception("Não foi encontrado nenhum registro no banco");
@@ -35,22 +35,22 @@
         }
 
         public static function insert($dadosReq){
-            if( empty($dadosReq['nomeTurma']) ){
-                throw new Exception("Preencha o nome da turma");
+            if( empty($dadosReq['nomeRequisitante']) ){
+                throw new Exception("Preencha o nome da requisitante");
 
                 return false;
             }
 
             $con = Connection::getConn();
 
-            $sql = 'INSERT INTO turma (Nome, Sigla) VALUES (:nom, :sigla)';
+            $sql = 'INSERT INTO requisitante (Nome, Sigla) VALUES (:nom, :sigla)';
             $sql = $con->prepare($sql);
-            $sql->bindValue(':nom', $dadosReq['nomeTurma']);
-            $sql->bindValue(':sigla', $dadosReq['siglaTurma']);
+            $sql->bindValue(':nom', $dadosReq['nomeRequisitante']);
+            $sql->bindValue(':sigla', $dadosReq['siglaRequisitante']);
             $res = $sql->execute();
 
             if($res == false){
-                throw new Exception("Falha ao inserir turma");
+                throw new Exception("Falha ao inserir requisitante");
 
                 return false;
             }
@@ -60,18 +60,18 @@
 
 
         public static function update($dadosPost){
-            if( empty($dadosPost['nomeTurma']) ){
-                throw new Exception("Preencha o nome da turma");
+            if( empty($dadosPost['nomeRequisitante']) ){
+                throw new Exception("Preencha o nome da requisitante");
 
                 return false;
             }
 
             $con = Connection::getConn();
 
-            $sql = 'UPDATE turma SET Nome = :nome, Sigla = :sigla WHERE Cod_turma = :id';
+            $sql = 'UPDATE requisitante SET Nome = :nome, Sigla = :sigla WHERE Cod_requisitante = :id';
             $sql = $con->prepare($sql);
-            $sql->bindValue(':nome', $dadosPost['nomeTurma']);
-            $sql->bindValue(':sigla', $dadosPost['siglaTurma']);
+            $sql->bindValue(':nome', $dadosPost['nomeRequisitante']);
+            $sql->bindValue(':sigla', $dadosPost['siglaRequisitante']);
             $sql->bindValue(':id', $dadosPost['id']);
             $res = $sql->execute();
 
@@ -86,13 +86,13 @@
 
 
 
-        public static function delete($turmaID){
+        public static function delete($requisitanteID){
 
             $con = Connection::getConn();
 
-            $sql = 'DELETE FROM Turma WHERE Cod_turma = :id';
+            $sql = 'DELETE FROM Requisitante WHERE Cod_requisitante = :id';
             $sql = $con->prepare($sql);
-            $sql->bindValue(':id', $turmaID);
+            $sql->bindValue(':id', $requisitanteID);
             $res = $sql->execute();
 
             if($res == false){
