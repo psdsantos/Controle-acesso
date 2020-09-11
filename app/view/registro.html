@@ -17,11 +17,11 @@
             <tr role="row">
                 {% set user = callstatic('Usuario', 'selecionaPorId', registro.Usuario_matricula) %}
                 <td>{{user.Nome}}</td>
-                <td>{{registro.Data_acesso}}</td>
-                <td>{{registro.Hora_acesso}}</td>
                 {% set aut = callstatic('Autorizacao', 'selecionaPorId', registro.Usuario_has_Requisitante_Cod_Autorizacao) %}
                 {% set req = callstatic('Requisitante', 'selecionaPorId', aut.Requisitante_cod_requisitante ) %}
                 <td>{{req.Nome}}</td>
+                <td>{{formatdate(registro.Data_acesso)}}</td>
+                <td>{{formattime(registro.Hora_acesso)}}</td>
                 <td>{{registro.Laboratorio}}</td>
             </tr>
         {% endfor %}

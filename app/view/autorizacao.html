@@ -2,6 +2,7 @@
 {% from "/template/base.html" import th, icon %}
 
     {% block theader %}
+        {{ th("50px", "ID") }}
         {{ th("100px", "Requisitante") }}
         {{ th("100px", "Usuário") }}
         {{ th("100px", "Laboratório") }}
@@ -13,13 +14,14 @@
     {% block tbody %}
         {% for autorizacao in autorizacoes %}
             <tr role="row">
+                <td>{{autorizacao.Cod_Autorizacao}}</td>
                 {% set req = callstatic('Requisitante', 'selecionaPorId', autorizacao.Requisitante_cod_requisitante) %}
                 <td>{{req.Nome}}</td>
                 {% set user = callstatic('Usuario', 'selecionaPorId', autorizacao.Usuario_matricula) %}
                 <td>{{user.Nome}}</td>
                 <td>{{autorizacao.Laboratorio}}</td>
-                <td>{{autorizacao.Data_validade}}</td>
-                <td>{{autorizacao.Hora_validade}}</td>
+                <td>{{formatdate(autorizacao.Data_validade)}}</td>
+                <td>{{formattime(autorizacao.Hora_validade)}}</td>
                 <td><a href="?pagina=autorizacao&action=observacao&id={{autorizacao.Cod_Autorizacao}}"><img src="lib\img\eye.svg" width="25" height="25"></a></td>
                 <!--<td><a href="?pagina=autorizacao&action=edit&id={{autorizacao.Cod_Autorizacao}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>-->
                 <!--<td><a href="?pagina=autorizacao&action=predelete&id={{autorizacao.Cod_Autorizacao}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>-->

@@ -17,6 +17,21 @@
                     return forward_static_call([$class, $method], $args);
                 }));
 
+                $twig->addFunction(new \Twig\TwigFunction('formatdate', function ($date) {
+
+                    $newDate = date("d/m/Y", strtotime($date));
+
+                    return $newDate;
+                }));
+
+                $twig->addFunction(new \Twig\TwigFunction('formattime', function ($time) {
+
+                    $newTime = date_create($time);
+                    $newTime = date_format($newTime, "H:i");
+
+                    return $newTime;
+                }));
+
                 $template = $twig->load('autorizacao.html');
 
                 $objAutorizacaos = Autorizacao::selecionaTodos();
