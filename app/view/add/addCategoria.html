@@ -4,6 +4,6 @@
 {% set entidade = "categoria" %}
 
     {% block form %}
-        <p>Descrição: {{ input("text", "descCategoria", " ", "required")}}</p>
+        <p>Descrição: {{ input("text", "descCategoria", " ", "required") }}</p>
         {{ submit("Adicionar") }}
     {% endblock %}

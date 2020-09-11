@@ -23,6 +23,11 @@
 
             $parametros = array();
             $parametros['usuarios'] = $objUsuarios;
+            $parametros['status'] = 1;
+            if(isset($_GET['inativos'])){
+                $parametros['status'] = 0;
+                $parametros['checked'] = 'checked';
+            }
 
             $conteudo = $template->render($parametros);
             echo $conteudo;

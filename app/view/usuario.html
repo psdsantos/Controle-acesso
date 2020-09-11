@@ -3,6 +3,16 @@
 
     {% set entidade = "usuario" %}
 
+    {% block before %}
+        <form method="GET">
+            <input type="hidden" name="pagina" value="usuario">
+
+            <input type="checkbox" id="filtrostatus" name="inativos" value="true" {{checked}}>
+            <label style="margin-left:10px;" for="filtrostatus">Mostrar apenas usuários inativos</label>
+            <input class="btn btn-secondary" type="submit" value="Filtrar">
+        </form>
+    {% endblock %}
+
     {% block theader %}
         {{ th("100px", "Matricula") }}
         {{ th("350px", "Nome") }}
@@ -14,15 +24,17 @@
 
     {% block tbody %}
         {% for usuario in usuarios %}
-            <tr role="row">
-                <td>{{usuario.matricula}}</td>
-                <td>{{usuario.Nome}}</td>
-                {% set categ = callstatic('Categoria', 'selecionaPorId', usuario.Categoria_cod_categoria) %}
-                <td>{{categ.Descricao}}</td>
-                {% set coord = callstatic('Coordenacao', 'selecionaPorId', usuario.Coordenacao_cod_coordenacao) %}
-                <td>{{coord.Sigla}}</td>
-                <td><a href="?pagina=usuario&action=edit&id={{usuario.matricula}}">{{ icon("pencil.svg") }}</a></td>
-                <td><a href="?pagina=usuario&action=predelete&id={{usuario.matricula}}">{{ icon("bin.svg") }}</a></td>
-            </tr>
+            {% if usuario.Status_usuario == status %} <!-- usuário ativo -->
+                <tr role="row">
+                    <td>{{usuario.matricula}}</td>
+                    <td>{{usuario.Nome}}</td>
+                    {% set categ = callstatic('Categoria', 'selecionaPorId', usuario.Categoria_cod_categoria) %}
+                    <td>{{categ.Descricao}}</td>
+                    {% set coord = callstatic('Coordenacao', 'selecionaPorId', usuario.Coordenacao_cod_coordenacao) %}
+                    <td>{{coord.Sigla}}</td>
+                    <td><a href="?pagina=usuario&action=edit&id={{usuario.matricula}}">{{ icon("pencil.svg") }}</a></td>
+                    <td><a href="?pagina=usuario&action=predelete&id={{usuario.matricula}}">{{ icon("bin.svg") }}</a></td>
+                </tr>
+            {% endif %}
         {% endfor %}
     {% endblock %}

@@ -3,6 +3,7 @@
 <div class="text-center">
 
     <h1>Deseja realmente apagar permanentemente a {{entidade}}:</h1>
+    <br><br>
     <form id="{{entidade}}Form" action="?pagina={{entidade}}&action=delete&id={{primaryk}}" method="POST">
         {% block form %}
             use a form on block form
@@ -19,5 +20,5 @@
 {% endmacro %}
 
 {% macro input(type="text", name="defaultmacroname", value="defaultmacrovalue", option="") %}
-    <input class=" " type="{{type}}" name="{{name}}" value="{{value}}" {{option}}>
+    <input class=" " size=60 type="{{type}}" name="{{name}}" value="{{value}}" {{option}}>
 {% endmacro %}
