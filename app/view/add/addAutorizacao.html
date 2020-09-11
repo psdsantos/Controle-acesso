@@ -1,0 +1,36 @@
+{% extends "/template/add.html" %}
+{% from "/template/add.html" import submit, input %}
+
+{% set entidade = "autorizacao" %}
+
+    {% block form %}
+        <p class="text-muted">(vai ser o usuário logado)</p>
+
+        <label for="user">Usuário:</label>
+        <select name="usuario" id="user" form="autorizacaoForm">
+            {% for usuario in usuarios %}
+                <option value="{{usuario.matricula}}" >{{usuario.Nome}}</option>
+            {% endfor %}
+        </select>
+
+        <br>
+
+        <label for="req">Requisitante:</label>
+        <select name="requisitante" id="req" form="autorizacaoForm">
+            {% for requisitante in requisitantes %}
+                <option value="{{requisitante.Cod_requisitante}}" >{{requisitante.Nome}}</option>
+            {% endfor %}
+        </select>
+
+        <p>Laboratório: <input type="text" size=13 name="laboratorio" placeholder="n° do laboratório" required > </p>
+
+        <p>Data de validade: <input id="datepicker" type="text" name="data" required> </p>
+        <p>Hora de validade: <input id="timepicker" type="text" name="hora" required> </p>
+
+        <p>Observações: </p>
+        <textarea name="obs" rows="3" cols="50"></textarea>
+
+        <br><br>
+
+        {{ submit("Adicionar") }}
+    {% endblock %}

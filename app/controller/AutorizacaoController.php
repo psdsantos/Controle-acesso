@@ -111,7 +111,12 @@
             $twig = new \Twig\Environment($loader);
             $template = $twig->load('add/addAutorizacao.html');
 
+            $objUsuario = Usuario::selecionaTodos();
+            $objRequisitante = Requisitante::selecionaTodos();
+
             $parametros = array();
+            $parametros['usuarios'] = $objUsuario;
+            $parametros['requisitantes'] = $objRequisitante;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
@@ -125,7 +130,10 @@
                 $_SESSION["criado"] = "true";
                 header('Location:?pagina=autorizacao');
             } catch(Exception $e){
-                echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
+                echo '<script>Swal.fire({
+                    icon: "error",
+                    title: "'.$e->getMessage().'"
+                }).then((value) => {
                   location.href="?pagina=autorizacao&action=create";
                 });</script>';
             }

@@ -31,23 +31,25 @@
         }
 
         public static function insert($dadosReq){
-            if( empty($dadosReq['nomeAutorizacao']) ){
-                throw new Exception("Preencha o nome da autorizacao");
-
-                return false;
-            }
-
             $con = Connection::getConn();
 
-            $sql = 'INSERT INTO autorizacao (Nome, Sigla) VALUES (:nom, :sigla)';
+            $sql = "INSERT INTO usuario_has_requisitante (Requisitante_cod_requisitante, Usuario_matricula, Data_validade, Hora_validade, Tempo_vida, Senha, Laboratorio, Obs) VALUES (:req, :user, :data, :hora, :vida, :senha, :lab, :obs)";
             $sql = $con->prepare($sql);
-            $sql->bindValue(':nom', $dadosReq['nomeAutorizacao']);
-            $sql->bindValue(':sigla', $dadosReq['siglaAutorizacao']);
+            $sql->bindValue(':req', $dadosReq['requisitante'], PDO::PARAM_INT);
+            $sql->bindValue(':user', $dadosReq['usuario'], PDO::PARAM_INT);
+            $sql->bindValue(':data', date('Y-d-m', strtotime($dadosReq['data'])));
+                $hora = date_create($dadosReq['hora']);
+            $sql->bindValue(':hora', date_format($hora,"H:i"));
+                date_add($hora, date_interval_create_from_date_string('1800 seconds')); // + 30 min
+            $sql->bindValue(':vida', date_format($hora,"H:i"));
+            $sql->bindValue(':senha', 'provisoria');
+            $sql->bindValue(':lab', $dadosReq['laboratorio'], PDO::PARAM_INT);
+            $sql->bindValue(':obs', $dadosReq['obs']);
             $res = $sql->execute();
+            $sql->debugDumpParams();
 
             if($res == false){
                 throw new Exception("Falha ao inserir autorizacao");
-
                 return false;
             }
 
@@ -56,12 +58,6 @@
 
 
         public static function update($dadosPost){
-            if( empty($dadosPost['nomeAutorizacao']) ){
-                throw new Exception("Preencha o nome da autorizacao");
-
-                return false;
-            }
-
             $con = Connection::getConn();
 
             $sql = 'UPDATE autorizacao SET Nome = :nome, Sigla = :sigla WHERE Cod_autorizacao = :id';

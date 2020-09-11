@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="vendor\twbs\bootstrap\dist\css\bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="vendor\datatables\datatables\media\css\jquery.dataTables.min.css">
     <link rel="stylesheet" href="app/view/template/style.css">
+    <link rel="stylesheet" href="vendor\components\jqueryui\themes\base\jquery-ui.min.css">
     <script src="vendor\components\jquery\jquery.min.js"></script>
+    <script src="vendor\components\jqueryui\jquery-ui.min.js"></script>
     <script src="vendor\twbs\bootstrap\dist\js\bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf8" src="vendor\datatables\datatables\media\js\jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="vendor\robinherbots\jquery.inputmask\dist\jquery.inputmask.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
@@ -38,6 +41,13 @@
 
               } );
         } );
+
+        $( function() {
+            $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
+            $("#datepicker").inputmask({ "mask": "99/99/9999" });
+            $("#timepicker").inputmask({"mask": "99:99"});
+        } );
+
     </script>
 </head>
 

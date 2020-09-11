@@ -1,10 +1,10 @@
 <?php
 
     class Usuario{
-        public static function selecionaTodos(){
+        public static function selecionaTodos($status = 1){
             $con = Connection::getConn();
 
-            $sql = "SELECT * FROM usuario ORDER BY matricula DESC";
+            $sql = "SELECT * FROM usuario WHERE Status_usuario = $status ORDER BY matricula DESC";
             $sql = $con->prepare($sql);
             $sql->execute();
 

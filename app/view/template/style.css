@@ -95,6 +95,10 @@ fill: #C82333
     display: block;
 }
 
+form select {
+    width: 50ch;
+}
+
 .homepg img{
     border-radius: 5%;
     margin-right: 30px;

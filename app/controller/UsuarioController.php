@@ -19,15 +19,14 @@
 
             $template = $twig->load('usuario.html');
 
-            $objUsuarios = Usuario::selecionaTodos();
-
             $parametros = array();
-            $parametros['usuarios'] = $objUsuarios;
             $parametros['status'] = 1;
             if(isset($_GET['inativos'])){
                 $parametros['status'] = 0;
                 $parametros['checked'] = 'checked';
             }
+            $objUsuarios = Usuario::selecionaTodos($parametros['status']);
+            $parametros['usuarios'] = $objUsuarios;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
