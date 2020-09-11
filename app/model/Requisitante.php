@@ -43,12 +43,13 @@
 
             $con = Connection::getConn();
 
-            $sql = 'INSERT INTO requisitante (Nome, Sigla) VALUES (:nom, :sigla)';
+            $sql = 'INSERT INTO requisitante (Nome, Coordenacao_cod_coordenacao, Turma_Cod_turma) VALUES (:nom, :coord, :turma)';
             $sql = $con->prepare($sql);
             $sql->bindValue(':nom', $dadosReq['nomeRequisitante']);
-            $sql->bindValue(':sigla', $dadosReq['siglaRequisitante']);
+            $sql->bindValue(':turma', $dadosReq['turmaRequisitante']);
+            $sql->bindValue(':coord', $dadosReq['coordenacaoRequisitante']);
             $res = $sql->execute();
-
+            $sql->debugDumpParams();
             if($res == false){
                 throw new Exception("Falha ao inserir requisitante");
 

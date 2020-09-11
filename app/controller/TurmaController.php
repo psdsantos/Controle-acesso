@@ -18,14 +18,21 @@
                 if(isset($_SESSION['criado'])){
                     if($_SESSION['criado']){
                         echo "<script>
-                        Swal.fire({
+                        const Toast = Swal.mixin({
+                            toast:true,
                             position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            background: '#f5f5f5',
+                            onOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                              }
+                        })
+                        Toast.fire({
                             icon: 'success',
                             title: 'Turma criada com sucesso',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            background: '#f5f5f5',
-                            backdrop: `rgba(0,0,0,0)`
                         })
                         </script>";
                     }

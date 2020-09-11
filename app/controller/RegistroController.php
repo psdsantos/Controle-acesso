@@ -46,14 +46,21 @@
             if(isset($_SESSION['criado'])){
                 if($_SESSION['criado']){
                     echo "<script>
-                    Swal.fire({
+                    const Toast = Swal.mixin({
+                        toast:true,
                         position: 'top-end',
-                        icon: 'success',
-                        title: 'Usuário criado com sucesso',
                         showConfirmButton: false,
-                        timer: 1500,
+                        timer: 5000,
+                        timerProgressBar: true,
                         background: '#f5f5f5',
-                        backdrop: `rgba(0,0,0,0)`
+                        onOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                          }
+                    })
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Registro criado com sucesso',
                     })
                     </script>";
                 }

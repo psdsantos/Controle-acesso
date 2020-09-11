@@ -1,0 +1,27 @@
+{% extends "/template/add.html" %}
+{% from "/template/add.html" import submit, input %}
+
+{% set entidade = "requisitante" %}
+
+    {% block form %}
+        <p>Nome: {{ input("text", "nomeRequisitante", " ", "required")}}</p>
+
+        <label for="turma">Turma:</label>
+        <select name="turmaRequisitante" id="categ" form="requisitanteForm">
+            {% for turma in turmas %}
+                <option value="{{turma.Cod_turma}}" >{{turma.Nome}}</option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+        
+        <label for="coord">Coordenação:</label>
+        <select name="coordenacaoRequisitante" id="coord" form="requisitanteForm">
+            {% for coordenacao in coordenacoes %}
+                <option value="{{coordenacao.Cod_coordenacao}}" >{{coordenacao.Nome}}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        {{ submit("Adicionar") }}
+    {% endblock %}

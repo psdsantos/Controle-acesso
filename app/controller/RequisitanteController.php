@@ -31,14 +31,21 @@
                 if(isset($_SESSION['criado'])){
                     if($_SESSION['criado']){
                         echo "<script>
-                        Swal.fire({
+                        const Toast = Swal.mixin({
+                            toast:true,
                             position: 'top-end',
-                            icon: 'success',
-                            title: 'Requisitante criada com sucesso',
                             showConfirmButton: false,
-                            timer: 1500,
+                            timer: 5000,
+                            timerProgressBar: true,
                             background: '#f5f5f5',
-                            backdrop: `rgba(0,0,0,0)`
+                            onOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                              }
+                        })
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Requisitante criado com sucesso',
                         })
                         </script>";
                     }
@@ -84,7 +91,12 @@
             $twig = new \Twig\Environment($loader);
             $template = $twig->load('add/addRequisitante.html');
 
+            $objTurma = Turma::selecionaTodos();
+            $objCoordenacao = Coordenacao::selecionaTodos();
+
             $parametros = array();
+            $parametros['turmas'] = $objTurma;
+            $parametros['coordenacoes'] = $objCoordenacao;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
@@ -98,9 +110,8 @@
                 $_SESSION["criado"] = "true";
                 header('Location:?pagina=requisitante');
             } catch(Exception $e){
-                echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
-                  location.href="?pagina=requisitante&action=create";
-                });</script>';
+                echo '<script>alert("'.$e->getMessage().'");</script>';
+                echo '<script>location.href="?pagina=requisitante&action=create";</script>';
             }
 
         }
