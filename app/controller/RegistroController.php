@@ -32,7 +32,7 @@
                 return $newTime;
             }));
 
-            $template = $twig->load('Registro.html');
+            $template = $twig->load('registro.html');
 
             $objRegistros = Registro::selecionaTodos();
 
