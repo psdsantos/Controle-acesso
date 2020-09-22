@@ -1,6 +1,6 @@
 CREATE TABLE Turma (
   Cod_turma INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  Nome VARCHAR(20)  NOT NULL    ,
+  Nome VARCHAR(50)  NOT NULL    ,
   Sigla VARCHAR(10)  NOT NULL    ,
 PRIMARY KEY(Cod_turma));
 
@@ -8,7 +8,7 @@ PRIMARY KEY(Cod_turma));
 
 CREATE TABLE Coordenacao (
   Cod_coordenacao INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  Nome VARCHAR(30)  NOT NULL    ,
+  Nome VARCHAR(50)  NOT NULL    ,
   Sigla VARCHAR(10)  NOT NULL    ,
 PRIMARY KEY(cod_coordenacao));
 
@@ -31,7 +31,7 @@ CREATE TABLE Usuario (
   matricula INTEGER UNSIGNED  NOT NULL  ,
   Categoria_cod_categoria INTEGER UNSIGNED  NOT NULL  ,
   Coordenacao_cod_coordenacao INTEGER UNSIGNED  NOT NULL  ,
-  Nome VARCHAR(50)  NOT NULL  ,
+  Nome VARCHAR(70)  NOT NULL  ,
   Rfid CHAR(20)  NOT NULL  ,
   Senha CHAR(10)  NOT NULL  ,
   Status_usuario INTEGER UNSIGNED  NOT NULL    ,
@@ -54,7 +54,7 @@ CREATE TABLE Requisitante (
   Cod_requisitante INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
   Coordenacao_cod_coordenacao INTEGER UNSIGNED  NOT NULL  ,
   Turma_Cod_turma INTEGER UNSIGNED  NOT NULL  ,
-  Nome VARCHAR(50)  NOT NULL  ,
+  Nome VARCHAR(70)  NOT NULL  ,
 PRIMARY KEY(cod_requisitante)  ,
 INDEX Requisitante_FKIndex1(Turma_Cod_turma)  ,
 INDEX Requisitante_FKIndex2(Coordenacao_cod_coordenacao),

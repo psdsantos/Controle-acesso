@@ -43,11 +43,14 @@
 
             $con = Connection::getConn();
 
-            $sql = 'INSERT INTO turma (Nome, Sigla) VALUES (:nom, :sigla)';
+            $sql = 'INSERT INTO turma (Nome, Sigla, Coordenacao_Cod_coordenacao) VALUES (:nom, :sigla, :coord)';
             $sql = $con->prepare($sql);
             $sql->bindValue(':nom', $dadosReq['nomeTurma']);
             $sql->bindValue(':sigla', $dadosReq['siglaTurma']);
+            $sql->bindValue(':coord', $dadosReq['codCoordenacao']);
             $res = $sql->execute();
+
+            $sql->debugDumpParams();
 
             if($res == false){
                 throw new Exception("Falha ao inserir turma");

@@ -78,7 +78,9 @@
             $twig = new \Twig\Environment($loader);
             $template = $twig->load('add/addTurma.html');
 
+            $objCoord = Coordenacao::selecionaTodos();
             $parametros = array();
+            $parametros['coordenacoes'] = $objCoord;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;

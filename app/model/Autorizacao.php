@@ -46,7 +46,7 @@
             $sql->bindValue(':lab', $dadosReq['laboratorio'], PDO::PARAM_INT);
             $sql->bindValue(':obs', $dadosReq['obs']);
             $res = $sql->execute();
-            $sql->debugDumpParams();
+            //$sql->debugDumpParams();
 
             if($res == false){
                 throw new Exception("Falha ao inserir autorizacao");

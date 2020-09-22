@@ -7,5 +7,13 @@
         <p>Nome: {{ input("text", "nomeTurma", " ", "required") }}</p>
         <p>Sigla: {{ input("text", "siglaTurma", " ", "required") }}</p>
 
+        <label for="coord">Coordenação:</label>
+        <select name="codCoordenacao" id="coord" form="turmaForm">
+            {% for coordenacao in coordenacoes %}
+                <option value="{{coordenacao.Cod_coordenacao}}" >{{coordenacao.Nome}}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
         {{ submit("Adicionar") }}
     {% endblock %}
