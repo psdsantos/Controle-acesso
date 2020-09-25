@@ -144,6 +144,9 @@
             $parametros = array();
             $parametros['matricula'] = $usuario->matricula;
             $parametros['Nome'] = $usuario->Nome;
+            $parametros['Rfid'] = $usuario->Rfid;
+            $parametros['Senha'] = $usuario->Senha;
+            $parametros['Status_usuario'] = $usuario->Status_usuario;
             $parametros['Categoria_cod_categoria'] = $usuario->Categoria_cod_categoria;
             $parametros['Coordenacao_cod_coordenacao'] = $usuario->Coordenacao_cod_coordenacao;
             $parametros['categorias'] = $objCategoria;

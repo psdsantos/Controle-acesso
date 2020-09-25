@@ -22,5 +22,15 @@
         </select>
         <br><br>
 
+        <p>RFID: {{ input("text", "RFID", " ", "required")}}</p>
+        <p>Senha: {{ input("text", "senhaUsuario", " ", "required")}}</p>
+        <!-- <p>Confirme a senha: {{ input("text", "confirmacaoSenha", " ", "required")}}</p> -->
+        <p> Status:
+          <input type="radio" id="ativo" name="statusUsuario" value="1" required>
+          <label for="ativo">Ativo</label>
+          <input type="radio" id="inativo" name="statusUsuario" value="0" required>
+          <label for="inativo">Inativo</label><br>
+        </p>
+
         {{ submit("Adicionar") }}
     {% endblock %}

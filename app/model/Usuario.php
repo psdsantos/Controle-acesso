@@ -43,14 +43,18 @@
 
             $con = Connection::getConn();
 
-            $sql = 'INSERT INTO usuario (Nome, matricula, Categoria_cod_categoria, Coordenacao_cod_coordenacao) VALUES (:nome, :matr, :categ, :coord)';
+            $sql = 'INSERT INTO usuario (Nome, matricula, Categoria_cod_categoria, Coordenacao_cod_coordenacao, Rfid, Status_usuario, Senha)
+              VALUES (:nome, :matr, :categ, :coord, :rfid, :status, :senha)';
             $sql = $con->prepare($sql);
             $sql->bindValue(':nome', $dadosReq['nomeUsuario']);
             $sql->bindValue(':matr', $dadosReq['matriculaUsuario'], PDO::PARAM_INT);
             $sql->bindValue(':categ', $dadosReq['categoriaUsuario'], PDO::PARAM_INT);
             $sql->bindValue(':coord', $dadosReq['coordenacaoUsuario'], PDO::PARAM_INT);
+            $sql->bindValue(':status', $dadosReq['statusUsuario'], PDO::PARAM_INT);
+            $sql->bindValue(':rfid', $dadosReq['RFID']);
+            $sql->bindValue(':senha', $dadosReq['senhaUsuario']);
             $res = $sql->execute();
-
+            $sql->DebugDumpParams();
             if($res == false){
                 throw new Exception("Falha ao inserir usuario");
 
@@ -61,8 +65,8 @@
         }
 
 
-        public static function update($dadosPost){
-            if( empty($dadosPost['nomeUsuario']) ){
+        public static function update($dadosReq){
+            if( empty($dadosReq['nomeUsuario']) ){
                 throw new Exception("Preencha o nome do usuario");
 
                 return false;
@@ -70,12 +74,16 @@
 
             $con = Connection::getConn();
 
-            $sql = 'UPDATE usuario SET Nome = :nome, Categoria_cod_categoria = :catid, Coordenacao_cod_coordenacao = :corid WHERE matricula = :id';
+            $sql = 'UPDATE usuario SET Nome = :nome, Categoria_cod_categoria = :catid, Coordenacao_cod_coordenacao = :corid,
+              Rfid = :rfid, Senha = :senha, Status_usuario = :status WHERE matricula = :id';
             $sql = $con->prepare($sql);
-            $sql->bindValue(':nome', $dadosPost['nomeUsuario']);
-            $sql->bindValue(':catid', $dadosPost['categoriaUsuario']);
-            $sql->bindValue(':corid', $dadosPost['coordenacaoUsuario']);
-            $sql->bindValue(':id', $dadosPost['id']);
+            $sql->bindValue(':nome', $dadosReq['nomeUsuario']);
+            $sql->bindValue(':catid', $dadosReq['categoriaUsuario'], PDO::PARAM_INT);
+            $sql->bindValue(':corid', $dadosReq['coordenacaoUsuario'], PDO::PARAM_INT);
+            $sql->bindValue(':status', $dadosReq['statusUsuario'], PDO::PARAM_INT);
+            $sql->bindValue(':id', $dadosReq['id'], PDO::PARAM_INT);
+            $sql->bindValue(':rfid', $dadosReq['RFID']);
+            $sql->bindValue(':senha', $dadosReq['senhaUsuario']);
             $res = $sql->execute();
 
             if($res == false){

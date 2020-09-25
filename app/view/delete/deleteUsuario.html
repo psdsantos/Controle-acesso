@@ -12,10 +12,10 @@
         {% set coord = callstatic('Coordenacao', 'selecionaPorId', Coordenacao_cod_coordenacao) %}
 
         <label for="categ">Categoria:</label>
-        <input value="{{categ.Descricao}}" disabled>
+        <input size=60 value="{{categ.Descricao}}" disabled>
         <br><br>
         <label for="categ">Coordenacao:</label>
-        <input value="{{coord.Nome}}" disabled>
+        <input size=60 value="{{coord.Nome}}" disabled>
         <br><br>
 
         {{ submit("Apagar") }}
