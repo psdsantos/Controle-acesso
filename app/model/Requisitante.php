@@ -104,4 +104,28 @@
 
             return true;
         }
+
+        public static function selecionaAcessos($requisitanteID){
+
+            $con = Connection::getConn();
+
+            $sql = 'SELECT Cod_Autorizacao
+                FROM usuario_has_requisitante
+                WHERE Requisitante_cod_requisitante = :req
+                ORDER BY Cod_Autorizacao ASC';
+            $sql = $con->prepare($sql);
+            $sql->bindValue(':req', $requisitanteID);
+            $sql->execute();
+
+            $resultado = $sql->fetchAll();
+
+            if($resultado == false){
+                throw new Exception("Ocorreu um erro: ".$sql->debugDumpParams());
+
+                return false;
+            }
+
+            return $resultado;
+        }
+
     }

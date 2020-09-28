@@ -44,7 +44,19 @@
 
             session_start();
             Util::notifyToasts();
+            
+            if(isset($_SESSION['obs'])){
+                $idobs = $_SESSION['obs'];
+                echo "<script>
+                    Swal.fire({
+                        title: 'Observação',
+                        text: ' ".Autorizacao::selecionaPorId($idobs)->Obs." ',
+                        background: '#f5f5f5',
+                    })
+                </script>";
 
+                unset($_SESSION['obs']);
+            }
         }
 
         public function create(){
