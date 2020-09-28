@@ -76,7 +76,7 @@ INDEX Requisitante_FKIndex2(Coordenacao_cod_coordenacao),
 
 
 CREATE TABLE Autorizacao (
-  Cod_Autorizacao INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  Cod_autorizacao INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
   Requisitante_cod_requisitante INTEGER UNSIGNED  NOT NULL  ,
   Usuario_matricula INTEGER UNSIGNED  NOT NULL  ,
   Data_validade DATE  NOT NULL  ,
