@@ -45,7 +45,7 @@
             $sql->bindValue(':hora', date_format($hora,"H:i"));
                 date_add($hora, date_interval_create_from_date_string('1800 seconds')); // + 30 min
             $sql->bindValue(':vida', date_format($hora,"H:i"));
-            $sql->bindValue(':senha', 'provisoria');
+            $sql->bindValue(':senha', $dadosReq['senha']);
             $sql->bindValue(':lab', $dadosReq['laboratorio'], PDO::PARAM_INT);
             $sql->bindValue(':obs', $dadosReq['obs']);
             $res = $sql->execute();

@@ -16,7 +16,7 @@
         <br>
 
         <label for="req">Requisitante:</label>
-        <select name="requisitante" id="req" form="autorizacaoForm" style="width: 200px">
+        <select name="requisitante" id="req" form="autorizacaoForm" >
             {% for requisitante in requisitantes %}
                 <option value="{{requisitante.Cod_requisitante}}" >{{requisitante.Nome}}</option>
             {% endfor %}
@@ -30,6 +30,9 @@
 
         <p>Observações: </p>
         <textarea name="obs" rows="3" cols="50"></textarea>
+
+        <p>Senha: <input type="text" name="senha" value="" required maxlength="12" size="20"></p>
+
 
         <br><br>
 

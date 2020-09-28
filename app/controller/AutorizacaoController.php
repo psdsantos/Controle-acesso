@@ -60,7 +60,7 @@
             if(isset($_SESSION['unauthorized'])){
                 echo "<script>
                     Swal.fire({
-                        title: 'Não autorizado',
+                        title: 'Operação não permitida',
                         text: 'Esta autorização não pode mais ser alterada.',
                         background: '#f5f5f5',
                     })
@@ -111,7 +111,7 @@
             $autorizacao = Autorizacao::selecionaPorId($autorizacaoID);
             $tempoVida = $autorizacao->Tempo_vida;
             $dataValidade = $autorizacao->Data_validade;
-            
+
             Util::checkValidade($dataValidade, $tempoVida, "autorizacao");
 
             $parametros = array();
