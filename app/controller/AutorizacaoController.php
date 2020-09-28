@@ -44,7 +44,7 @@
 
             session_start();
             Util::notifyToasts();
-            
+
             if(isset($_SESSION['obs'])){
                 $idobs = $_SESSION['obs'];
                 echo "<script>
@@ -56,6 +56,16 @@
                 </script>";
 
                 unset($_SESSION['obs']);
+            }
+            if(isset($_SESSION['unauthorized'])){
+                echo "<script>
+                    Swal.fire({
+                        title: 'Não autorizado',
+                        text: 'Esta autorização não pode mais ser alterada.',
+                        background: '#f5f5f5',
+                    })
+                </script>";
+                unset($_SESSION['unauthorized']);
             }
         }
 
@@ -99,6 +109,10 @@
             $template = $twig->load('edit/editAutorizacao.html');
 
             $autorizacao = Autorizacao::selecionaPorId($autorizacaoID);
+            $tempoVida = $autorizacao->Tempo_vida;
+            $dataValidade = $autorizacao->Data_validade;
+            
+            Util::checkValidade($dataValidade, $tempoVida, "autorizacao");
 
             $parametros = array();
             $parametros['Cod_autorizacao'] = $autorizacao->Cod_autorizacao;
@@ -128,10 +142,17 @@
 
             $autorizacao = Autorizacao::selecionaPorId($autorizacaoID);
 
+            $tempoVida = $autorizacao->Tempo_vida;
+            $dataValidade = $autorizacao->Data_validade;
+
+            Util::checkValidade($dataValidade, $tempoVida, "autorizacao");
+
             $parametros = array();
             $parametros['Cod_autorizacao'] = $autorizacao->Cod_autorizacao;
-            $parametros['Nome'] = $autorizacao->Nome;
-            $parametros['Sigla'] = $autorizacao->Sigla;
+            $parametros['Requisitante'] = $autorizacao->Requisitante_cod_requisitante;
+            $parametros['Laboratorio'] = $autorizacao->Laboratorio;
+            $parametros['Data'] = $dataValidade;
+            $parametros['Tempo_vida'] = $tempoVida;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;

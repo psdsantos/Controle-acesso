@@ -1,6 +1,31 @@
 <?php
 
     class Util {
+
+        public static function checkValidade($dataValidade, $tempoVida, $entity){
+            /*
+                DEBUGGING DATE AND TIME
+            echo $tempoVida . '<br>';
+            echo date("H:i:s");
+            echo "<br>";
+            echo "<br>";
+            echo $d = $dataValidade;
+            echo "<br>";
+            echo "<br>";
+            echo date("Y-m-d H:i:s");
+            echo "<br>";
+            */
+
+            date_default_timezone_set('America/Maceio');
+            echo $combinedDT = date('Y-m-d H:i:s', strtotime("$dataValidade $tempoVida"));
+
+            if(date("Y-m-d H:i:s") > $combinedDT){
+                session_start();
+                $_SESSION['unauthorized'] = true;
+                header('Location:?pagina='.$entity);
+            }
+        }
+
         public static function notifyToasts() {
             if(isset($_SESSION['criado'])){
                 if($_SESSION['criado']){

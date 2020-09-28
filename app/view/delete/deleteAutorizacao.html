@@ -1,0 +1,39 @@
+{% extends "/template/delete.html" %}
+{% from "/template/delete.html" import submit, input %}
+
+{% set entidade = "autorizacao" %}
+{% set primaryk = Cod_autorizacao %}
+
+    {% block form %}
+        <p class="text-muted">(vai ser o usuário logado)</p>
+
+        <label for="user">Usuário:</label>
+        <select name="usuario" id="user" form="autorizacaoForm">
+            {% for usuario in usuarios %}
+                <option value="{{usuario.matricula}}" >{{usuario.Nome}}</option>
+            {% endfor %}
+        </select>
+
+        <br>
+
+        <label for="req">Requisitante:</label>
+        <select name="requisitante" id="req" form="autorizacaoForm" style="width: 200px">
+            {% for requisitante in requisitantes %}
+                <option value="{{requisitante.Cod_requisitante}}" >{{requisitante.Nome}}</option>
+            {% endfor %}
+        </select>
+        <a class="btn btn-sm btn-primary" href="?pagina=requisitante&action=create">Adicionar requisitante</a>
+
+        <p>Laboratório: <input type="text" size=13 name="laboratorio" placeholder="n° do laboratório" disabled > </p>
+
+        <p>Data de validade: <input id="datepicker" type="text" name="data" disabled> </p>
+        <p>Hora de validade: <input id="timepicker" type="text" name="hora" disabled> </p>
+
+        <p>Observações: </p>
+        <textarea name="obs" rows="3" cols="50"></textarea>
+
+        <br><br>
+
+
+        {{ submit("Apagar") }}
+    {% endblock %}

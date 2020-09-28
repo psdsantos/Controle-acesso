@@ -11,12 +11,14 @@
         {{ th("100px", "Data") }}
         {{ th("100px", "Hora") }}
         {{ th("100px", "Obs") }}
+        {{ th("100px", "Alterar") }}
+        {{ th("100px", "Apagar") }}
     {% endblock %}
 
     {% block tbody %}
         {% for autorizacao in autorizacoes %}
             <tr role="row">
-                <td>{{autorizacao.Cod_Autorizacao}}</td>
+                <td>{{autorizacao.Cod_autorizacao}}</td>
                 {% set req = callstatic('Requisitante', 'selecionaPorId', autorizacao.Requisitante_cod_requisitante) %}
                 <td>{{req.Nome}}</td>
                 {% set user = callstatic('Usuario', 'selecionaPorId', autorizacao.Usuario_matricula) %}
@@ -24,9 +26,9 @@
                 <td>{{autorizacao.Laboratorio}}</td>
                 <td>{{formatdate(autorizacao.Data_validade)}}</td>
                 <td>{{formattime(autorizacao.Hora_validade)}}</td>
-                <td><a href="?pagina=autorizacao&action=observacao&id={{autorizacao.Cod_Autorizacao}}"><img src="lib\img\eye.svg" width="25" height="25"></a></td>
-                <!--<td><a href="?pagina=autorizacao&action=edit&id={{autorizacao.Cod_Autorizacao}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>-->
-                <!--<td><a href="?pagina=autorizacao&action=predelete&id={{autorizacao.Cod_Autorizacao}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>-->
+                <td><a href="?pagina=autorizacao&action=observacao&id={{autorizacao.Cod_autorizacao}}"><img src="lib\img\eye.svg" width="25" height="25"></a></td>
+                <td><a href="?pagina=autorizacao&action=edit&id={{autorizacao.Cod_autorizacao}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
+                <td><a href="?pagina=autorizacao&action=predelete&id={{autorizacao.Cod_autorizacao}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
             </tr>
         {% endfor %}
     {% endblock %}

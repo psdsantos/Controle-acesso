@@ -4,7 +4,7 @@
         public static function selecionaTodos(){
             $con = Connection::getConn();
 
-            $sql = "SELECT * FROM Usuario_has_Requisitante ORDER BY Cod_Autorizacao DESC";
+            $sql = "SELECT * FROM Autorizacao ORDER BY Cod_autorizacao DESC";
             $sql = $con->prepare($sql);
             $sql->execute();
 
@@ -20,7 +20,7 @@
 
         public static function selecionaPorId($autorizacaoID){
             $con = Connection::getConn();
-            $sql = "SELECT * FROM Usuario_has_Requisitante WHERE Cod_Autorizacao = :id";
+            $sql = "SELECT * FROM Autorizacao WHERE Cod_autorizacao = :id";
             $sql = $con->prepare($sql);
             $sql->bindValue(':id', $autorizacaoID, PDO::PARAM_INT);
             $sql-> execute();
@@ -33,11 +33,14 @@
         public static function insert($dadosReq){
             $con = Connection::getConn();
 
-            $sql = "INSERT INTO usuario_has_requisitante (Requisitante_cod_requisitante, Usuario_matricula, Data_validade, Hora_validade, Tempo_vida, Senha, Laboratorio, Obs) VALUES (:req, :user, :data, :hora, :vida, :senha, :lab, :obs)";
+            $sql = "INSERT INTO Autorizacao (Requisitante_cod_requisitante, Usuario_matricula, Data_validade,
+                                            Hora_validade, Tempo_vida, Senha, Laboratorio, Obs)
+                                VALUES (:req, :user, :data, :hora, :vida, :senha, :lab, :obs)";
             $sql = $con->prepare($sql);
             $sql->bindValue(':req', $dadosReq['requisitante'], PDO::PARAM_INT);
             $sql->bindValue(':user', $dadosReq['usuario'], PDO::PARAM_INT);
-            $sql->bindValue(':data', date('Y-d-m', strtotime($dadosReq['data'])));
+                $d = DateTime::createFromFormat('j/m/Y', $dadosReq['data']);
+            $sql->bindValue(':data', $d->format('Y-m-d'));
                 $hora = date_create($dadosReq['hora']);
             $sql->bindValue(':hora', date_format($hora,"H:i"));
                 date_add($hora, date_interval_create_from_date_string('1800 seconds')); // + 30 min
