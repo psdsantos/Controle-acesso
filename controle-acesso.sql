@@ -11,7 +11,7 @@ CREATE TABLE Turma (
   Coordenacao_cod_coordenacao INTEGER UNSIGNED NOT NULL    ,
   Nome VARCHAR(50)  NOT NULL    ,
   Sigla VARCHAR(10)  NOT NULL    ,
-PRIMARY KEY(Cod_turma)
+PRIMARY KEY(Cod_turma)    ,
 INDEX Turma_FKIndex1(Coordenacao_cod_coordenacao)  ,
   FOREIGN KEY(Coordenacao_cod_coordenacao)
     REFERENCES Coordenacao(cod_coordenacao)
@@ -101,19 +101,19 @@ INDEX Autorizacao_FKIndex2(Requisitante_cod_requisitante),
 
 CREATE TABLE Registro_Acesso (
   Cod_registro INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  Usuario_has_Requisitante_Cod_Autorizacao INTEGER UNSIGNED  NOT NULL  ,
+  Autorizacao_cod_autorizacao INTEGER UNSIGNED  NOT NULL  ,
   Usuario_matricula INTEGER UNSIGNED  NULL  ,
   Data_acesso DATE  NOT NULL  ,
   Hora_acesso TIME  NOT NULL  ,
   Laboratorio INTEGER UNSIGNED  NOT NULL    ,
 PRIMARY KEY(cod_registro)  ,
 INDEX Registro_Acesso_FKIndex1(Usuario_matricula)  ,
-INDEX Registro_Acesso_FKIndex2(Usuario_has_Requisitante_Cod_Autorizacao),
+INDEX Registro_Acesso_FKIndex2(Autorizacao_cod_autorizacao),
   FOREIGN KEY(Usuario_matricula)
     REFERENCES Usuario(matricula)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
-  FOREIGN KEY(Usuario_has_Requisitante_Cod_Autorizacao)
-    REFERENCES Usuario_has_Requisitante(Cod_Autorizacao)
+  FOREIGN KEY(Autorizacao_cod_autorizacao)
+    REFERENCES Autorizacao(Cod_autorizacao)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION);
