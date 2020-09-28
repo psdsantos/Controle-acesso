@@ -17,7 +17,7 @@
             */
 
             date_default_timezone_set('America/Maceio');
-            echo $combinedDT = date('Y-m-d H:i:s', strtotime("$dataValidade $tempoVida"));
+            $combinedDT = date('Y-m-d H:i:s', strtotime("$dataValidade $tempoVida"));
 
             if(date("Y-m-d H:i:s") > $combinedDT){
                 session_start();

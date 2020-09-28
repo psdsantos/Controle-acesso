@@ -138,9 +138,23 @@
         public function predelete($autorizacaoID){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
+
+            $twig->addFunction(new \Twig\TwigFunction('callstatic', function ($class, $method, $args) {
+                if (!class_exists($class)) {
+                    throw new \Exception("Cannot call static method $method on Class $class: Invalid Class");
+                }
+
+                if (!method_exists($class, $method)) {
+                    throw new \Exception("Cannot call static method $method on Class $class: Invalid method");
+                }
+
+                return forward_static_call([$class, $method], $args);
+            }));
             $template = $twig->load('delete/deleteAutorizacao.html');
 
             $autorizacao = Autorizacao::selecionaPorId($autorizacaoID);
+            $objUsuario = Usuario::selecionaTodos();
+            $objRequisitante = Requisitante::selecionaTodos();
 
             $tempoVida = $autorizacao->Tempo_vida;
             $dataValidade = $autorizacao->Data_validade;
@@ -149,10 +163,14 @@
 
             $parametros = array();
             $parametros['Cod_autorizacao'] = $autorizacao->Cod_autorizacao;
-            $parametros['Requisitante'] = $autorizacao->Requisitante_cod_requisitante;
+            $parametros['Cod_requisitante'] = $autorizacao->Requisitante_cod_requisitante;
+            $parametros['Usuario_matricula'] = $autorizacao->Usuario_matricula;
             $parametros['Laboratorio'] = $autorizacao->Laboratorio;
-            $parametros['Data'] = $dataValidade;
+            $parametros['Obs'] = $autorizacao->Obs;
+            $parametros['Data'] = date_create($dataValidade)->format('d-m-Y');
             $parametros['Tempo_vida'] = $tempoVida;
+            $parametros['usuarios'] = $objUsuario;
+            $parametros['requisitantes'] = $objRequisitante;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;

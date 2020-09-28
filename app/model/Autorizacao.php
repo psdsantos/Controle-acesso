@@ -91,7 +91,7 @@
             $res = $sql->execute();
 
             if($res == false){
-                throw new Exception("Falha ao deletar publicação");
+                throw new Exception("Falha ao deletar");
 
                 return false;
             }
