@@ -2,114 +2,48 @@
 
     class AutorizacaoController{
         public function index(){
-                $loader = new \Twig\Loader\FilesystemLoader('app/view');
-                $twig = new \Twig\Environment($loader);
+            $loader = new \Twig\Loader\FilesystemLoader('app/view');
+            $twig = new \Twig\Environment($loader);
 
-                $twig->addFunction(new \Twig\TwigFunction('callstatic', function ($class, $method, $args) {
-                    if (!class_exists($class)) {
-                        throw new \Exception("Cannot call static method $method on Class $class: Invalid Class");
-                    }
-
-                    if (!method_exists($class, $method)) {
-                        throw new \Exception("Cannot call static method $method on Class $class: Invalid method");
-                    }
-
-                    return forward_static_call([$class, $method], $args);
-                }));
-
-                $twig->addFunction(new \Twig\TwigFunction('formatdate', function ($date) {
-
-                    $newDate = date("d/m/Y", strtotime($date));
-
-                    return $newDate;
-                }));
-
-                $twig->addFunction(new \Twig\TwigFunction('formattime', function ($time) {
-
-                    $newTime = date_create($time);
-                    $newTime = date_format($newTime, "H:i");
-
-                    return $newTime;
-                }));
-
-                $template = $twig->load('autorizacao.html');
-
-                $objAutorizacaos = Autorizacao::selecionaTodos();
-
-                $parametros = array();
-                $parametros['autorizacoes'] = $objAutorizacaos;
-
-                $conteudo = $template->render($parametros);
-                echo $conteudo;
-
-                session_start();
-                if(isset($_SESSION['criado'])){
-                    if($_SESSION['criado']){
-                        echo "<script>
-                        const Toast = Swal.mixin({
-                            toast:true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 5000,
-                            timerProgressBar: true,
-                            background: '#f5f5f5',
-                            onOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                              }
-                        })
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Autorizacao criada com sucesso',
-                        })
-                        </script>";
-                    }
-                    unset($_SESSION['criado']);
+            $twig->addFunction(new \Twig\TwigFunction('callstatic', function ($class, $method, $args) {
+                if (!class_exists($class)) {
+                    throw new \Exception("Cannot call static method $method on Class $class: Invalid Class");
                 }
-                if(isset($_SESSION['alterado'])){
-                    if($_SESSION['alterado']){
-                        echo "<script>
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Autorizacao alterada com sucesso',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            background: '#f5f5f5',
-                            backdrop: `rgba(0,0,0,0)`
-                        })
-                        </script>";
-                    }
-                    unset($_SESSION['alterado']);
-                }
-                if(isset($_SESSION['apagado'])){
-                    if($_SESSION['apagado']){
-                        echo "<script>
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Autorizacao apagada com sucesso',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            background: '#f5f5f5',
-                            backdrop: `rgba(0,0,0,0)`
-                        })
-                        </script>";
-                    }
-                    unset($_SESSION['apagado']);
-                }
-                if(isset($_SESSION['obs'])){
-                    $idobs = $_SESSION['obs'];
-                    echo "<script>
-                        Swal.fire({
-                            title: 'Observação',
-                            text: ' ".Autorizacao::selecionaPorId($idobs)->Obs." ',
-                            background: '#f5f5f5',
-                        })
-                    </script>";
 
-                    unset($_SESSION['obs']);
+                if (!method_exists($class, $method)) {
+                    throw new \Exception("Cannot call static method $method on Class $class: Invalid method");
                 }
+
+                return forward_static_call([$class, $method], $args);
+            }));
+
+            $twig->addFunction(new \Twig\TwigFunction('formatdate', function ($date) {
+
+                $newDate = date("d/m/Y", strtotime($date));
+
+                return $newDate;
+            }));
+
+            $twig->addFunction(new \Twig\TwigFunction('formattime', function ($time) {
+
+                $newTime = date_create($time);
+                $newTime = date_format($newTime, "H:i");
+
+                return $newTime;
+            }));
+
+            $template = $twig->load('autorizacao.html');
+
+            $objAutorizacaos = Autorizacao::selecionaTodos();
+
+            $parametros = array();
+            $parametros['autorizacoes'] = $objAutorizacaos;
+
+            $conteudo = $template->render($parametros);
+            echo $conteudo;
+
+            session_start();
+            Util::notifyToasts();
 
         }
 

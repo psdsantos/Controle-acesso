@@ -2,74 +2,20 @@
 
     class CoordenacaoController{
         public function index(){
-                $loader = new \Twig\Loader\FilesystemLoader('app/view');
-                $twig = new \Twig\Environment($loader);
-                $template = $twig->load('coordenacao.html');
+            $loader = new \Twig\Loader\FilesystemLoader('app/view');
+            $twig = new \Twig\Environment($loader);
+            $template = $twig->load('coordenacao.html');
 
-                $objCoordenacoes = Coordenacao::selecionaTodos();
+            $objCoordenacoes = Coordenacao::selecionaTodos();
 
-                $parametros = array();
-                $parametros['coordenacoes'] = $objCoordenacoes;
+            $parametros = array();
+            $parametros['coordenacoes'] = $objCoordenacoes;
 
-                $conteudo = $template->render($parametros);
-                echo $conteudo;
+            $conteudo = $template->render($parametros);
+            echo $conteudo;
 
-                session_start();
-                if(isset($_SESSION['criado'])){
-                    if($_SESSION['criado']){
-                        echo "<script>
-                        const Toast = Swal.mixin({
-                            toast:true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 5000,
-                            timerProgressBar: true,
-                            background: '#f5f5f5',
-                            onOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                              }
-                        })
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Coordenação criada com sucesso',
-                        })
-                        </script>";
-                    }
-                    unset($_SESSION['criado']);
-                }
-                if(isset($_SESSION['alterado'])){
-                    if($_SESSION['alterado']){
-                        echo "<script>
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Coordenacao alterada com sucesso',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            background: '#f5f5f5',
-                            backdrop: `rgba(0,0,0,0)`
-                        })
-                        </script>";
-                    }
-                    unset($_SESSION['alterado']);
-                }
-                if(isset($_SESSION['apagado'])){
-                    if($_SESSION['apagado']){
-                        echo "<script>
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Coordenacao apagada com sucesso',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            background: '#f5f5f5',
-                            backdrop: `rgba(0,0,0,0)`
-                        })
-                        </script>";
-                    }
-                    unset($_SESSION['apagado']);
-                }
+            session_start();
+            Util::notifyToasts();
         }
 
         public function create(){
