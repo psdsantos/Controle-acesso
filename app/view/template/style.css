@@ -24,6 +24,7 @@
   text-align: left;
   cursor: pointer;
   outline: none;
+  margin-left: 24px;
 }
 
 .sidenav form {

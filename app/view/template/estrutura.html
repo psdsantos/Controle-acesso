@@ -55,9 +55,9 @@
     <!-- Side navigation -->
     <div class="sidenav">
 
-        {% if loggedin == true %}
+        {% if loggedin != true %}
             <a id="nome" href="#">
-                Pedro Silva
+                <p>Pedro Silva</p>
                 <p id="matricula">201800000</p>
             </a>
         {% else %}
@@ -93,15 +93,10 @@
         <a href="?pagina=registro">Registros</a>
         <a href="?pagina=autorizacao">Autorizações</a>
         <a href="?pagina=requisitante">Requisitantes</a>
-        <button class="dropdown-btn">Admin
-            <img style="position: relative; left: 150px;" src="lib\img\caret-down.svg" width="25px" height="25px">
-        </button>
-        <div class="dropdown-container">
-            <a href="?pagina=usuario">Usuários</a>
-            <a href="?pagina=categoria">Categorias de usuários</a>
-            <a href="?pagina=coordenacao">Coordenações</a>
-            <a href="?pagina=turma">Turmas</a>
-        </div>
+        <a href="?pagina=usuario">Usuários</a>
+        <a href="?pagina=categoria">Categorias de usuários</a>
+        <a href="?pagina=coordenacao">Coordenações</a>
+        <a href="?pagina=turma">Turmas</a>
 
     </div>
 

@@ -109,10 +109,10 @@
 
             $con = Connection::getConn();
 
-            $sql = 'SELECT Cod_Autorizacao
-                FROM usuario_has_requisitante
+            $sql = 'SELECT Cod_autorizacao
+                FROM Autorizacao
                 WHERE Requisitante_cod_requisitante = :req
-                ORDER BY Cod_Autorizacao ASC';
+                ORDER BY Cod_autorizacao ASC';
             $sql = $con->prepare($sql);
             $sql->bindValue(':req', $requisitanteID);
             $sql->execute();

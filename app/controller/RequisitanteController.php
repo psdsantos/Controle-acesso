@@ -33,7 +33,7 @@
             if(isset($_SESSION['verAcessos'])){
                 $ac = '';
                 foreach($_SESSION["verAcessos"] as $idx => $req) {
-                    $ac .= $req['Cod_Autorizacao'] . "  ";
+                    $ac .= $req['Cod_autorizacao'] . "  ";
                 }
 
                 echo "<script>
