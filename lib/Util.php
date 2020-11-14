@@ -97,4 +97,9 @@
                 unset($_SESSION['apagado']);
             }
         }
+
+        public static function verifyPassword($password, $hashed_password){
+            // hashing is yet to be implemente
+            return $password == $hashed_password;
+        }
     }

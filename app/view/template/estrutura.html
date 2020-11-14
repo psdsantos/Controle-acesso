@@ -55,49 +55,29 @@
     <!-- Side navigation -->
     <div class="sidenav">
 
-        {% if loggedin != true %}
-            <a id="nome" href="#">
+        {% if session.loggedin == true %}
+            <div class="bloquinho">
                 <p>Pedro Silva</p>
                 <p id="matricula">201800000</p>
-            </a>
-        {% else %}
-            <!-- Login -->
-            <div class="text-center">
-                <form class="form-signin">
-                     <p class="mb-3 font-weight-normal">Acessar o sistema</p>
-
-                     <label for="inputMatricula" class="sr-only">Matricula</label>
-                     <input type="text" autocomplete="username" id="inputMatricula" class="form-control mb-3" placeholder="Matrícula" required autofocus>
-
-                     <label for="inputPassword" class="sr-only">Senha</label>
-                     <input type="password" autocomplete="current-password" id="inputPassword" class="form-control" placeholder="Senha" required>
-
-                     <div class="checkbox mb-3">
-                       <label>
-                         <input type="checkbox" value="remember-me"> Lembrar senha
-                       </label>
-                     </div>
-
-                     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-                </form>
             </div>
+
+            <a id="logout" href="?pagina=login&action=logout">Logout</a>
+
+            <hr style="background-color: #aaa">
+
+            <a href="?pagina=home">Página inicial</a>
+            <a href="?pagina=registro">Registros</a>
+            <a href="?pagina=autorizacao">Autorizações</a>
+            <a href="?pagina=requisitante">Requisitantes</a>
+            <a href="?pagina=usuario">Usuários</a>
+            <a href="?pagina=categoria">Categorias de usuários</a>
+            <a href="?pagina=coordenacao">Coordenações</a>
+            <a href="?pagina=turma">Turmas</a>
+        {% else %}
+
+            <a class="btn btn-primary" href="?pagina=login">Fazer login</a>
+
         {% endif %}
-
-        {% if loggedin == true %}
-            <a id="logout" href="#">Logout</a>
-        {% endif %}
-
-        <hr style="background-color: #aaa">
-
-        <a href="?pagina=home">Página inicial</a>
-        <a href="?pagina=registro">Registros</a>
-        <a href="?pagina=autorizacao">Autorizações</a>
-        <a href="?pagina=requisitante">Requisitantes</a>
-        <a href="?pagina=usuario">Usuários</a>
-        <a href="?pagina=categoria">Categorias de usuários</a>
-        <a href="?pagina=coordenacao">Coordenações</a>
-        <a href="?pagina=turma">Turmas</a>
-
     </div>
 
     <!-- Page content -->

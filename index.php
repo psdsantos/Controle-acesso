@@ -21,6 +21,7 @@ require_once 'app/controller/UsuarioController.php';
 require_once 'app/controller/RequisitanteController.php';
 require_once 'app/controller/AutorizacaoController.php';
 require_once 'app/controller/RegistroController.php';
+require_once 'app/controller/LoginController.php';
 
 require_once 'app/model/Turma.php';
 require_once 'app/model/Categoria.php';
@@ -43,6 +44,8 @@ $template = file_get_contents('app/view/template/estrutura.html');
 
 $loader = new \Twig\Loader\FilesystemLoader('app/view/template');
 $twig = new \Twig\Environment($loader);
+session_start();
+$twig->addGlobal('session', $_SESSION);
 $template = $twig->load("estrutura.html");
 
 $parametros = array();

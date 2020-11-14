@@ -13,47 +13,26 @@
 
 /* Style the sidenav links and the dropdown button */
 .sidenav a, .dropdown-btn {
-  padding: 25px 8px 5px 16px;
+  padding: 10px 8px 10px 16px;
   text-decoration: none;
   font-size: 20px;
   color: #AAA;
   display: block;
   border: none;
   background: none;
-  width:100%;
+  width:80%;
   text-align: left;
   cursor: pointer;
   outline: none;
-  margin-left: 24px;
-}
-
-.sidenav form {
-    color: #AAA;
-    font-size: 16px;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-left: 3px solid gray
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .dropdown-btn:hover {
   color: #FFF;
-}
-
-/* Add an active class to the active dropdown button */
-.active {
-  background-color: #0069D9;
-  color: white;
-}
-
-/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-.dropdown-container {
-  display: none;
-  background-color: #262626;
-  padding-left: 8px;
-}
-
-/* Optional: Style the caret down icon */
-.fa-caret-down {
-  float: right;
-  padding-right: 8px;
 }
 
 /* Style page content */
@@ -69,6 +48,22 @@
   .sidenav a {font-size: 18px;}
 }
 
+.bloquinho {
+    padding: 15px 8px 5px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #AAA;
+    display: block;
+    border: none;
+    background: none;
+    width:80%;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 
 body {
     background: #FAFAFA;
@@ -80,20 +75,6 @@ fill: #000;
 
 .iconDelete:hover {
 fill: #C82333
-}
-
-#nome {
-    padding: 6px 8px 6px 16px;
-}
-
-#matricula {
-  padding: 10px 18px 10px 12px;
-  font-size: 18px;
-}
-
-#logout {
-    padding: 50px 8px 6px 16px;
-    display: block;
 }
 
 form select {
@@ -121,34 +102,9 @@ form select {
     text-align: center;
 }
 
-
-/* form signin */
 .form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-.form-signin .checkbox {
-  font-weight: 400;
-}
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="text"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    margin: 0 auto;
 }

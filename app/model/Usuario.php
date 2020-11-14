@@ -64,7 +64,6 @@
             return true;
         }
 
-
         public static function update($dadosReq){
             if( empty($dadosReq['nomeUsuario']) ){
                 throw new Exception("Preencha o nome do usuario");
@@ -95,8 +94,6 @@
             return true;
         }
 
-
-
         public static function delete($usuarioID){
 
             $con = Connection::getConn();
@@ -113,5 +110,51 @@
             }
 
             return true;
+        }
+
+        public static function validarLogin($matricula, $senha, $matricula_err, $senha_err){
+            // Validate credentials
+            if(empty($matricula_err) && empty($senha_err)){
+                // Prepare a select statement
+                $sql = "SELECT matricula, Senha FROM Usuario WHERE matricula = :matricula";
+                $con = Connection::getConn();
+
+                if($stmt = $con->prepare($sql)){
+                    // Bind variables to the prepared statement as parameters
+                    $stmt->bindParam(":matricula", $matricula);
+
+                    // Attempt to execute the prepared statement
+                    if($stmt->execute()){
+                        // Check if matricula exists, if yes then verify senha
+                        if($stmt->rowCount() == 1){
+                            if($row = $stmt->fetch()){
+                                $matricula = $row["matricula"];
+                                $hashed_senha = $row["Senha"];
+                                if(Util::verifyPassword($senha, $hashed_senha)){
+                                    // senha is correct, so start a new session
+                                    session_start();
+
+                                    // Store data in session variables
+                                    $_SESSION["loggedin"] = true;
+                                    $_SESSION["matricula"] = $matricula;
+
+                                    // Redirect user to welcome page
+                                    header("Location:?pagina=home");
+                                } else{
+                                    // Display an error message if senha is not valid
+                                    $senha_err = "Senha incorreta.";
+                                    echo $senha_err;
+                                }
+                            }
+                        } else{
+                            // Display an error message if matricula doesn't exist
+                            $matricula_err = "Nenhum usuário encontrado com tal matrícula.";
+                            echo $matricula_err;
+                        }
+                    } else{
+                        echo "Oops! Something went wrong. Please try again later.";
+                    }
+                }
+            }
         }
     }

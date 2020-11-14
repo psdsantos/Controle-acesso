@@ -1,0 +1,23 @@
+<form class="form-signin" action="?pagina=login&action=login" method="POST">
+
+    <div class="text-center">
+        <form class="form-signin">
+             <h1 class="mb-5 font-weight-bold">Acessar o sistema</h1>
+
+             <label for="inputMatricula" class="font-weight-bold">Matrícula</label>
+             <input type="text" autocomplete="username" id="inputMatricula" class="form-control mb-3" name="matricula" placeholder="Digite sua matrícula" required autofocus>
+
+             <label for="inputPassword" class="font-weight-bold">Senha</label>
+             <input type="password" autocomplete="current-password" id="inputPassword" class="form-control mb-3" name="senha" placeholder="Digite sua senha" required>
+
+             <div class="checkbox mb-3">
+               <label>
+                 <input type="checkbox" value="remember-me"> Lembrar senha
+               </label>
+             </div>
+
+             <input class="btn btn-lg btn-primary btn-block mb-5" type="submit" value="Login">
+             <a class="btn btn-secondary" href="?pagina=home"> Voltar </a>
+        </form>
+    </div>
+</form>
