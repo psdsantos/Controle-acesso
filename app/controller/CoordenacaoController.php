@@ -35,7 +35,7 @@
                 Coordenacao::insert($_POST);
 
                 session_start();
-                $_SESSION["criado"] = "true";
+                $_SESSION["criado"] = true;
                 header('Location:?pagina=coordenacao');
             } catch(Exception $e){
                 echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
@@ -66,7 +66,7 @@
                 Coordenacao::update($_POST);
 
                 session_start();
-                $_SESSION["alterado"] = "true";
+                $_SESSION["alterado"] = true;
                 header('Location:?pagina=coordenacao');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';
@@ -96,7 +96,7 @@
                 Coordenacao::delete($codCoordenacao);
 
                 session_start();
-                $_SESSION["apagado"] = "true";
+                $_SESSION["apagado"] = true;
                 header('Location:?pagina=coordenacao');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';

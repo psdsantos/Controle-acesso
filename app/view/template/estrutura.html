@@ -58,14 +58,13 @@
         {% if session.loggedin == true %}
             <div class="bloquinho">
                 <p>Pedro Silva</p>
-                <p id="matricula">201800000</p>
+                <p id="matricula">{{session.matricula}}</p>
             </div>
 
-            <a id="logout" href="?pagina=login&action=logout">Logout</a>
+            <a href="?pagina=home">Página inicial</a>
 
             <hr style="background-color: #aaa">
 
-            <a href="?pagina=home">Página inicial</a>
             <a href="?pagina=registro">Registros</a>
             <a href="?pagina=autorizacao">Autorizações</a>
             <a href="?pagina=requisitante">Requisitantes</a>
@@ -73,6 +72,10 @@
             <a href="?pagina=categoria">Categorias de usuários</a>
             <a href="?pagina=coordenacao">Coordenações</a>
             <a href="?pagina=turma">Turmas</a>
+
+            <hr style="background-color: #aaa">
+
+            <a id="logout" href="?pagina=login&action=logout">Logout</a>
         {% else %}
 
             <a class="btn btn-primary" href="?pagina=login">Fazer login</a>
@@ -88,21 +91,5 @@
     </div>
 
     <footer>
-        <script type="text/javascript">
-            //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-            var dropdown = document.getElementsByClassName("dropdown-btn");
-            var i;
 
-            for (i = 0; i < dropdown.length; i++) {
-              dropdown[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
-                  dropdownContent.style.display = "none";
-                } else {
-                  dropdownContent.style.display = "block";
-                }
-              });
-            }
-        </script>
     </footer>

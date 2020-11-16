@@ -18,6 +18,7 @@
                 }));
 
                 $template = $twig->load('turma.html');
+
                 $objTurmas = Turma::selecionaTodos();
 
                 $parametros = array();
@@ -49,7 +50,7 @@
                 Turma::insert($_POST);
 
                 session_start();
-                $_SESSION["criado"] = "true";
+                $_SESSION["criado"] = true;
                 header('Location:?pagina=turma');
             } catch(Exception $e){
                 echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
@@ -79,7 +80,7 @@
             try{
                 Turma::update($_POST);
                 session_start();
-                $_SESSION["alterado"] = "true";
+                $_SESSION["alterado"] = true;
                 header('Location:?pagina=turma');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';
@@ -108,7 +109,7 @@
                 Turma::delete($codTurma);
 
                 session_start();
-                $_SESSION["apagado"] = "true";
+                $_SESSION["apagado"] = true;
                 header('Location:?pagina=turma');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';

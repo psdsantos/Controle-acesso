@@ -13,8 +13,7 @@
         }
 
         public function login(){
-            // Initialize the session
-            session_start();
+            if(!isset($_SESSION)) session_start();
 
             // Check if the user is already logged in, if yes then redirect him to welcome page
             if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
@@ -47,16 +46,15 @@
         }
 
         public function logout(){
-            session_start();
-
-            // Unset all of the session variables
+            if(!isset($_SESSION)) session_start();
             $_SESSION = array();
-
-            // Destroy the session.
             session_destroy();
 
-            // Redirect to login page
-            header("location:?login");
+            session_start();
+            $_SESSION['deslogado'] = true;
+
+            header("Location:?pagina=home");
+
             exit;
         }
 

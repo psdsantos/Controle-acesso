@@ -42,7 +42,6 @@
             $conteudo = $template->render($parametros);
             echo $conteudo;
 
-            session_start();
             Util::notifyToasts();
 
             if(isset($_SESSION['obs'])){
@@ -90,7 +89,7 @@
                 Autorizacao::insert($_POST);
 
                 session_start();
-                $_SESSION["criado"] = "true";
+                $_SESSION["criado"] = true;
                 header('Location:?pagina=autorizacao');
             } catch(Exception $e){
                 echo '<script>Swal.fire({
@@ -127,7 +126,7 @@
             try{
                 Autorizacao::update($_POST);
                 session_start();
-                $_SESSION["alterado"] = "true";
+                $_SESSION["alterado"] = true;
                 header('Location:?pagina=autorizacao');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';
@@ -181,7 +180,7 @@
                 Autorizacao::delete($codAutorizacao);
 
                 session_start();
-                $_SESSION["apagado"] = "true";
+                $_SESSION["apagado"] = true;
                 header('Location:?pagina=autorizacao');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';

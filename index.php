@@ -44,7 +44,7 @@ $template = file_get_contents('app/view/template/estrutura.html');
 
 $loader = new \Twig\Loader\FilesystemLoader('app/view/template');
 $twig = new \Twig\Environment($loader);
-session_start();
+if(!isset($_SESSION)) session_start();
 $twig->addGlobal('session', $_SESSION);
 $template = $twig->load("estrutura.html");
 

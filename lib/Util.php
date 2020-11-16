@@ -96,6 +96,30 @@
                 }
                 unset($_SESSION['apagado']);
             }
+
+            if(isset($_SESSION['deslogado'])){
+                if($_SESSION['deslogado']){
+                    echo "<script>
+                    const Toast = Swal.mixin({
+                        toast:true,
+                        position: 'top-end',
+                        showConfirmButton: true,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        background: '#f5f5f5',
+                        onOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                          }
+                    })
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Deslogado com sucesso',
+                    })
+                    </script>";
+                }
+                unset($_SESSION['deslogado']);
+            }
         }
 
         public static function verifyPassword($password, $hashed_password){

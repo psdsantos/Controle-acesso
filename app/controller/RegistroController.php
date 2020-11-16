@@ -67,7 +67,7 @@
             try{
                 Registro::insert($_POST);
 
-                $_SESSION["criado"] = "true";
+                $_SESSION["criado"] = true;
                 header('Location:?pagina=Registro');
             } catch(Exception $e){
                 echo '<script>Swal.fire({icon: "error", text: "'.$e->getMessage().'"}).then((value) => {
@@ -115,7 +115,7 @@
                 Registro::update($_POST);
 
                 session_start();
-                $_SESSION["alterado"] = "true";
+                $_SESSION["alterado"] = true;
 
                 header('Location:?pagina=Registro');
             } catch(Exception $e){
@@ -159,7 +159,7 @@
                 Registro::delete($codRegistro);
 
                 session_start();
-                $_SESSION["apagado"] = "true";
+                $_SESSION["apagado"] = true;
 
                 header('Location:?pagina=Registro');
             } catch(Exception $e){

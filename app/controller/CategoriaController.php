@@ -15,7 +15,6 @@
             $conteudo = $template->render($parametros);
             echo $conteudo;
 
-            session_start();
             Util::notifyToasts();
         }
 
@@ -34,8 +33,7 @@
             try{
                 Categoria::insert($_POST);
 
-                session_start();
-                $_SESSION["criado"] = "true";
+                $_SESSION["criado"] = true;
                 header('Location:?pagina=categoria');
             } catch(Exception $e){
                 echo '<script>Swal.fire("'.$e->getMessage().'" {icon: "error",}).then((value) => {
@@ -64,8 +62,8 @@
             try{
                 Categoria::update($_POST);
 
-                session_start();
-                $_SESSION["alterado"] = "true";
+
+                $_SESSION["alterado"] = true;
                 header('Location:?pagina=categoria');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';
@@ -93,8 +91,7 @@
             try{
                 Categoria::delete($codCategoria);
 
-                session_start();
-                $_SESSION["apagado"] = "true";
+                $_SESSION["apagado"] = true;
                 header('Location:?pagina=categoria');
             } catch(Exception $e){
                 echo '<script>alert("'.$e->getMessage().'");</script>';

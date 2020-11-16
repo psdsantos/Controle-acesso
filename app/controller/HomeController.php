@@ -10,6 +10,10 @@
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
+
+            session_start();
+            Util::notifyToasts();
+
         }
     }
 

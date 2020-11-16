@@ -57,7 +57,7 @@
             try{
                 Usuario::insert($_POST);
 
-                $_SESSION["criado"] = "true";
+                $_SESSION["criado"] = true;
                 header('Location:?pagina=usuario');
             } catch(Exception $e){
                 echo '<script>Swal.fire({icon: "error", text: "'.$e->getMessage().'"}).then((value) => {
@@ -108,7 +108,7 @@
                 Usuario::update($_POST);
 
                 session_start();
-                $_SESSION["alterado"] = "true";
+                $_SESSION["alterado"] = true;
 
                 header('Location:?pagina=usuario');
             } catch(Exception $e){
@@ -152,7 +152,7 @@
                 Usuario::delete($codUsuario);
 
                 session_start();
-                $_SESSION["apagado"] = "true";
+                $_SESSION["apagado"] = true;
 
                 header('Location:?pagina=usuario');
             } catch(Exception $e){
