@@ -3,9 +3,9 @@ CREATE TABLE Coordenacao (
   Nome VARCHAR(50)  NOT NULL    ,
   Sigla VARCHAR(10)  NOT NULL    ,
 PRIMARY KEY(cod_coordenacao));
+      
 
             
-
 CREATE TABLE Turma (
   Cod_turma INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
   Coordenacao_cod_coordenacao INTEGER UNSIGNED NOT NULL    ,
@@ -18,13 +18,12 @@ INDEX Turma_FKIndex1(Coordenacao_cod_coordenacao)  ,
       ON DELETE NO ACTION
       ON UPDATE NO ACTION);
 
-
+            
 
 CREATE TABLE Categoria (
   Cod_categoria INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
   Descricao VARCHAR(50)  NOT NULL    ,
 PRIMARY KEY(cod_categoria));
-
 
 
 -- ------------------------------------------------------------
@@ -117,3 +116,12 @@ INDEX Registro_Acesso_FKIndex2(Autorizacao_cod_autorizacao),
     REFERENCES Autorizacao(Cod_autorizacao)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION);
+
+            
+
+-- Admin account            
+-- USERNAME: 321654987
+-- PASSWORD: 465132
+INSERT INTO `coordenacao` (`Cod_coordenacao`, `Nome`, `Sigla`) VALUES ('1', 'Coordenadoria de informática', 'COINF');
+INSERT INTO `turma` (`Cod_turma`, `Coordenacao_cod_coordenacao`, `Nome`, `Sigla`) VALUES (1, 1, '3° ano integrado em informática', '3IINF');
+INSERT INTO `usuario` (`matricula`, `Categoria_cod_categoria`, `Coordenacao_cod_coordenacao`, `Nome`, `Rfid`, `Senha`, `Status_usuario`) VALUES ('321654987', '1', '1', 'Pedro Silva dos Santos', '0', '465132', '1');
