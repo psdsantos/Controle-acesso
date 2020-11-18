@@ -2,33 +2,32 @@
 
     class TurmaController{
         public function index(){
-                $loader = new \Twig\Loader\FilesystemLoader('app/view');
-                $twig = new \Twig\Environment($loader);
+            $loader = new \Twig\Loader\FilesystemLoader('app/view');
+            $twig = new \Twig\Environment($loader);
 
-                $twig->addFunction(new \Twig\TwigFunction('callstatic', function ($class, $method, $args) {
-                    if (!class_exists($class)) {
-                        throw new \Exception("Cannot call static method $method on Class $class: Invalid Class");
-                    }
+            $twig->addFunction(new \Twig\TwigFunction('callstatic', function ($class, $method, $args) {
+                if (!class_exists($class)) {
+                    throw new \Exception("Cannot call static method $method on Class $class: Invalid Class");
+                }
 
-                    if (!method_exists($class, $method)) {
-                        throw new \Exception("Cannot call static method $method on Class $class: Invalid method");
-                    }
+                if (!method_exists($class, $method)) {
+                    throw new \Exception("Cannot call static method $method on Class $class: Invalid method");
+                }
 
-                    return forward_static_call([$class, $method], $args);
-                }));
+                return forward_static_call([$class, $method], $args);
+            }));
 
-                $template = $twig->load('turma.html');
+            $template = $twig->load('turma.html');
 
-                $objTurmas = Turma::selecionaTodos();
+            $objTurmas = Turma::selecionaTodos();
 
-                $parametros = array();
-                $parametros['turmas'] = $objTurmas;
+            $parametros = array();
+            $parametros['turmas'] = $objTurmas;
 
-                $conteudo = $template->render($parametros);
-                echo $conteudo;
+            $conteudo = $template->render($parametros);
+            echo $conteudo;
 
-                session_start();
-                Util::notifyToasts();
+            Util::notifyToasts();
 
         }
 

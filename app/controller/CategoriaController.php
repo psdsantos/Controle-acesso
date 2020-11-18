@@ -2,7 +2,6 @@
 
     class CategoriaController{
         public function index(){
-
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
             $template = $twig->load('categoria.html');
@@ -33,6 +32,7 @@
             try{
                 Categoria::insert($_POST);
 
+                session_start();
                 $_SESSION["criado"] = true;
                 header('Location:?pagina=categoria');
             } catch(Exception $e){
@@ -62,7 +62,7 @@
             try{
                 Categoria::update($_POST);
 
-
+                session_start();
                 $_SESSION["alterado"] = true;
                 header('Location:?pagina=categoria');
             } catch(Exception $e){
@@ -91,6 +91,7 @@
             try{
                 Categoria::delete($codCategoria);
 
+                session_start();
                 $_SESSION["apagado"] = true;
                 header('Location:?pagina=categoria');
             } catch(Exception $e){

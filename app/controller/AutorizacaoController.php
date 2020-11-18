@@ -34,38 +34,16 @@
 
             $template = $twig->load('autorizacao.html');
 
-            $objAutorizacaos = Autorizacao::selecionaTodos();
+            $objAutorizacoes = Autorizacao::selecionaTodos();
 
             $parametros = array();
-            $parametros['autorizacoes'] = $objAutorizacaos;
+            $parametros['autorizacoes'] = $objAutorizacoes;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
 
             Util::notifyToasts();
 
-            if(isset($_SESSION['obs'])){
-                $idobs = $_SESSION['obs'];
-                echo "<script>
-                    Swal.fire({
-                        title: 'Observação',
-                        text: ' ".Autorizacao::selecionaPorId($idobs)->Obs." ',
-                        background: '#f5f5f5',
-                    })
-                </script>";
-
-                unset($_SESSION['obs']);
-            }
-            if(isset($_SESSION['unauthorized'])){
-                echo "<script>
-                    Swal.fire({
-                        title: 'Operação não permitida',
-                        text: 'Esta autorização não pode mais ser alterada.',
-                        background: '#f5f5f5',
-                    })
-                </script>";
-                unset($_SESSION['unauthorized']);
-            }
         }
 
         public function create(){
@@ -105,9 +83,25 @@
         public function edit($autorizacaoID){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
+
+            $twig->addFunction(new \Twig\TwigFunction('callstatic', function ($class, $method, $args) {
+                if (!class_exists($class)) {
+                    throw new \Exception("Cannot call static method $method on Class $class: Invalid Class");
+                }
+
+                if (!method_exists($class, $method)) {
+                    throw new \Exception("Cannot call static method $method on Class $class: Invalid method");
+                }
+
+                return forward_static_call([$class, $method], $args);
+            }));
+
             $template = $twig->load('edit/editAutorizacao.html');
 
             $autorizacao = Autorizacao::selecionaPorId($autorizacaoID);
+            $objUsuario = Usuario::selecionaTodos();
+            $objRequisitante = Requisitante::selecionaTodos();
+
             $tempoVida = $autorizacao->Tempo_vida;
             $dataValidade = $autorizacao->Data_validade;
 
@@ -115,8 +109,15 @@
 
             $parametros = array();
             $parametros['Cod_autorizacao'] = $autorizacao->Cod_autorizacao;
-            $parametros['Nome'] = $autorizacao->Nome;
-            $parametros['Sigla'] = $autorizacao->Sigla;
+            $parametros['Cod_requisitante'] = $autorizacao->Requisitante_cod_requisitante;
+            $parametros['Usuario_matricula'] = $autorizacao->Usuario_matricula;
+            $parametros['Laboratorio'] = $autorizacao->Laboratorio;
+            $parametros['Obs'] = $autorizacao->Obs;
+            $parametros['Data'] = date_create($dataValidade)->format('d-m-Y');
+            $parametros['Tempo_vida'] = $tempoVida;
+            $parametros['Senha'] = $tempoVida;
+            $parametros['usuarios'] = $objUsuario;
+            $parametros['requisitantes'] = $objRequisitante;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
@@ -149,6 +150,7 @@
 
                 return forward_static_call([$class, $method], $args);
             }));
+
             $template = $twig->load('delete/deleteAutorizacao.html');
 
             $autorizacao = Autorizacao::selecionaPorId($autorizacaoID);

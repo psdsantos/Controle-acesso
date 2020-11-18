@@ -29,6 +29,7 @@
 
             if(!$resultado){
                 throw new Exception("Não foi encontrado nenhum registro no banco");
+                return false;
             }
 
             return $resultado;
@@ -79,7 +80,7 @@
             $res = $sql->execute();
 
             if($res == false){
-                throw new Exception("Falha ao inserir publicação");
+                throw new Exception("Falha ao alterar");
 
                 return false;
             }
@@ -99,7 +100,7 @@
             $res = $sql->execute();
 
             if($res == false){
-                throw new Exception("Falha ao deletar publicação");
+                throw new Exception("Falha ao deletar");
 
                 return false;
             }

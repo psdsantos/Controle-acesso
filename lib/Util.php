@@ -27,6 +27,7 @@
         }
 
         public static function notifyToasts() {
+            if(!isset($_SESSION)) session_start();
             if(isset($_SESSION['criado'])){
                 if($_SESSION['criado']){
                     echo "<script>
@@ -102,7 +103,7 @@
                     echo "<script>
                     const Toast = Swal.mixin({
                         toast:true,
-                        position: 'top-end',
+                        position: 'top-right',
                         showConfirmButton: true,
                         timer: 5000,
                         timerProgressBar: true,
@@ -120,10 +121,47 @@
                 }
                 unset($_SESSION['deslogado']);
             }
+
+            // Autorizacao
+            if(isset($_SESSION['obs'])){
+                $idobs = $_SESSION['obs'];
+                echo "<script>
+                    Swal.fire({
+                        title: 'Observação',
+                        text: ' ".Autorizacao::selecionaPorId($idobs)->Obs." ',
+                        background: '#f5f5f5',
+                    })
+                </script>";
+
+                unset($_SESSION['obs']);
+            }
+            if(isset($_SESSION['unauthorized'])){
+                echo "<script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Operação não permitida',
+                        text: 'Esta autorização não pode mais ser alterada.',
+                        background: '#f5f5f5',
+                    })
+                </script>";
+                unset($_SESSION['unauthorized']);
+            }
+
+            if(isset($_SESSION['error'])){
+                echo "<script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ocorreu um erro',
+                        text: '".$_SESSION['error']."',
+                        background: '#f5f5f5',
+                    })
+                </script>";
+                unset($_SESSION['error']);
+            }
         }
 
         public static function verifyPassword($password, $hashed_password){
-            // hashing is yet to be implemente
+            // hashing is yet to be implemented
             return $password == $hashed_password;
         }
     }

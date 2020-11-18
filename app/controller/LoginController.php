@@ -4,15 +4,18 @@
         public function index(){
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
-            $template = $twig->load('Login.html');
+            $template = $twig->load('login.html');
 
             $parametros = array();
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
+
+            session_start();
+            Util::notifyToasts();
         }
 
-        public function login(){
+        public function login(){    
             if(!isset($_SESSION)) session_start();
 
             // Check if the user is already logged in, if yes then redirect him to welcome page

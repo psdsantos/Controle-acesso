@@ -142,14 +142,14 @@
                                     header("Location:?pagina=home");
                                 } else{
                                     // Display an error message if senha is not valid
-                                    $senha_err = "Senha incorreta.";
-                                    echo $senha_err;
+                                    $_SESSION["error"] = "Senha incorreta.";
+                                    header("Location:?pagina=login");
                                 }
                             }
                         } else{
                             // Display an error message if matricula doesn't exist
-                            $matricula_err = "Nenhum usuário encontrado com tal matrícula.";
-                            echo $matricula_err;
+                            $_SESSION["error"] = "Nenhum usuário encontrado com tal matrícula.";
+                            header("Location:?pagina=login");
                         }
                     } else{
                         echo "Oops! Something went wrong. Please try again later.";

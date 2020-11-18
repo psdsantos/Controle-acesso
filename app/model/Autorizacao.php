@@ -24,6 +24,7 @@
             $sql = $con->prepare($sql);
             $sql->bindValue(':id', $autorizacaoID, PDO::PARAM_INT);
             $sql-> execute();
+            //$sql->debugDumpParams();
 
             $resultado = $sql->fetchObject('Autorizacao');
 
@@ -60,19 +61,30 @@
         }
 
 
-        public static function update($dadosPost){
+        public static function update($dadosReq){
             $con = Connection::getConn();
 
-            $sql = 'UPDATE autorizacao SET Nome = :nome, Sigla = :sigla WHERE Cod_autorizacao = :id';
+            $sql = "UPDATE Autorizacao SET Requisitante_cod_requisitante = :req, Usuario_matricula = :user, Data_validade = :data,
+                                            Hora_validade = :hora, Tempo_vida = :vida, Senha = :senha, Laboratorio = :lab, Obs = :obs
+                                            WHERE Cod_autorizacao = :cod_aut";
             $sql = $con->prepare($sql);
-            $sql->bindValue(':nome', $dadosPost['nomeAutorizacao']);
-            $sql->bindValue(':sigla', $dadosPost['siglaAutorizacao']);
-            $sql->bindValue(':id', $dadosPost['id']);
+            $sql->bindValue(':cod_aut', $dadosReq['Cod_autorizacao'], PDO::PARAM_INT);
+            $sql->bindValue(':req', $dadosReq['requisitante'], PDO::PARAM_INT);
+            $sql->bindValue(':user', $dadosReq['usuario'], PDO::PARAM_INT);
+                $d = DateTime::createFromFormat('j/m/Y', $dadosReq['data']);
+            $sql->bindValue(':data', $d->format('Y-m-d'));
+                $hora = date_create($dadosReq['hora']);
+            $sql->bindValue(':hora', date_format($hora,"H:i"));
+                date_add($hora, date_interval_create_from_date_string('1800 seconds')); // + 30 min
+            $sql->bindValue(':vida', date_format($hora,"H:i"));
+            $sql->bindValue(':senha', $dadosReq['senha']);
+            $sql->bindValue(':lab', $dadosReq['laboratorio'], PDO::PARAM_INT);
+            $sql->bindValue(':obs', $dadosReq['obs']);
             $res = $sql->execute();
+            $sql->debugDumpParams();
 
             if($res == false){
-                throw new Exception("Falha ao inserir publicação");
-
+                throw new Exception("Falha ao alterar autorizacao");
                 return false;
             }
 

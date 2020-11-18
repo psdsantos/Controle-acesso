@@ -13,7 +13,7 @@
 
             session_start();
             Util::notifyToasts();
-
+            
         }
     }
 

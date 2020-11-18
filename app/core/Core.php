@@ -2,7 +2,6 @@
 
     class Core{
         public function start($urlGet){
-
             if( isset($urlGet['action'])){
                 $action = $urlGet['action'];
             }
@@ -25,6 +24,13 @@
             if( isset($urlGet['id']) && $urlGet['id'] != null){
                 $id = $urlGet['id'];
             } else{
+                $id = null;
+            }
+
+            session_start();
+            if(!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])) {
+                if($controller != 'LoginController' && $controller != 'HomeController')$controller = 'ErrorController';
+                if($controller != 'LoginController') $action = 'index';
                 $id = null;
             }
 
