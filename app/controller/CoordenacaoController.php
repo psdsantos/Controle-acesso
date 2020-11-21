@@ -14,7 +14,7 @@
             $conteudo = $template->render($parametros);
             echo $conteudo;
 
-            session_start();
+            if(!isset($_SESSION)) session_start();;
             Util::notifyToasts();
         }
 
@@ -30,11 +30,11 @@
         }
 
         public function insert(){
-            session_start();
+            if(!isset($_SESSION)) session_start();;
             try{
                 Coordenacao::insert($_POST);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["criado"] = true;
                 header('Location:?pagina=coordenacao');
             } catch(Exception $e){
@@ -65,7 +65,7 @@
             try{
                 Coordenacao::update($_POST);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["alterado"] = true;
                 header('Location:?pagina=coordenacao');
             } catch(Exception $e){
@@ -95,7 +95,7 @@
             try{
                 Coordenacao::delete($codCoordenacao);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["apagado"] = true;
                 header('Location:?pagina=coordenacao');
             } catch(Exception $e){

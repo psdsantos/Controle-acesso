@@ -11,11 +11,11 @@
             $conteudo = $template->render($parametros);
             echo $conteudo;
 
-            session_start();
+            if(!isset($_SESSION)) session_start();;
             Util::notifyToasts();
         }
 
-        public function login(){    
+        public function login(){
             if(!isset($_SESSION)) session_start();
 
             // Check if the user is already logged in, if yes then redirect him to welcome page
@@ -53,7 +53,7 @@
             $_SESSION = array();
             session_destroy();
 
-            session_start();
+            if(!isset($_SESSION)) session_start();;
             $_SESSION['deslogado'] = true;
 
             header("Location:?pagina=home");

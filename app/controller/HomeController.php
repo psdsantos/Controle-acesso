@@ -11,9 +11,9 @@
             $conteudo = $template->render($parametros);
             echo $conteudo;
 
-            session_start();
+            if(!isset($_SESSION)) session_start();;
             Util::notifyToasts();
-            
+
         }
     }
 

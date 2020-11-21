@@ -42,7 +42,7 @@
             $conteudo = $template->render($parametros);
             echo $conteudo;
 
-            session_start();
+            if(!isset($_SESSION)) session_start();;
             Util::notifyToasts();
         }
 
@@ -63,7 +63,7 @@
         }
 
         public function insert(){
-            session_start();
+            if(!isset($_SESSION)) session_start();;
             try{
                 Registro::insert($_POST);
 
@@ -114,7 +114,7 @@
             try{
                 Registro::update($_POST);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["alterado"] = true;
 
                 header('Location:?pagina=Registro');
@@ -158,7 +158,7 @@
             try{
                 Registro::delete($codRegistro);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["apagado"] = true;
 
                 header('Location:?pagina=Registro');

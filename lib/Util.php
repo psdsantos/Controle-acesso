@@ -4,7 +4,7 @@
 
         public static function checkValidade($dataValidade, $tempoVida, $entity){
             /*
-                DEBUGGING DATE AND TIME
+                //  DEBUGGING DATE AND TIME
             echo $tempoVida . '<br>';
             echo date("H:i:s");
             echo "<br>";
@@ -157,6 +157,22 @@
                     })
                 </script>";
                 unset($_SESSION['error']);
+            }
+
+            if(isset($_SESSION['verAcessos'])){
+                $ac = '';
+                foreach($_SESSION["verAcessos"] as $idx => $req) {
+                    $ac .= $req['Cod_autorizacao'] . "  ";
+                }
+
+                echo "<script>
+                Swal.fire({
+                    title: 'Código dos acessos',
+                    text: '".$ac."',
+                    background: '#f5f5f5',
+                })
+                </script>";
+                unset($_SESSION['verAcessos']);
             }
         }
 

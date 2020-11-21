@@ -32,7 +32,7 @@
             try{
                 Categoria::insert($_POST);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["criado"] = true;
                 header('Location:?pagina=categoria');
             } catch(Exception $e){
@@ -62,7 +62,7 @@
             try{
                 Categoria::update($_POST);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["alterado"] = true;
                 header('Location:?pagina=categoria');
             } catch(Exception $e){
@@ -91,7 +91,7 @@
             try{
                 Categoria::delete($codCategoria);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["apagado"] = true;
                 header('Location:?pagina=categoria');
             } catch(Exception $e){

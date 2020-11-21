@@ -66,7 +66,7 @@
             try{
                 Autorizacao::insert($_POST);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["criado"] = true;
                 header('Location:?pagina=autorizacao');
             } catch(Exception $e){
@@ -126,7 +126,7 @@
         public function update(){
             try{
                 Autorizacao::update($_POST);
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["alterado"] = true;
                 header('Location:?pagina=autorizacao');
             } catch(Exception $e){
@@ -181,7 +181,7 @@
             try{
                 Autorizacao::delete($codAutorizacao);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["apagado"] = true;
                 header('Location:?pagina=autorizacao');
             } catch(Exception $e){
@@ -192,7 +192,7 @@
 
         public function observacao($codAutorizacao){
             try {
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["obs"] = $codAutorizacao;
                 header('Location:?pagina=autorizacao');
             } catch(Exception $e){

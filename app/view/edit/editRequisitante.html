@@ -1,0 +1,39 @@
+{% extends "/template/edit.html" %}
+{% from "/template/edit.html" import submit, input %}
+
+{% set entidade = "requisitante" %}
+{% set primaryk = Cod_requisitante %}
+
+    {% block form %}
+        {% set turma = callstatic('Turma', 'selecionaPorId', cod_turma) %}
+        {% set coord = callstatic('Coordenacao', 'selecionaPorId', cod_coordenacao) %}
+
+        <p>Nome: {{ input("text", "nomeRequisitante", Nome, "required")}}</p>
+
+        <br>
+
+        <label for="categ">Turma:</label>
+        <select name="turmaRequisitante" id="turma" form="requisitanteForm">
+            <option value="{{cod_turma}}"selected="selected"> {{turma.Nome}} </option>
+            {% for turma in turmas %}
+                <option value="{{turma.Cod_turma}}">{{turma.Nome}}</option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label for="coord">Coordenação:</label>
+        <select name="coordenacaoRequisitante" id="coord" form="requisitanteForm">
+            <option value="{{cod_coordenacao}}" selected="selected"> {{coord.Nome}} </option>
+            {% for coordenacao in coordenacoes %}
+                <option value="{{coordenacao.Cod_coordenacao}}">{{coordenacao.Nome}}</option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+        <br><br>
+
+        {{ submit("Alterar") }}
+
+        <input type="hidden" name="id" value="{{Cod_requisitante}}">
+    {% endblock %}

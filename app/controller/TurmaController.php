@@ -48,7 +48,7 @@
             try{
                 Turma::insert($_POST);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["criado"] = true;
                 header('Location:?pagina=turma');
             } catch(Exception $e){
@@ -78,7 +78,7 @@
         public function update(){
             try{
                 Turma::update($_POST);
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["alterado"] = true;
                 header('Location:?pagina=turma');
             } catch(Exception $e){
@@ -107,7 +107,7 @@
             try{
                 Turma::delete($codTurma);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["apagado"] = true;
                 header('Location:?pagina=turma');
             } catch(Exception $e){

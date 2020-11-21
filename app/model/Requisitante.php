@@ -43,9 +43,9 @@
 
             $con = Connection::getConn();
 
-            $sql = 'INSERT INTO requisitante (Nome, Coordenacao_cod_coordenacao, Turma_Cod_turma) VALUES (:nom, :coord, :turma)';
+            $sql = 'INSERT INTO requisitante (Nome, Coordenacao_cod_coordenacao, Turma_Cod_turma) VALUES (:nome, :coord, :turma)';
             $sql = $con->prepare($sql);
-            $sql->bindValue(':nom', $dadosReq['nomeRequisitante']);
+            $sql->bindValue(':nome', $dadosReq['nomeRequisitante']);
             $sql->bindValue(':turma', $dadosReq['turmaRequisitante']);
             $sql->bindValue(':coord', $dadosReq['coordenacaoRequisitante']);
             $res = $sql->execute();
@@ -60,24 +60,26 @@
         }
 
 
-        public static function update($dadosPost){
-            if( empty($dadosPost['nomeRequisitante']) ){
-                throw new Exception("Preencha o nome da requisitante");
+        public static function update($dadosReq){
+            if( empty($dadosReq['nomeRequisitante']) ){
+                throw new Exception("Preencha os dados");
 
                 return false;
             }
 
             $con = Connection::getConn();
 
-            $sql = 'UPDATE requisitante SET Nome = :nome, Sigla = :sigla WHERE Cod_requisitante = :id';
+            $sql = 'UPDATE Requisitante SET Nome = :nome, Coordenacao_cod_coordenacao = :coord,
+                    Turma_Cod_turma = :turma WHERE Cod_requisitante = :id';
             $sql = $con->prepare($sql);
-            $sql->bindValue(':nome', $dadosPost['nomeRequisitante']);
-            $sql->bindValue(':sigla', $dadosPost['siglaRequisitante']);
-            $sql->bindValue(':id', $dadosPost['id']);
+            $sql->bindValue(':nome', $dadosReq['nomeRequisitante']);
+            $sql->bindValue(':turma', $dadosReq['turmaRequisitante']);
+            $sql->bindValue(':coord', $dadosReq['coordenacaoRequisitante']);
+            $sql->bindValue(':id', $dadosReq['id']);
             $res = $sql->execute();
-
+            
             if($res == false){
-                throw new Exception("Falha ao inserir publicação");
+                throw new Exception("Falha na execução");
 
                 return false;
             }
@@ -95,7 +97,7 @@
             $sql = $con->prepare($sql);
             $sql->bindValue(':id', $requisitanteID);
             $res = $sql->execute();
-
+            echo $sql->debugDumpParams();
             if($res == false){
                 throw new Exception("Falha ao deletar publicação");
 
@@ -118,12 +120,6 @@
             $sql->execute();
 
             $resultado = $sql->fetchAll();
-
-            if($resultado == false){
-                throw new Exception("Ocorreu um erro: ".$sql->debugDumpParams());
-
-                return false;
-            }
 
             return $resultado;
         }

@@ -1,0 +1,26 @@
+{% extends "/template/delete.html" %}
+{% from "/template/delete.html" import submit, input %}
+
+{% set entidade = "requisitante" %}
+{% set primaryk = Cod_requisitante %}
+
+    {% block form %}
+        {% set turma = callstatic('Turma', 'selecionaPorId', cod_turma) %}
+        {% set coord = callstatic('Coordenacao', 'selecionaPorId', cod_coordenacao) %}
+
+        <p>Nome: {{ input("text", "nomeRequisitante", Nome, "required disabled")}}</p>
+
+        <label for="turma">Turma:</label>
+        {{ input("text", "turmaRequisitante", turma.Nome, "required disabled")}}
+
+        <br><br>
+
+        <label for="coord">Coordenação:</label>
+        {{ input("text", "coordenacaoRequisitante", coord.Nome, "required disabled")}}
+
+        <br><br>
+
+        {{ submit("Apagar") }}
+
+        <input type="hidden" name="id" value="{{Cod_requisitante}}">
+    {% endblock %}

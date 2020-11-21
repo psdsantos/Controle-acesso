@@ -51,7 +51,7 @@
         }
 
         public function insert(){
-            session_start();
+            if(!isset($_SESSION)) session_start();;
             try{
                 Usuario::insert($_POST);
 
@@ -80,6 +80,7 @@
 
                 return forward_static_call([$class, $method], $args);
             }));
+
             $template = $twig->load('edit/editUsuario.html');
 
             $usuario = Usuario::selecionaPorId($usuarioID);
@@ -105,7 +106,7 @@
             try{
                 Usuario::update($_POST);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["alterado"] = true;
 
                 header('Location:?pagina=usuario');
@@ -149,7 +150,7 @@
             try{
                 Usuario::delete($codUsuario);
 
-                session_start();
+                if(!isset($_SESSION)) session_start();;
                 $_SESSION["apagado"] = true;
 
                 header('Location:?pagina=usuario');
