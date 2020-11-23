@@ -2,27 +2,24 @@
 
     class Util {
 
-        public static function checkValidade($dataValidade, $tempoVida, $entity){
-            /*
-                //  DEBUGGING DATE AND TIME
-            echo $tempoVida . '<br>';
-            echo date("H:i:s");
-            echo "<br>";
-            echo "<br>";
-            echo $d = $dataValidade;
-            echo "<br>";
-            echo "<br>";
-            echo date("Y-m-d H:i:s");
-            echo "<br>";
-            */
+        public static function checkValidade($dataValidade, $hora, $entity){
 
             date_default_timezone_set('America/Maceio');
-            $combinedDT = date('Y-m-d H:i:s', strtotime("$dataValidade $tempoVida"));
+            $combinedDT = date('Y-m-d H:i:s', strtotime("$dataValidade $hora"));
+
+                //  DEBUGGING DATE AND TIME
+            echo "Tempo vida: ".$hora;
+            echo "<br>";
+            echo "data validade: ".$dataValidade;
+            echo "<br>";
+            echo "combinedt: ".$combinedDT;
+            echo "<br>";
+            echo date("Y-m-d H:i:s");
 
             if(date("Y-m-d H:i:s") > $combinedDT){
-                session_start();
+                if(!isset($_SESSION)) session_start();
                 $_SESSION['unauthorized'] = true;
-                header('Location:?pagina='.$entity);
+                //header('Location:?pagina='.$entity);
             }
         }
 
@@ -140,7 +137,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Operação não permitida',
-                        text: 'Esta autorização não pode mais ser alterada.',
+                        text: 'Esta linha não pode mais ser alterada.',
                         background: '#f5f5f5',
                     })
                 </script>";

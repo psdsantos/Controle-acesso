@@ -22,7 +22,7 @@
                 {% set coord = callstatic('Coordenacao', 'selecionaPorId', requisitante.Coordenacao_cod_coordenacao) %}
                 <td>{{coord.Sigla}}</td>
                     <!--Mostrar todas as autorizacoes deste requisitante-->
-                <td><a href="?pagina=requisitante&action=verAcessos&id={{requisitante.Cod_requisitante}}"><img src="lib\img\eye.svg" width="25" height="25"></a></td>
+                <td><a href="?pagina=autorizacao&search={{requisitante.Nome}}"><img src="lib\img\eye.svg" width="25" height="25"></a></td>
                 <td><a href="?pagina=requisitante&action=edit&id={{requisitante.Cod_requisitante}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
                 <td><a href="?pagina=requisitante&action=predelete&id={{requisitante.Cod_requisitante}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
             </tr>
