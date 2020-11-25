@@ -47,12 +47,38 @@
         // Jquery datepicker and input masks setup
         $( function() {
             $("#datepicker").datepicker({
+                minDate: 0, // não pode no passado
+                maxDate: "+1w -1", // mostra 1 semana -1 dia
                 dateFormat: "dd/mm/yy",
                 showOtherMonths: true,
                 selectOtherMonths: true
              });
+
             $("#datepicker").inputmask({ "mask": "99/99/9999" });
             $("#timepicker").inputmask({"mask": "99:99"});
+
+            // check time validity
+            $("#timepicker").change(function validateTimepicker(){
+                var u_input = $("#timepicker").val().replace(/[^0-9\.]/g, '');
+                var today = new Date().getHours();
+
+                var output = document.querySelector("output");
+                var timepicker = document.querySelector('#timepicker');
+
+                if($("#datepicker").datepicker('getDate').getDate() <= new Date()){
+                    if (u_input >= 700 && u_input <= 2300 && u_input > parseInt(new Date().getHours()+"00")) {
+                       output.innerHTML = ('');
+                    } else {
+                        output.innerHTML = ('Horário inválido.');
+                    }
+                }
+            } );
+
+            // remove readonly attribute before submitting
+            $("#submit-btn").click(function() {
+                 $("#datepicker").removeAttr('readonly');
+                 $("#autorizacaoForm").submit();
+            });
         } );
 
         // Show all autorizações by a requisitante

@@ -7,7 +7,7 @@
             date_default_timezone_set('America/Maceio');
             $combinedDT = date('Y-m-d H:i:s', strtotime("$dataValidade $hora"));
 
-                //  DEBUGGING DATE AND TIME
+            /*    //  DEBUGGING DATE AND TIME
             echo "Tempo vida: ".$hora;
             echo "<br>";
             echo "data validade: ".$dataValidade;
@@ -15,11 +15,12 @@
             echo "combinedt: ".$combinedDT;
             echo "<br>";
             echo date("Y-m-d H:i:s");
+            */
 
             if(date("Y-m-d H:i:s") > $combinedDT){
                 if(!isset($_SESSION)) session_start();
                 $_SESSION['unauthorized'] = true;
-                //header('Location:?pagina='.$entity);
+                header('Location:?pagina='.$entity);
             }
         }
 

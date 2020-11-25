@@ -4,8 +4,6 @@
 {% set entidade = "autorizacao" %}
 
     {% block form %}
-        <p class="text-muted">(vai ser o usuário logado)</p>
-
         <label for="user">Usuário:</label>
         <select name="usuario" id="user" form="autorizacaoForm">
             {% for usuario in usuarios %}
@@ -25,8 +23,9 @@
 
         <p>Laboratório: <input type="text" size=13 name="laboratorio" placeholder="n° do laboratório" required > </p>
 
-        <p>Data de validade: <input id="datepicker" type="text" name="data" required> </p>
-        <p>Hora de validade: <input id="timepicker" type="text" name="hora" required> </p>
+        <p>Data de validade: <input id="datepicker" type="text" name="data" readonly="true" required> </p>
+        <p>Hora de validade: <input id="timepicker" type="text" name="hora" required>
+        <output></output> </p>
 
         <p>Observações: </p>
         <textarea name="obs" rows="3" cols="50"></textarea>
