@@ -42,6 +42,11 @@
             $conteudo = $template->render($parametros);
             echo $conteudo;
 
+            $myfile = fopen("conteudo.html", "w") or die("Unable to open file!");
+            fwrite($myfile, $conteudo);
+            fclose($myfile);
+            //PdfGenerator::toPDF($conteudo);
+
             Util::notifyToasts();
 
         }

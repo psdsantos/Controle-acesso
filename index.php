@@ -33,6 +33,7 @@ require_once 'app/model/Registro.php';
 
 require_once 'lib/database/Connection.php';
 require_once 'lib/Util.php';
+require_once 'lib/PdfGenerator.php';
 
 ob_start();
     $core = new Core;

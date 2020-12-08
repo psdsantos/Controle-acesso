@@ -5,6 +5,8 @@
         "components/jquery": "^3.5",
         "datatables/datatables": "^1.10",
         "components/jqueryui": "^1.12",
-        "robinherbots/jquery.inputmask": "^5.0"
+        "robinherbots/jquery.inputmask": "^5.0",
+        "nnnick/chartjs": "^2.9",
+        "dompdf/dompdf": "^0.8.6"
     }
 }
