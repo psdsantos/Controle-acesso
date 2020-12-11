@@ -3,6 +3,21 @@
 
     {% set entidade = "autorizacao" %}
 
+    {% block before %}
+        <table cellspacing="5" cellpadding="5" border="0">
+            <tbody>
+                <tr>
+                    <td>Data mínima:</td>
+                    <td><input type="text" id="min" name="min"></td>
+                </tr>
+                <tr>
+                    <td>Data máxima:</td>
+                    <td><input type="text" id="max" name="max"></td>
+                </tr>
+            </tbody>
+        </table>
+    {% endblock %}
+
     {% block theader %}
         {{ th("50px", "ID") }}
         {{ th("100px", "Requisitante") }}

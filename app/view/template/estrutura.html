@@ -28,9 +28,40 @@
 
     <script>
         // Datatable setup
+
+        /* Custom filtering function which will search data in column four between two values */
+        $.fn.dataTable.ext.search.push(
+            function( settings, dados, dataIndex ) {
+                var min = $('#min').val();
+                min = min.split("/");
+                min = new Date(parseInt(min[2], 10),
+                                parseInt(min[1], 10) - 1, // month is zero-based
+                                parseInt(min[0], 10));
+                var max = $('#max').val();
+                max = max.split("/");
+                max = new Date(parseInt(max[2], 10),
+                                parseInt(max[1], 10) - 1, // month is zero-based
+                                parseInt(max[0], 10));
+                var date = dados[4] || 0; // use data for the date column
+                date = date.split("/");
+                date = new Date(parseInt(date[2], 10),
+                                parseInt(date[1], 10) - 1, // month is zero-based
+                                parseInt(date[0], 10));
+
+                if ( ( isNaN( min ) && isNaN( max ) ) ||
+                     ( isNaN( min ) && date <= max ) ||
+                     ( min <= date   && isNaN( max ) ) ||
+                     ( min <= date   && date <= max ) )
+                {
+                    return true;
+                }
+                return false;
+            }
+        );
+
         var table;
         $(document).ready( function () {
-        
+
             table = $('#tabela').DataTable( {
 
                 "columnDefs": [
@@ -82,6 +113,11 @@
                 }
 
             } );
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#min, #max').keyup( function() {
+                table.draw();
+            } );
         } );
 
         // Jquery datepicker and input masks setup
@@ -92,9 +128,23 @@
                 dateFormat: "dd/mm/yy",
                 showOtherMonths: true,
                 selectOtherMonths: true
-             });
+            });
+            $("#min").datepicker({
+                dateFormat: "dd/mm/yy",
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                onClose: function(){ table.draw(); }
+            });
+            $("#max").datepicker({
+                dateFormat: "dd/mm/yy",
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                onClose: function(){ table.draw(); }
+            });
 
             $("#datepicker").inputmask({ "mask": "99/99/9999" });
+            $("#min").inputmask({ "mask": "99/99/9999" });
+            $("#max").inputmask({ "mask": "99/99/9999" });
             $("#timepicker").inputmask({"mask": "99:99"});
 
             // check time validity

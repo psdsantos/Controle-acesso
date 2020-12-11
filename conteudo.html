@@ -3,7 +3,19 @@
   <br>
     <a class="btn btn-primary" href="?pagina=autorizacao&action=create">Adicionar autorizacao</a>     <br>
     <br>
-            <table id="tabela" class="dataTable nowrap table table-striped table-bordered" style="width: 100%;" role="grid">
+            <table cellspacing="5" cellpadding="5" border="0">
+            <tbody>
+                <tr>
+                    <td>Data mínima:</td>
+                    <td><input type="text" id="min" name="min"></td>
+                </tr>
+                <tr>
+                    <td>Data máxima:</td>
+                    <td><input type="text" id="max" name="max"></td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="tabela" class="dataTable nowrap table table-striped table-bordered" style="width: 100%;" role="grid">
         <thead>
             <tr role="row">
                                                 <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1" style="width: 50px;">ID</th>
