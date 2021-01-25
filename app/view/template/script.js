@@ -104,6 +104,7 @@ $( function() {
     $("#timepicker").inputmask({"mask": "99:99"});
 
     // check time validity
+    /*
     $("#timepicker").change(function validateTimepicker(){
         var u_input = $("#timepicker").val().replace(/[^0-9\.]/g, '');
         var today = new Date().getHours();
@@ -118,27 +119,11 @@ $( function() {
                 output.innerHTML = ('Horário inválido.');
             }
         }
-    } );
+    } );*/
 
     // remove readonly attribute before submitting (user cannot type the date)
     $("#submit-btn").click(function() {
          $("#datepicker").removeAttr('readonly');
          $("#autorizacaoForm").submit();
     });
-} );
-
-// Show all autorizações by a requisitante (type in searchbar)
-function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i=0;i<vars.length;i++) {
-        var pair = vars[i].split("=");
-        if (pair[0] == variable) {
-          return decodeURIComponent(pair[1]);
-        }
-    }
-    return ""; //not found
-}
-$(document).ready( function () {
-    table.search( getQueryVariable("search") ).draw();
 } );

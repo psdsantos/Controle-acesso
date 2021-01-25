@@ -48,12 +48,13 @@ $(document).ready( function () {
 
     table = $('#tabelaAutorizacoes').DataTable( {
 
-        "order": [[ 4, "desc" ]], // só funciona pra autorizações
+        "order": [[ 4, "desc" ]],
 
         "columnDefs": [
             {
                 "className": "dt-center",
-                "targets": "_all"
+                "targets":4,
+                "type":"date-eu",
             }
         ],
 
@@ -73,7 +74,7 @@ $(document).ready( function () {
                         return 'Relatório de autorizações realizadas entre ' + dmin + ' e ' + dmax + ' (inclusive).';
 
                     else if(!dmin.includes("NaN") && dmax.includes("NaN"))
-                        return 'Relatório de autorizações realizadas entre ' + dmin + ' e ' + today + ' (inclusive).';
+                        return 'Relatório de autorizações realizadas desde ' + dmin + ' (inclusive).';
 
                     else if(dmin.includes("NaN") && !dmax.includes("NaN"))
                         return 'Relatório de autorizações realizadas do início até ' + dmax + ' (inclusive).';
@@ -171,4 +172,20 @@ $( function() {
          $("#datepicker").removeAttr('readonly');
          $("#autorizacaoForm").submit();
     });
+} );
+
+// Show all autorizações by a requisitante (type in searchbar)
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+          return decodeURIComponent(pair[1]);
+        }
+    }
+    return ""; //not found
+}
+$(document).ready( function () {
+    table.search( getQueryVariable("search") ).draw();
 } );

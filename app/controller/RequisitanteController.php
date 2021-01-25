@@ -80,12 +80,12 @@
 
             $template = $twig->load('edit/editRequisitante.html');
 
-            // checar se já foi usado
+            /*// checar se já foi usado
             if($acessos = Requisitante::selecionaAcessos($requisitanteID)){
                 if(!isset($_SESSION)) session_start();;
                 $_SESSION['unauthorized'] = true;
                 header('Location:?pagina=requisitante');
-            }
+            }*/
 
             $requisitante = Requisitante::selecionaPorId($requisitanteID);
             $objTurma = Turma::selecionaTodos();
