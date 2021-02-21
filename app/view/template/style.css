@@ -1,68 +1,59 @@
 /* The sidebar menu */
-.sidenav {
-  height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 20%; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  background-color: #111; /* Black */
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
+#wrapper {
+    overflow-x: hidden;
 }
 
-/* Style the sidenav links and the dropdown button */
-.sidenav a, .dropdown-btn {
-  padding: 10px 8px 10px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #DDD;
-  display: block;
-  border: none;
-  background: none;
-  width:80%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-  margin: auto;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  border-left: 3px solid gray
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
 }
 
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover, .dropdown-btn:hover, .bloquinho:hover {
-  color: #FFF;
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.5rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 20rem;
+    font-size: 1.3rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -20rem;
+    }
+}
+
+p {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
 /* Style page content */
 .main {
-  padding-top: 5%;
-  width: 70%;
-  margin: auto;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-.bloquinho {
-    padding: 15px 8px 5px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #DDD;
-    display: block;
-    border: none;
-    background: none;
-    width:80%;
-    text-align: center;
-    cursor: pointer;
-    outline: none;
+    padding-top: 5%;
+    width: 70%;
     margin: auto;
-    margin-top: 15px;
-    margin-bottom: 15px;
 }
 
 body {
@@ -70,18 +61,18 @@ body {
 }
 
 .iconDelete {
-fill: #000;
+    fill: #000;
 }
 
 .iconDelete:hover {
-fill: #C82333
+    fill: #C82333
 }
 
 form select {
     width: 50ch;
 }
 
-.homepg img{
+.homepg img {
     border-radius: 5%;
     margin-right: 30px;
 }
