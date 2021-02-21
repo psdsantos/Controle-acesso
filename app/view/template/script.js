@@ -47,12 +47,63 @@ function pegarNome(){
     // puxar URL
     // se GET[pagina] = autorizacao,
     // return 'Autorizações'
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const pagina = urlParams.get('pagina');
+    switch (pagina) {
+    	case 'registro':
+    		return 'Registros';
+    	case 'autorizacao':
+    		return 'Autorizações';
+    	case 'requisitante':
+    		return 'Requisitantes';
+    	case 'usuario':
+    		return 'Usuários';
+    	case 'categoria':
+    		return 'Categorias';
+    	case 'turma':
+    		return 'Turmas';
+    	case 'coordenacao':
+    		return 'Coordenações'
+    }
 }
 
 function definirLargura(){
     // puxar URL
     // se GET[pagina] = requisitante,
     // return ['50%', '35%', '15%'] // de acordo com cada um
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const pagina = urlParams.get('pagina');
+    switch (pagina) {
+    	case 'registro':
+    		return ['25%', '30%', '15%', '15%', '15%'];
+    	case 'autorizacao':
+    		return ['10%', '45%', '45%'];
+    	case 'requisitante':
+    		return ['50%', '35%', '15%'];
+    	case 'usuario':
+    		return ['25%', '50%', '25%'];
+    	case 'categoria':
+    		return ['30%', '70%'];
+    	default: // Turmas e Coordenacoes
+    		return ['15%', '15%', '70%'];
+    }
+}
+
+function definirColunas() {
+	//[ 0, 1, 2 ]
+	const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const pagina = urlParams.get('pagina');
+    switch (pagina) {
+    	case 'registro':
+    		return [0, 1, 2, 3, 4];
+    	case 'categoria':
+    		return [0, 1];
+    	default:
+    		return [0, 1, 2];
+    }
 }
 
 var nomeRelatorio = "Relatório de " + pegarNome();
@@ -86,7 +137,7 @@ $(document).ready( function () {
                 "targets": "_all"
             }
         ],
-        dom: 'Bfrtip',
+        dom: 'Blfrtip',
         paging: true,
         autoWidth: true,
 
@@ -108,7 +159,7 @@ $(document).ready( function () {
                 orientation: 'portrait',
                 pageSize: 'A4',
                 exportOptions: {
-                    columns: [ 0, 1, 2 ],
+                    columns: definirColunas(),
                     search: 'applied',
                     order: 'applied'
                 },
