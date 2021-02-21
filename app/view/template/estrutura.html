@@ -38,10 +38,12 @@
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">
+            {% if session.loggedin == true %}
             <p class=""><img src="lib\img\user.svg" class="mr-3" width="25" height="25">Pedro Silva</p>
             <p id="matricula" class=""><img src="lib\img\hashtag.svg" class="ml-3 mr-2" width="20" height="20">{{session.matricula}}</p>
         </div>
         <div class="list-group list-group-flush ">
+
             <a href="?pagina=registro" class="list-group-item list-group-item-action bg-light">
                 <img src="lib\img\documents.svg" class="ml-3 mr-2" width="35" height="35">Registros</a>
             <a href="?pagina=autorizacao" class="list-group-item list-group-item-action bg-light">
@@ -56,7 +58,12 @@
                 <img src="lib\img\classe.svg" class="ml-3 mr-2" width="35" height="35">Turmas</a>
             <a href="?pagina=coordenacao" class="list-group-item list-group-item-action bg-light">
                 <img src="lib\img\conference.svg" class="ml-3 mr-2" width="35" height="35">Coordenações</a>
+            <a id="logout" href="?pagina=login&action=logout">Logout</a>
+            {% else %}
+                <a class="btn btn-primary" href="?pagina=login">Fazer login</a>
+            {% endif %}
         </div>
+
     </div>
     <!-- /#sidebar-wrapper -->
 
