@@ -58,7 +58,6 @@
                 <img src="lib\img\classe.svg" class="ml-3 mr-2" width="35" height="35">Turmas</a>
             <a href="?pagina=coordenacao" class="list-group-item list-group-item-action bg-light">
                 <img src="lib\img\conference.svg" class="ml-3 mr-2" width="35" height="35">Coordenações</a>
-            <a id="logout" href="?pagina=login&action=logout">Logout</a>
             {% else %}
                 <a class="btn btn-primary" href="?pagina=login">Fazer login</a>
             {% endif %}
@@ -70,8 +69,8 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <button class="btn btn-white" id="menu-toggle"><img src="lib\img\menu.svg" width="25" height="25"></button>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary border-bottom">
+            <button class="btn border" id="menu-toggle"><img src="lib\img\menu.svg" width="25" height="25"></button>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -82,6 +81,11 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="?pagina=home">Home <span class="sr-only">(current)</span></a>
                     </li>
+                {% if session.loggedin == true %}
+                    <li class="nav-item active">
+                        <a id="logout" class="nav-link" href="?pagina=login&action=logout">Logout <span class="sr-only">(current)</span></a>
+                    </li>
+                {% endif %}
                     <!--<li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown

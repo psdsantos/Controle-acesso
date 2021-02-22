@@ -48,10 +48,12 @@
 p {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
-
+.navbar {
+    font-size: 120%;
+}
 /* Style page content */
 .main {
-    padding-top: 5%;
+    padding-top: 10px;
     width: 70%;
     margin: auto;
 }
