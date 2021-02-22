@@ -1,53 +1,10 @@
-/* Custom filtering function which will search data in column four between two values */
-// só funciona pra autorizações
-var dmin;
-var dmax;
-$.fn.dataTable.ext.search.push(
-    function(settings, dados, dataIndex) {
-        min = $('#min').val();
-        min = min.split("/");
-        min = new Date(parseInt(min[2], 10),
-            parseInt(min[1], 10) - 1, // month is zero-based
-            parseInt(min[0], 10));
-
-        var dd = String(min.getDate()).padStart(2, '0');
-        var mm = String(min.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = min.getFullYear();
-        dmin = dd + '/' + mm + '/' + yyyy;
-
-        max = $('#max').val();
-        max = max.split("/");
-        max = new Date(parseInt(max[2], 10),
-            parseInt(max[1], 10) - 1, // month is zero-based
-            parseInt(max[0], 10));
-
-        var dd = String(max.getDate()).padStart(2, '0');
-        var mm = String(max.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = max.getFullYear();
-        dmax = dd + '/' + mm + '/' + yyyy;
-
-        var date = dados[4] || 0; // use data for the date column
-        date = date.split("/");
-        date = new Date(parseInt(date[2], 10),
-            parseInt(date[1], 10) - 1, // month is zero-based
-            parseInt(date[0], 10));
-
-        if ((isNaN(min) && isNaN(max)) ||
-            (isNaN(min) && date <= max) ||
-            (min <= date && isNaN(max)) ||
-            (min <= date && date <= max)) {
-            return true;
-        }
-        return false;
-    }
-);
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
 
 function pegarNome() {
     // puxar URL
     // se GET[pagina] = autorizacao,
     // return 'Autorizações'
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
     const pagina = urlParams.get('pagina');
     switch (pagina) {
         case 'registro':
@@ -71,8 +28,6 @@ function definirLargura() {
     // puxar URL
     // se GET[pagina] = requisitante,
     // return ['50%', '35%', '15%'] // de acordo com cada um
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
     const pagina = urlParams.get('pagina');
     switch (pagina) {
         case 'registro':
@@ -92,8 +47,6 @@ function definirLargura() {
 
 function definirColunas() {
     //[ 0, 1, 2 ]
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
     const pagina = urlParams.get('pagina');
     switch (pagina) {
         case 'registro':
@@ -103,6 +56,53 @@ function definirColunas() {
         default:
             return [0, 1, 2];
     }
+}
+
+/* Custom filtering function which will search data in column four between two values */
+// só funciona pra autorizações
+if(urlParams.get('pagina') == 'autorizacao'){
+    var dmin;
+    var dmax;
+
+    $.fn.dataTable.ext.search.push(
+        function(settings, dados, dataIndex) {
+            min = $('#min').val();
+            min = min.split("/");
+            min = new Date(parseInt(min[2], 10),
+                parseInt(min[1], 10) - 1, // month is zero-based
+                parseInt(min[0], 10));
+
+            var dd = String(min.getDate()).padStart(2, '0');
+            var mm = String(min.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = min.getFullYear();
+            dmin = dd + '/' + mm + '/' + yyyy;
+
+            max = $('#max').val();
+            max = max.split("/");
+            max = new Date(parseInt(max[2], 10),
+                parseInt(max[1], 10) - 1, // month is zero-based
+                parseInt(max[0], 10));
+
+            var dd = String(max.getDate()).padStart(2, '0');
+            var mm = String(max.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = max.getFullYear();
+            dmax = dd + '/' + mm + '/' + yyyy;
+
+            var date = dados[4] || 0; // use data for the date column
+            date = date.split("/");
+            date = new Date(parseInt(date[2], 10),
+                parseInt(date[1], 10) - 1, // month is zero-based
+                parseInt(date[0], 10));
+
+            if ((isNaN(min) && isNaN(max)) ||
+                (isNaN(min) && date <= max) ||
+                (min <= date && isNaN(max)) ||
+                (min <= date && date <= max)) {
+                return true;
+            }
+            return false;
+        }
+    );
 }
 
 var nomeRelatorio = "Relatório de " + pegarNome();
