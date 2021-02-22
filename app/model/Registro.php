@@ -23,7 +23,7 @@
             $sql = "SELECT * FROM registro_acesso WHERE Cod_registro = :id";
             $sql = $con->prepare($sql);
             $sql->bindValue(':id', $RegistroID, PDO::PARAM_INT);
-            $sql-> execute();
+            $sql->execute();
 
             $resultado = $sql->fetchObject('Registro');
 
@@ -35,31 +35,47 @@
         }
 
         public static function insert($dadosReq){
-            if( empty($dadosReq['nomeRegistro']) || empty($dadosReq['Cod_registro']) ){
-                throw new Exception("Preencha o nome do Registro");
 
-                return false;
+            $file = 'erorr.txt';
+            $current = file_get_contents($file);
+            $current .= "vamo la inserir\n";
+            file_put_contents($file, $current);
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+                    $con = Connection::getConn();
+                    $sql = " INSERT INTO registro_acesso (Data_acesso, Hora_acesso)
+                                VALUES (:data_esp, :tempo_esp) ";
+                    $sql = $con->prepare($sql);
+                    $sql->bindValue(':data_esp', Util::higienize($dadosReq["date"]));
+                    $sql->bindValue(':tempo_esp', Util::higienize($dadosReq["time"]));
+                    $res = $sql->execute();
+
+                    if($res == false){
+                        throw new Exception("Falha ao inserir Registro");
+                        $file = 'erorr.txt';
+                        $current = file_get_contents($file);
+                        $current .= "falha oa inserir registro\n";
+                        file_put_contents($file, $current);
+                        echo "Falha ao inserir";
+                        return false;
+                    }
+
+                    $file = 'erorr.txt';
+                    $current = file_get_contents($file);
+                    $current .= "nada de errado por aq\n";
+                    file_put_contents($file, $current);
+                    echo "nada errado";
+                    return true;
             }
+            else {
 
-            $con = Connection::getConn();
+                $file = 'erorr.txt';
+                file_put_contents($file, "nao foi post");
 
-            $sql = 'INSERT INTO Registro (Nome, Cod_registro, Categoria_cod_categoria, Coordenacao_cod_coordenacao) VALUES (:nome, :matr, :categ, :coord)';
-            $sql = $con->prepare($sql);
-            $sql->bindValue(':nome', $dadosReq['nomeRegistro']);
-            $sql->bindValue(':matr', $dadosReq['Cod_registro'], PDO::PARAM_INT);
-            $sql->bindValue(':categ', $dadosReq['categoriaRegistro'], PDO::PARAM_INT);
-            $sql->bindValue(':coord', $dadosReq['coordenacaoRegistro'], PDO::PARAM_INT);
-            $res = $sql->execute();
-
-            if($res == false){
-                throw new Exception("Falha ao inserir Registro");
-
-                return false;
+                echo "No data posted with HTTP POST.";
             }
-
-            return true;
         }
-
 
         public static function update($dadosPost){
             if( empty($dadosPost['nomeRegistro']) ){
@@ -86,8 +102,6 @@
 
             return true;
         }
-
-
 
         public static function delete($RegistroID){
 

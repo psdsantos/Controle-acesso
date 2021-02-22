@@ -29,8 +29,13 @@
 
             session_start();
             if(!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])) {
-                if($controller != 'LoginController' && $controller != 'HomeController')$controller = 'ErrorController';
+                if($controller != 'LoginController' && $controller != 'HomeController') $controller = 'ErrorController';
                 if($controller != 'LoginController') $action = 'index';
+
+                if(session_id() === "3027436a2a4e44517d2446555c") { // se for a ESP32
+                    $controller = 'RegistroController';
+                    $action = 'insert';
+                }
                 $id = null;
             }
 

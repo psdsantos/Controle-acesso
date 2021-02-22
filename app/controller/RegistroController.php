@@ -63,16 +63,21 @@
         }
 
         public function insert(){
-            if(!isset($_SESSION)) session_start();;
             try{
+                $file = 'erorr.txt';
+                $current = file_get_contents($file);
+                $current .= "estou no controlador\n";
+                file_put_contents($file, $current);
+
                 Registro::insert($_POST);
 
-                $_SESSION["criado"] = true;
-                header('Location:?pagina=Registro');
             } catch(Exception $e){
-                echo '<script>Swal.fire({icon: "error", text: "'.$e->getMessage().'"}).then((value) => {
-                  location.href="?pagina=Registro&action=create";
-                });</script>';
+
+                $file = 'erorr.txt';
+                $current = file_get_contents($file);
+                $current .= "exception throwada no controllerq\n";
+                file_put_contents($file, $current);
+
             }
 
         }

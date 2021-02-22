@@ -178,4 +178,10 @@
             // hashing is yet to be implemented
             return $password == $hashed_password;
         }
+
+        public static function higienize($data) {
+            $data = trim($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
     }
