@@ -33,8 +33,8 @@
                     <td>{{categ.Descricao}}</td>
                     {% set coord = callstatic('Coordenacao', 'selecionaPorId', usuario.Coordenacao_cod_coordenacao) %}
                     <td>{{coord.Sigla}}</td>
-                    <td><a href="?pagina=usuario&action=edit&id={{usuario.matricula}}">{{ icon("pencil.svg") }}</a></td>
-                    <td><a href="?pagina=usuario&action=predelete&id={{usuario.matricula}}">{{ icon("bin.svg") }}</a></td>
+                    <td class="text-center"><a href="?pagina=usuario&action=edit&id={{usuario.matricula}}">{{ icon("pencil.svg") }}</a></td>
+                    <td class="text-center"><a href="?pagina=usuario&action=predelete&id={{usuario.matricula}}">{{ icon("bin.svg") }}</a></td>
                 </tr>
             {% endif %}
         {% endfor %}

@@ -35,9 +35,13 @@
             $template = $twig->load('registro.html');
 
             $objRegistros = Registro::selecionaTodos();
+            $objUsuario = Usuario::selecionaTodos();
+            $objAutorizacao = Autorizacao::selecionaTodos();
 
             $parametros = array();
             $parametros['registros'] = $objRegistros;
+            $parametros['usuarios'] = $objUsuario;
+            $parametros['autorizacoes'] = $objAutorizacao;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
@@ -51,12 +55,12 @@
             $twig = new \Twig\Environment($loader);
             $template = $twig->load('add/addRegistro.html');
 
-            $objCategoria = Categoria::selecionaTodos();
-            $objCoordenacao = Coordenacao::selecionaTodos();
+            $objCategoria = Usuario::selecionaTodos();
+            $objCoordenacao = Autorizacao::selecionaTodos();
 
             $parametros = array();
-            $parametros['categorias'] = $objCategoria;
-            $parametros['coordenacoes'] = $objCoordenacao;
+            $parametros['usuarios'] = $objUsuario;
+            $parametros['autorizacoes'] = $objAutorizacao;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;

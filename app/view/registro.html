@@ -15,11 +15,12 @@
             <tr role="row">
                 {% if user != false %}
                     {% set user = callstatic('Usuario', 'selecionaPorId', registro.Usuario_matricula) %}
-                    {% set req = callstatic('Requisitante', 'selecionaPorId', aut.Requisitante_cod_requisitante ) %}
                 {% endif %}
                 <td>{{user.Nome}}</td>
-                {% set aut = callstatic('Autorizacao', 'selecionaPorId', registro.Usuario_has_Requisitante_Cod_Autorizacao) %}
-                <td>{{req.Nome}}</td>
+                {% if aut != false %}
+                    {% set auth = callstatic('Autorizacao', 'selecionaPorId', registro.Autorizacao_cod_autorizacao) %}
+                {% endif %}
+                <td>{{auth.Nome}}</td>
                 <td>{{formatdate(registro.Data_acesso)}}</td>
                 <td>{{formattime(registro.Hora_acesso)}}</td>
                 <td>{{registro.Laboratorio}}</td>

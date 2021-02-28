@@ -20,8 +20,8 @@
                     <td>{{turma.Nome}}</td>
                     {% set coord = callstatic('Coordenacao', 'selecionaPorId', turma.Coordenacao_cod_coordenacao) %}
                     <td>{{coord.Sigla}}</td>
-                    <td><a href="?pagina=turma&action=edit&id={{turma.Cod_turma}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
-                    <td><a href="?pagina=turma&action=predelete&id={{turma.Cod_turma}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
+                    <td class="text-center"><a href="?pagina=turma&action=edit&id={{turma.Cod_turma}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
+                    <td class="text-center"><a href="?pagina=turma&action=predelete&id={{turma.Cod_turma}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
                 </tr>
         {% endfor %}
     {% endblock %}

@@ -15,8 +15,8 @@
             <tr role="row">
                 <td>{{categoria.Cod_categoria}}</td>
                 <td>{{categoria.Descricao}}</td>
-                <td><a href="?pagina=categoria&action=edit&id={{categoria.Cod_categoria}}">{{ icon("pencil.svg") }}</a></td>
-                <td><a href="?pagina=categoria&action=predelete&id={{categoria.Cod_categoria}}">{{ icon("bin.svg") }}</a></td>
+                <td class="text-center"><a href="?pagina=categoria&action=edit&id={{categoria.Cod_categoria}}">{{ icon("pencil.svg") }}</a></td>
+                <td class="text-center"><a href="?pagina=categoria&action=predelete&id={{categoria.Cod_categoria}}">{{ icon("bin.svg") }}</a></td>
             </tr>
             {% endfor %}
     {% endblock %}

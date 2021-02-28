@@ -147,17 +147,17 @@ $(document).ready(function() {
         dom: 'Blfrtip',
         paging: true,
         autoWidth: true,
+        messageTop:
+            function() {
+                if (!dmin.includes("NaN") && !dmax.includes("NaN"))
+                    return 'Relatório de autorizações realizadas entre ' + dmin + ' e ' + dmax + ' (inclusive).';
 
-        messageTop: function() {
-            if (!dmin.includes("NaN") && !dmax.includes("NaN"))
-                return 'Relatório de autorizações realizadas entre ' + dmin + ' e ' + dmax + ' (inclusive).';
+                else if (!dmin.includes("NaN") && dmax.includes("NaN"))
+                    return 'Relatório de autorizações realizadas desde ' + dmin + ' (inclusive).';
 
-            else if (!dmin.includes("NaN") && dmax.includes("NaN"))
-                return 'Relatório de autorizações realizadas desde ' + dmin + ' (inclusive).';
-
-            else if (dmin.includes("NaN") && !dmax.includes("NaN"))
-                return 'Relatório de autorizações realizadas do início até ' + dmax + ' (inclusive).';
-        },
+                else if (dmin.includes("NaN") && !dmax.includes("NaN"))
+                    return 'Relatório de autorizações realizadas do início até ' + dmax + ' (inclusive).';
+            },
         buttons: [{
             text: 'Baixar PDF',
             extend: 'pdfHtml5',
@@ -199,13 +199,17 @@ $(document).ready(function() {
                         columns: [{
                                 image: logo,
                                 width: 200,
-                                margin: [210, 40]
+                                margin: [100, 40, 130, 40]
                             },
                             {
-                                alignment: 'left',
                                 text: nomeRelatorio,
                                 fontSize: 18,
                                 margin: [0, 130, 0, 0]
+                            },
+                            {
+                                text: "Coordenadoria de Laboratórios",
+                                fontSize: 14,
+                                margin: [-50, 80, 40, 40]
                             }
                         ]
                     }

@@ -17,8 +17,8 @@
                     <td>{{coordenacao.Cod_coordenacao}}</td>
                     <td>{{coordenacao.Sigla}}</td>
                     <td>{{coordenacao.Nome}}</td>
-                    <td><a href="?pagina=coordenacao&action=edit&id={{coordenacao.Cod_coordenacao}}">{{ icon("pencil.svg") }}</a></td>
-                    <td><a href="?pagina=coordenacao&action=predelete&id={{coordenacao.Cod_coordenacao}}">{{ icon("bin.svg") }}</a></td>
+                    <td class="text-center"><a href="?pagina=coordenacao&action=edit&id={{coordenacao.Cod_coordenacao}}">{{ icon("pencil.svg") }}</a></td>
+                    <td class="text-center"><a href="?pagina=coordenacao&action=predelete&id={{coordenacao.Cod_coordenacao}}">{{ icon("bin.svg") }}</a></td>
                 </tr>
             {% endfor %}
         {% endblock %}
