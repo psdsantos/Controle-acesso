@@ -14,22 +14,20 @@
     <script type="text/javascript" charset="utf8" src="vendor\datatables\datatables\media\js\jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="vendor\robinherbots\jquery.inputmask\dist\jquery.inputmask.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="vendor\datatables\datatables\media\css\dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="lib\libraries\buttons.bootstrap4.min.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.bootstrap4.min.js"></script>
-    <script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js" type="text/javascript"></script>
+    <script src="vendor\bpampuch\pdfmake\build\pdfmake.min.js"></script>
+    <script src="lib\libraries\pdfmake_vfs_fonts.js"></script>
+    <script src="lib\libraries\dataTables.buttons.min.js"></script>
+    <script src="vendor\datatables\datatables\media\js\dataTables.bootstrap4.min.js"></script>
+    <script src="lib\libraries\buttons.html5.min.js"></script>
+    <script src="lib\libraries\buttons.bootstrap4.min.js"></script>
+    <script src="http://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js" type="text/javascript"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
+    <script src="lib\libraries\sweetalert2.js"></script>
 
     <script src="app\view\template\script.js"></script>
-
 </head>
 
 
@@ -39,8 +37,8 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">
             {% if session.loggedin == true %}
-            <p class=""><img src="lib\img\user.svg" class="mr-3" width="25" height="25">Pedro Silva</p>
-            <p id="matricula" class=""><img src="lib\img\hashtag.svg" class="ml-3 mr-2" width="20" height="20">{{session.matricula}}</p>
+            <p class=""><img src="lib\img\user.svg" class="mr-2" width="20" height="20">{{usuario.Nome}}</p>
+            <p id="matricula" class=""><img src="lib\img\hashtag.svg" class="mr-2" width="20" height="20">{{session.matricula}}</p>
         </div>
         <div class="list-group list-group-flush ">
 

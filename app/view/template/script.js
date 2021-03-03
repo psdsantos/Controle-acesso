@@ -1,6 +1,7 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
+
 function pegarNome() {
     // puxar URL
     // se GET[pagina] = autorizacao,
@@ -33,7 +34,7 @@ function definirLargura() {
         case 'registro':
             return ['25%', '30%', '15%', '15%', '15%'];
         case 'autorizacao':
-            return ['10%', '45%', '45%'];
+            return ['5%', '33%', '33%', '6%', '15%', '10%'];
         case 'requisitante':
             return ['50%', '35%', '15%'];
         case 'usuario':
@@ -53,6 +54,8 @@ function definirColunas() {
             return [0, 1, 2, 3, 4];
         case 'categoria':
             return [0, 1];
+        case 'autorizacao':
+            return [0, 1, 2, 3, 4, 5];
         default:
             return [0, 1, 2];
     }
@@ -141,29 +144,32 @@ $(document).ready(function() {
             }
         },
         columnDefs: [{
-            "className": "dt-center",
-            "targets": "_all"
+            //className: "dt-center",
+            type: 'date-eu',
+            targets: 4
         }],
         dom: 'Blfrtip',
         paging: true,
         autoWidth: true,
-        messageTop:
-            function() {
-                if (!dmin.includes("NaN") && !dmax.includes("NaN"))
-                    return 'Relatório de autorizações realizadas entre ' + dmin + ' e ' + dmax + ' (inclusive).';
 
-                else if (!dmin.includes("NaN") && dmax.includes("NaN"))
-                    return 'Relatório de autorizações realizadas desde ' + dmin + ' (inclusive).';
-
-                else if (dmin.includes("NaN") && !dmax.includes("NaN"))
-                    return 'Relatório de autorizações realizadas do início até ' + dmax + ' (inclusive).';
-            },
         buttons: [{
             text: 'Baixar PDF',
             extend: 'pdfHtml5',
-            filename: 'relatório',
+            filename: 'Relatório_'+pegarNome(),
             orientation: 'portrait',
             pageSize: 'A4',
+            messageTop: function() {
+                    if (!dmin.includes("NaN") && !dmax.includes("NaN"))
+                        return 'Relatório de autorizações realizadas entre ' + dmin + ' e ' + dmax + ' (inclusive).';
+
+                    else if (!dmin.includes("NaN") && dmax.includes("NaN"))
+                        return 'Relatório de autorizações realizadas desde ' + dmin + ' (inclusive).';
+
+                    else if (dmin.includes("NaN") && !dmax.includes("NaN"))
+                        return 'Relatório de autorizações realizadas do início até ' + dmax + ' (inclusive).';
+
+                    else return " ";
+                },
             exportOptions: {
                 columns: definirColunas(),
                 search: 'applied',
@@ -187,8 +193,8 @@ $(document).ready(function() {
                 //doc.styles.tableHeader.fontSize = 12;
                 doc.styles.tableHeader.alignment = 'center';
 
-                doc.content[0].alignment = 'center';
-                doc.content[0].table.widths = largura;
+                doc.content[1].alignment = 'center';
+                doc.content[1].table.widths = largura;
 
                 // Create a header object with 3 columns
                 // Left side: Logo
@@ -204,7 +210,7 @@ $(document).ready(function() {
                             {
                                 text: nomeRelatorio,
                                 fontSize: 18,
-                                margin: [0, 130, 0, 0]
+                                margin: [0, 130, -70, 0]
                             },
                             {
                                 text: "Coordenadoria de Laboratórios",
@@ -259,7 +265,7 @@ $(document).ready(function() {
                 objLayout['paddingRight'] = function(i) {
                     return 4;
                 };
-                doc.content[0].layout = objLayout;
+                doc.content[1].layout = objLayout;
 
                 console.log(doc);
             }

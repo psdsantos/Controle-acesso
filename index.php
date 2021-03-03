@@ -49,6 +49,7 @@ $twig->addGlobal('session', $_SESSION);
 $template = $twig->load("estrutura.html");
 
 $parametros = array();
+if(isset($_SESSION["matricula"])) $parametros['usuario'] = Usuario::selecionaPorId($_SESSION["matricula"]);
 
 $conteudo = $template->render($parametros);
 

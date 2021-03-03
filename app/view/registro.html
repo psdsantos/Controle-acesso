@@ -2,6 +2,11 @@
 {% from "/template/base.html" import th, icon %}
 {% from "/template/add.html" import input %}
 
+    {% block before%}
+        <h1>Página <b>Registro</b></h1>
+        <br>
+    {% endblock %}
+
     {% block theader %}
         {{ th("350px", "Usuário") }}
         {{ th("350px", "Requisitante") }}
