@@ -102,25 +102,24 @@
             }));
 
             $template = $twig->load('edit/editAutorizacao.html');
+            $parametros = array();
 
             $autorizacao = Autorizacao::selecionaPorId($autorizacaoID);
             $objUsuario = Usuario::selecionaTodos();
             $objRequisitante = Requisitante::selecionaTodos();
 
-            $tempoVida = $autorizacao->Tempo_vida;
+            $Hora_validade = $autorizacao->Hora_validade;
             $dataValidade = $autorizacao->Data_validade;
+            $senha = $autorizacao->Senha;
 
-            Util::checkValidade($dataValidade, $tempoVida, "autorizacao");
-
-            $parametros = array();
             $parametros['Cod_autorizacao'] = $autorizacao->Cod_autorizacao;
             $parametros['Cod_requisitante'] = $autorizacao->Requisitante_cod_requisitante;
             $parametros['Usuario_matricula'] = $autorizacao->Usuario_matricula;
             $parametros['Laboratorio'] = $autorizacao->Laboratorio;
             $parametros['Obs'] = $autorizacao->Obs;
-            $parametros['Data'] = date_create($dataValidade)->format('d-m-Y');
-            $parametros['Tempo_vida'] = $tempoVida;
-            $parametros['Senha'] = $tempoVida;
+            $parametros['Data_validade'] = date_create($dataValidade)->format('d-m-Y');
+            $parametros['Hora_validade'] = $Hora_validade;
+            $parametros['Senha'] = $senha;
             $parametros['usuarios'] = $objUsuario;
             $parametros['requisitantes'] = $objRequisitante;
 

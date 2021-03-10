@@ -35,13 +35,9 @@
             $template = $twig->load('registro.html');
 
             $objRegistros = Registro::selecionaTodos();
-            $objUsuario = Usuario::selecionaTodos();
-            $objAutorizacao = Autorizacao::selecionaTodos();
 
             $parametros = array();
             $parametros['registros'] = $objRegistros;
-            $parametros['usuarios'] = $objUsuario;
-            $parametros['autorizacoes'] = $objAutorizacao;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
@@ -68,19 +64,9 @@
 
         public function insert(){
             try{
-                $file = 'erorr.txt';
-                $current = file_get_contents($file);
-                $current .= "estou no controlador\n";
-                file_put_contents($file, $current);
-
-                Registro::insert($_POST);
-
+                Registro::insert($_GET);
+                //header('Location:?pagina=registro');
             } catch(Exception $e){
-
-                $file = 'erorr.txt';
-                $current = file_get_contents($file);
-                $current .= "exception throwada no controllerq\n";
-                file_put_contents($file, $current);
 
             }
 

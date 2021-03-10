@@ -63,7 +63,7 @@ function definirColunas() {
 
 /* Custom filtering function which will search data in column four between two values */
 // só funciona pra autorizações
-if(urlParams.get('pagina') == 'autorizacao'){
+if(urlParams.get('pagina') == 'autorizacao' || urlParams.get('pagina') == 'registro'){
     var dmin;
     var dmax;
 
@@ -91,7 +91,8 @@ if(urlParams.get('pagina') == 'autorizacao'){
             var yyyy = max.getFullYear();
             dmax = dd + '/' + mm + '/' + yyyy;
 
-            var date = dados[4] || 0; // use data for the date column
+            if(urlParams.get('pagina') == 'autorizacao') var date = dados[4] || 0; // use data for the date column
+            if(urlParams.get('pagina') == 'registro') var date = dados[2] || 0; // use data for the date column
             date = date.split("/");
             date = new Date(parseInt(date[2], 10),
                 parseInt(date[1], 10) - 1, // month is zero-based
@@ -111,6 +112,9 @@ if(urlParams.get('pagina') == 'autorizacao'){
 var nomeRelatorio = "Relatório de " + pegarNome();
 var largura = definirLargura();
 var table;
+var ordenacao = [[ 0, "desc"  ]];
+if(urlParams.get('pagina') == 'registro') ordenacao = [[ 3, "desc" ]];
+if(urlParams.get('pagina') == 'autorizacao') ordenacao = [[ 4, "desc" ]];
 $(document).ready(function() {
     // Event listener to the two range filtering inputs to redraw on input
     $('#min, #max').keyup(function() {
@@ -146,8 +150,9 @@ $(document).ready(function() {
         columnDefs: [{
             //className: "dt-center",
             type: 'date-eu',
-            targets: 4
+            targets: 4,
         }],
+        order: ordenacao,
         dom: 'Blfrtip',
         paging: true,
         autoWidth: true,
@@ -159,6 +164,7 @@ $(document).ready(function() {
             orientation: 'portrait',
             pageSize: 'A4',
             messageTop: function() {
+                if(urlParams.get('pagina') == 'autorizacao' || urlParams.get('pagina') == 'registro'){
                     if (!dmin.includes("NaN") && !dmax.includes("NaN"))
                         return 'Relatório de autorizações realizadas entre ' + dmin + ' e ' + dmax + ' (inclusive).';
 
@@ -169,7 +175,8 @@ $(document).ready(function() {
                         return 'Relatório de autorizações realizadas do início até ' + dmax + ' (inclusive).';
 
                     else return " ";
-                },
+                }
+            },
             exportOptions: {
                 columns: definirColunas(),
                 search: 'applied',
@@ -193,8 +200,12 @@ $(document).ready(function() {
                 //doc.styles.tableHeader.fontSize = 12;
                 doc.styles.tableHeader.alignment = 'center';
 
-                doc.content[1].alignment = 'center';
-                doc.content[1].table.widths = largura;
+                if(urlParams.get('pagina') == 'autorizacao' || urlParams.get('pagina') == 'registro') var tableIndex = 1;
+                else var tableIndex = 0;
+
+                doc.content[tableIndex].alignment = 'center';
+                doc.content[tableIndex].table.widths = largura;
+
 
                 // Create a header object with 3 columns
                 // Left side: Logo
@@ -265,7 +276,7 @@ $(document).ready(function() {
                 objLayout['paddingRight'] = function(i) {
                     return 4;
                 };
-                doc.content[1].layout = objLayout;
+                doc.content[tableIndex].layout = objLayout;
 
                 console.log(doc);
             }

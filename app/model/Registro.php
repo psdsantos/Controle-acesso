@@ -34,47 +34,62 @@
             return $resultado;
         }
 
-        public static function insert($dadosReq){
+        public static function insert($dadosGET){
+            //var_dump($dadosGET);
 
-            $file = 'erorr.txt';
-            $current = file_get_contents($file);
-            $current .= "vamo la inserir\n";
-            file_put_contents($file, $current);
+            // simulação de usuário com o cartao 1
+            if($dadosGET['cartao'] == 1) {
+                $matricula = 2018332552; // se for usuário com o cartao 1
+                $autorizacao = 0;
 
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-                    $con = Connection::getConn();
-                    $sql = " INSERT INTO registro_acesso (Data_acesso, Hora_acesso)
-                                VALUES (:data_esp, :tempo_esp) ";
-                    $sql = $con->prepare($sql);
-                    $sql->bindValue(':data_esp', Util::higienize($dadosReq["date"]));
-                    $sql->bindValue(':tempo_esp', Util::higienize($dadosReq["time"]));
-                    $res = $sql->execute();
-
-                    if($res == false){
-                        throw new Exception("Falha ao inserir Registro");
-                        $file = 'erorr.txt';
-                        $current = file_get_contents($file);
-                        $current .= "falha oa inserir registro\n";
-                        file_put_contents($file, $current);
-                        echo "Falha ao inserir";
-                        return false;
-                    }
-
-                    $file = 'erorr.txt';
-                    $current = file_get_contents($file);
-                    $current .= "nada de errado por aq\n";
-                    file_put_contents($file, $current);
-                    echo "nada errado";
-                    return true;
+                $data = array("auth" => 1);
+                echo json_encode($data); // Embarcado recebe auth = 1 e abre a tranca
             }
-            else {
 
-                $file = 'erorr.txt';
-                file_put_contents($file, "nao foi post");
+            $con = Connection::getConn();
 
-                echo "No data posted with HTTP POST.";
+            if(!isset($matricula)) { // não é um usuário
+                // cartao 2 ou 3
+                // Selecionar usuário, autorização com senha igual ao pino (mudar senha para RFID e pino para RFID),
+                // e checar validade (ainda não passou do horário)
+                $sql = " SELECT Usuario_matricula, Cod_autorizacao,
+                                (NOW() < concat(Data_validade, ' ', Tempo_vida) AND NOW() > concat(Data_validade, ' ', Hora_validade)) as valido
+                         FROM autorizacao as a, usuario as u
+                         WHERE a.senha = :cartao AND a.Usuario_matricula = u.matricula ";
+                $sql = $con->prepare($sql);
+                $sql->bindValue(':cartao', $dadosGET['cartao'], PDO::PARAM_INT);
+                $res = $sql->execute();
+                $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+                if(empty($resultado) || !$resultado["valido"]) {
+                    $data = array("auth" => 0); // Embarcado recebe auth = 0 e não abre a tranca
+                    echo json_encode($data);
+                }
+                $matricula = $resultado['Usuario_matricula'];
+                $autorizacao = $resultado["Cod_autorizacao"];
+
+                $data = array("auth" => 1);
+                echo json_encode($data); // Embarcado recebe auth = 1 e abre a tranca
             }
+
+            $sql = " INSERT INTO registro_acesso (Data_acesso, Hora_acesso, Laboratorio, Usuario_matricula, Autorizacao_cod_autorizacao)
+                        VALUES (:data_esp, :tempo_esp, :lab, :matricula, :autorizacao) ";
+            $sql = $con->prepare($sql);
+            $sql->bindValue(':data_esp', Util::higienize($dadosGET["date"]));
+            $sql->bindValue(':tempo_esp', Util::higienize($dadosGET["time"]));
+            $sql->bindValue(':lab', 1);
+            $sql->bindValue(':matricula', $matricula, PDO::PARAM_INT);
+            $sql->bindValue(':autorizacao', $autorizacao, PDO::PARAM_INT);
+
+            $res = $sql->execute();
+
+            if($res == false){
+                throw new Exception("Falha ao inserir Registro");
+
+                echo "Falha ao inserir";
+                return false;
+            }
+
+            return true;
         }
 
         public static function update($dadosPost){

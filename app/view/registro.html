@@ -5,6 +5,18 @@
     {% block before%}
         <h1>Página <b>Registro</b></h1>
         <br>
+        <table cellspacing="5" cellpadding="5" border="0">
+            <tbody>
+                <tr>
+                    <td>Data mínima:</td>
+                    <td><input type="text" id="min" name="min" autocomplete="off"></td>
+                </tr>
+                <tr>
+                    <td>Data máxima:</td>
+                    <td><input type="text" id="max" name="max" autocomplete="off"></td>
+                </tr>
+            </tbody>
+        </table>
     {% endblock %}
 
     {% block theader %}
@@ -18,14 +30,19 @@
     {% block tbody %}
         {% for registro in registros %}
             <tr role="row">
-                {% if user != false %}
+                {% if registro.Usuario_matricula is not null %}
                     {% set user = callstatic('Usuario', 'selecionaPorId', registro.Usuario_matricula) %}
                 {% endif %}
                 <td>{{user.Nome}}</td>
-                {% if aut != false %}
+                {% if registro.Autorizacao_cod_autorizacao is not null %}
                     {% set auth = callstatic('Autorizacao', 'selecionaPorId', registro.Autorizacao_cod_autorizacao) %}
                 {% endif %}
-                <td>{{auth.Nome}}</td>
+                {% if auth == false %}
+                    <td>{{"Não houve requisição"}}</td>
+                {% else %}
+                    {% set req = callstatic('Requisitante', 'selecionaPorId', auth.Requisitante_cod_requisitante) %}
+                    <td>{{req.Nome}}</td>
+                {% endif %}
                 <td>{{formatdate(registro.Data_acesso)}}</td>
                 <td>{{formattime(registro.Hora_acesso)}}</td>
                 <td>{{registro.Laboratorio}}</td>
