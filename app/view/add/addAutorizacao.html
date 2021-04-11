@@ -30,8 +30,17 @@
         <p>Observações: </p>
         <textarea name="obs" rows="3" cols="50"></textarea>
 
-        <p>Senha: <input type="text" name="senha" value="" required maxlength="12" size="20"></p>
+        <br>
 
+        <label for="rfid">Cartão RFID: </label>
+        <!--
+        <select name="rfid" id="rfid" form="autorizacaoForm" >
+            {% for rfid in arr_rfid %}
+                <option value="{{rfid.Rfid}}" >{{rfid.Rfid}}</option>
+            {% endfor %}
+        </select>
+        -->
+        <input type="text" name="rfid">
 
         <br><br>
 

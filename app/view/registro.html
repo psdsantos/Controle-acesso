@@ -3,7 +3,7 @@
 {% from "/template/add.html" import input %}
 
     {% block before%}
-        <h1>Página <b>Registro</b></h1>
+        <h1><b>Registros</b></h1>
         <br>
         <table cellspacing="5" cellpadding="5" border="0">
             <tbody>
@@ -20,6 +20,7 @@
     {% endblock %}
 
     {% block theader %}
+        {{ th("20px", "Autorização") }}
         {{ th("350px", "Usuário") }}
         {{ th("350px", "Requisitante") }}
         {{ th("80px", "Data do acesso") }}
@@ -30,22 +31,27 @@
     {% block tbody %}
         {% for registro in registros %}
             <tr role="row">
+                {% if registro.Autorizacao_cod_autorizacao is not null %}
+                    {% set auth_exists = callstatic('Autorizacao', 'selecionaPorId', registro.Autorizacao_cod_autorizacao) %}
+                {% endif %}
+                <td class="text-center">
+                    {% if auth_exists == true %}
+                        <a href="?pagina=autorizacao&search={{registro.Autorizacao_cod_autorizacao}}"><img src="lib\img\eye.svg" width="25" height="25"></a>
+                    {% endif %}
+                </td>
                 {% if registro.Usuario_matricula is not null %}
                     {% set user = callstatic('Usuario', 'selecionaPorId', registro.Usuario_matricula) %}
                 {% endif %}
                 <td>{{user.Nome}}</td>
-                {% if registro.Autorizacao_cod_autorizacao is not null %}
-                    {% set auth = callstatic('Autorizacao', 'selecionaPorId', registro.Autorizacao_cod_autorizacao) %}
-                {% endif %}
-                {% if auth == false %}
-                    <td>{{"Não houve requisição"}}</td>
+                {% if auth_exists == false %}
+                    <td class="text-center">{{"——"}}</td>
                 {% else %}
-                    {% set req = callstatic('Requisitante', 'selecionaPorId', auth.Requisitante_cod_requisitante) %}
+                    {% set req = callstatic('Requisitante', 'selecionaPorId', auth_exists.Requisitante_cod_requisitante) %}
                     <td>{{req.Nome}}</td>
                 {% endif %}
-                <td>{{formatdate(registro.Data_acesso)}}</td>
-                <td>{{formattime(registro.Hora_acesso)}}</td>
-                <td>{{registro.Laboratorio}}</td>
+                <td class="text-center">{{formatdate(registro.Data_acesso)}}</td>
+                <td class="text-center">{{formattime(registro.Hora_acesso)}}</td>
+                <td class="text-center">{{registro.Laboratorio}}</td>
             </tr>
         {% endfor %}
     {% endblock %}

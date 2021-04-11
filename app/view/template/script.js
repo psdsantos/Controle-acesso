@@ -51,7 +51,7 @@ function definirColunas() {
     const pagina = urlParams.get('pagina');
     switch (pagina) {
         case 'registro':
-            return [0, 1, 2, 3, 4];
+            return [1, 2, 3, 4, 5];
         case 'categoria':
             return [0, 1];
         case 'autorizacao':
@@ -62,7 +62,7 @@ function definirColunas() {
 }
 
 /* Custom filtering function which will search data in column four between two values */
-// só funciona pra autorizações
+// só funciona pra autorizações e registros
 if(urlParams.get('pagina') == 'autorizacao' || urlParams.get('pagina') == 'registro'){
     var dmin;
     var dmax;
@@ -92,7 +92,7 @@ if(urlParams.get('pagina') == 'autorizacao' || urlParams.get('pagina') == 'regis
             dmax = dd + '/' + mm + '/' + yyyy;
 
             if(urlParams.get('pagina') == 'autorizacao') var date = dados[4] || 0; // use data for the date column
-            if(urlParams.get('pagina') == 'registro') var date = dados[2] || 0; // use data for the date column
+            if(urlParams.get('pagina') == 'registro') var date = dados[3] || 0; // use data for the date column
             date = date.split("/");
             date = new Date(parseInt(date[2], 10),
                 parseInt(date[1], 10) - 1, // month is zero-based
@@ -347,3 +347,19 @@ output.innerHTML = ('Horário inválido.');
         $("#autorizacaoForm").submit();
     });
 });
+
+// Show all autorizações by a requisitante
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+          return decodeURIComponent(pair[1]);
+        }
+    }
+    return ""; //not found
+}
+$(document).ready( function () {
+    table.search( getQueryVariable("search") ).draw();
+} );

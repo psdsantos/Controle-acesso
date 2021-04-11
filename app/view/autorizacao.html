@@ -8,11 +8,11 @@
             <tbody>
                 <tr>
                     <td>Data mínima:</td>
-                    <td><input type="text" id="min" name="min"></td>
+                    <td><input type="text" id="min" name="min" autocomplete="off"></td>
                 </tr>
                 <tr>
                     <td>Data máxima:</td>
-                    <td><input type="text" id="max" name="max"></td>
+                    <td><input type="text" id="max" name="max" autocomplete="off"></td>
                 </tr>
             </tbody>
         </table>
@@ -40,10 +40,16 @@
                 <td>{{user.Nome}}</td>
                 <td class="text-center">{{autorizacao.Laboratorio}}</td>
                 <td>{{formatdate(autorizacao.Data_validade)}}</td>
-                <td>{{formattime(autorizacao.Hora_validade)}}</td>
+                <td>{{formattime(autorizacao.Hora_inicial)}}</td>
                 <td class="text-center"><a href="?pagina=autorizacao&action=observacao&id={{autorizacao.Cod_autorizacao}}"><img src="lib\img\eye.svg" width="25" height="25"></a></td>
-                <td class="text-center"><a href="?pagina=autorizacao&action=edit&id={{autorizacao.Cod_autorizacao}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
-                <td class="text-center"><a href="?pagina=autorizacao&action=predelete&id={{autorizacao.Cod_autorizacao}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
+
+                {% if autorizacao.Efetivada == false %}
+                    <td class="text-center"><a href="?pagina=autorizacao&action=edit&id={{autorizacao.Cod_autorizacao}}"><img src="lib\img\pencil.svg" width="20" height="20"></a></td>
+                    <td class="text-center"><a href="?pagina=autorizacao&action=predelete&id={{autorizacao.Cod_autorizacao}}"><img src="lib\img\bin.svg" width="20" height="20"></a></td>
+                {% else %}
+                    <td colspan="2">Esta autorização já foi efetivada ou expirou</td>
+                    <td class="invisible"></td>
+                {% endif %}
             </tr>
         {% endfor %}
     {% endblock %}

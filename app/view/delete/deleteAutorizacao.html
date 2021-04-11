@@ -15,12 +15,17 @@
         <p>Laboratório: <input type="text" size=13 name="laboratorio" value={{Laboratorio}} disabled > </p>
 
         <p>Data de validade: <input type="text" name="data" value={{Data}} disabled> </p>
-        <p>Hora de validade: <input type="text" name="hora" value={{Tempo_vida}} disabled> </p>
+        <p>Hora de validade: <input type="text" name="hora" value={{Hora_final}} disabled> </p>
 
         <p>Observações: </p>
         <textarea rows="3" cols="50" disabled>{{Obs}}</textarea>
+        <br>
 
-        <br><br>
+        <p>Cartão RFID: </p>
+        <input type="text" name="rfid" value="{{Rfid}}" disabled>
+
+        <br>
+        <br>
 
         {{ submit("Apagar") }}
 

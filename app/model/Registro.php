@@ -50,19 +50,30 @@
 
             if(!isset($matricula)) { // não é um usuário
                 // cartao 2 ou 3
-                // Selecionar usuário, autorização com senha igual ao pino (mudar senha para RFID e pino para RFID),
-                // e checar validade (ainda não passou do horário)
-                $sql = " SELECT Usuario_matricula, Cod_autorizacao,
-                                (NOW() < concat(Data_validade, ' ', Tempo_vida) AND NOW() > concat(Data_validade, ' ', Hora_validade)) as valido
+                // Selecionar usuário, autorização com Rfid igual ao pino (mudar senha para RFID e pino para RFID),
+                // checar validade (ainda não passou do horário)
+                // checar se já foi efetivada
+                $sql = " SELECT Usuario_matricula, Cod_autorizacao
                          FROM autorizacao as a, usuario as u
-                         WHERE a.senha = :cartao AND a.Usuario_matricula = u.matricula ";
+                         WHERE a.Rfid = :cartao AND a.Usuario_matricula = u.matricula
+                            AND (NOW() < concat(Data_validade, ' ', Hora_final) AND NOW() > concat(Data_validade, ' ', Hora_inicial)) -- Se for válido
+                            AND Efetivada = 0;
+
+                         UPDATE autorizacao SET Efetivada = 1
+                         WHERE autorizacao.Cod_autorizacao = (SELECT Cod_autorizacao
+                                                              FROM usuario as u -- from autorização já está implícito no UPDATE
+                                                              WHERE autorizacao.Rfid = :cartao AND autorizacao.Usuario_matricula = u.matricula
+                                                                    AND (NOW() < concat(Data_validade, ' ', Hora_final) AND NOW() > concat(Data_validade, ' ', Hora_inicial))); -- Se for válido
+                          ";
                 $sql = $con->prepare($sql);
                 $sql->bindValue(':cartao', $dadosGET['cartao'], PDO::PARAM_INT);
                 $res = $sql->execute();
                 $resultado = $sql->fetch(PDO::FETCH_ASSOC);
-                if(empty($resultado) || !$resultado["valido"]) {
+                if(empty($resultado)) {
                     $data = array("auth" => 0); // Embarcado recebe auth = 0 e não abre a tranca
                     echo json_encode($data);
+
+                    return true;
                 }
                 $matricula = $resultado['Usuario_matricula'];
                 $autorizacao = $resultado["Cod_autorizacao"];

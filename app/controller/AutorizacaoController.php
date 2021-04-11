@@ -2,6 +2,8 @@
 
     class AutorizacaoController{
         public function index(){
+            Autorizacao::checarEfetivadas();
+
             $loader = new \Twig\Loader\FilesystemLoader('app/view');
             $twig = new \Twig\Environment($loader);
 
@@ -42,11 +44,6 @@
             $conteudo = $template->render($parametros);
             echo $conteudo;
 
-            $myfile = fopen("conteudo.html", "w") or die("Unable to open file!");
-            fwrite($myfile, $conteudo);
-            fclose($myfile);
-            //PdfGenerator::toPDF($conteudo);
-
             Util::notifyToasts();
 
         }
@@ -58,10 +55,12 @@
 
             $objUsuario = Usuario::selecionaTodos();
             $objRequisitante = Requisitante::selecionaTodos();
+            $arrRFID = Autorizacao::rfidNotUsed();
 
             $parametros = array();
             $parametros['usuarios'] = $objUsuario;
             $parametros['requisitantes'] = $objRequisitante;
+            $parametros['arr_rfid'] = $arrRFID;
 
             $conteudo = $template->render($parametros);
             echo $conteudo;
@@ -102,15 +101,18 @@
             }));
 
             $template = $twig->load('edit/editAutorizacao.html');
+
+
             $parametros = array();
 
             $autorizacao = Autorizacao::selecionaPorId($autorizacaoID);
             $objUsuario = Usuario::selecionaTodos();
             $objRequisitante = Requisitante::selecionaTodos();
 
-            $Hora_validade = $autorizacao->Hora_validade;
+            $Hora_inicial = $autorizacao->Hora_inicial;
             $dataValidade = $autorizacao->Data_validade;
-            $senha = $autorizacao->Senha;
+
+            //Util::checkValidade($dataValidade, $Hora_inicial, "autorizacao");
 
             $parametros['Cod_autorizacao'] = $autorizacao->Cod_autorizacao;
             $parametros['Cod_requisitante'] = $autorizacao->Requisitante_cod_requisitante;
@@ -118,8 +120,8 @@
             $parametros['Laboratorio'] = $autorizacao->Laboratorio;
             $parametros['Obs'] = $autorizacao->Obs;
             $parametros['Data_validade'] = date_create($dataValidade)->format('d-m-Y');
-            $parametros['Hora_validade'] = $Hora_validade;
-            $parametros['Senha'] = $senha;
+            $parametros['Hora_inicial'] = $Hora_inicial;
+            $parametros['Rfid'] = $autorizacao->Rfid;
             $parametros['usuarios'] = $objUsuario;
             $parametros['requisitantes'] = $objRequisitante;
 
@@ -161,10 +163,10 @@
             $objUsuario = Usuario::selecionaTodos();
             $objRequisitante = Requisitante::selecionaTodos();
 
-            $tempoVida = $autorizacao->Tempo_vida;
+            $Hora_inicial = $autorizacao->Hora_inicial;
             $dataValidade = $autorizacao->Data_validade;
 
-            Util::checkValidade($dataValidade, $tempoVida, "autorizacao");
+            //Util::checkValidade($dataValidade, $Hora_inicial, "autorizacao");
 
             $parametros = array();
             $parametros['Cod_autorizacao'] = $autorizacao->Cod_autorizacao;
@@ -173,7 +175,8 @@
             $parametros['Laboratorio'] = $autorizacao->Laboratorio;
             $parametros['Obs'] = $autorizacao->Obs;
             $parametros['Data'] = date_create($dataValidade)->format('d-m-Y');
-            $parametros['Tempo_vida'] = $tempoVida;
+            $parametros['Hora_final'] = $Hora_inicial;
+            $parametros['Rfid'] = $autorizacao->Rfid;
             $parametros['usuarios'] = $objUsuario;
             $parametros['requisitantes'] = $objRequisitante;
 

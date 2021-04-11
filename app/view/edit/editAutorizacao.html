@@ -23,15 +23,19 @@
         <p>Laboratório: <input type="text" size=13 name="laboratorio" placeholder="n° do laboratório" value={{Laboratorio}} required > </p>
 
         <p>Data de validade: <input id="datepicker" type="text" name="data" value={{Data_validade}} autocomplete="off" required> </p>
-        <p>Hora de validade: <input id="timepicker" type="text" name="hora" value={{Hora_validade}} required> </p>
+        <p>Hora de validade: <input id="timepicker" type="text" name="hora" value={{Hora_inicial}} required> </p>
 
         <p>Observações: </p>
         <textarea name="obs" rows="3" cols="50">{{Obs}}</textarea>
+        <br>
 
-        <br><br>
+        <p>Cartão RFID: </p>
+        <input type="text" name="rfid" value="{{Rfid}}">
+
+        <br>
+        <br>
 
         <input type="hidden" name="Cod_autorizacao" value="{{Cod_autorizacao}}">
-        <input type="hidden" name="senha" value="{{Senha}}">
         <input type="hidden" name="usuario" value="{{Usuario_matricula}}">
 
         {{ submit("Alterar") }}
