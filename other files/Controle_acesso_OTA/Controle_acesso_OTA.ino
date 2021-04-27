@@ -12,16 +12,18 @@
 #include <Arduino_JSON.h>
 
 const char* host = "esp32";
-const char* ssid = "Yepnet_Leandro";
-const char* password = "leod@g28";
+const char* ssid = "NOME DO WIFI";
+const char* password = "SENHA DO WIFI";
 
 String httpRequestData = "";
 int httpResponseCode = 0;
 
 // OTA update
+// Cria um servidor para receber os dados
+// Veja mais em: https://lastminuteengineers.com/esp32-ota-web-updater-arduino-ide/
 WebServer server(80);
 
-const char* loginIndex = 
+const char* loginIndex =
  "<form name='loginForm'>"
     "<table width='20%' bgcolor='A09F9F' align='center'>"
         "<tr>"
@@ -61,8 +63,8 @@ const char* loginIndex =
     "}"
     "}"
 "</script>";
- 
-const char* serverIndex = 
+
+const char* serverIndex =
 "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>"
 "<form method='POST' action='#' enctype='multipart/form-data' id='upload_form'>"
    "<input type='file' name='update'>"
@@ -91,7 +93,7 @@ const char* serverIndex =
   "return xhr;"
   "},"
   "success:function(d, s) {"
-  "console.log('success!')" 
+  "console.log('success!')"
  "},"
  "error: function (a, b, c) {"
  "}"
@@ -102,12 +104,15 @@ const char* serverIndex =
 // REPLACE with your Domain name and URL path or IP address with path
 const char* serverEnvio = "http://10.0.0.145/controle-acesso/?pagina=registro&action=insert";
 
+// Servidor para coletar a data e hora atuais
+// Veja mais em: https://lastminuteengineers.com/esp32-ntp-server-date-time-tutorial/
 const char* ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = -3 * 3600;
 
 unsigned long duration = 0;
 int period = 2000;
 
+// Define os pinos
 #define TRANCA 4
 #define CARD1 23
 #define CARD2 22
@@ -119,16 +124,17 @@ int cartao = 0;
 int last_card = -1;
 
 int fromWeb[2];
-  
+
+// Parse received JSON from web server
 void parseJSON(String webGETdata){
   JSONVar myObject = JSON.parse(webGETdata);
-  
+
   // JSON.typeof(jsonVar) can be used to get the type of the var
   if (JSON.typeof(myObject) == "undefined") {
     Serial.println("Parsing input failed!");
     return;
   }
-  
+
   // myObject.keys() can be used to get an array of all the keys in the object
   JSONVar keys = myObject.keys();
 
@@ -141,7 +147,7 @@ void parseJSON(String webGETdata){
     fromWeb[i] = value;
   }
 }
-    
+
 String parseLocalDate(){
   struct tm timeinfo;
   if (!getLocalTime(&timeinfo)) {
@@ -173,9 +179,9 @@ String parseLocalTime(){
 }
 
 // By flagging a piece of code with the IRAM_ATTR attribute
-// we are declaring that the compiled code will be placed 
+// we are declaring that the compiled code will be placed
 // in the Internal RAM (IRAM) of the ESP32.
-void IRAM_ATTR togglePorta(int pin){ 
+void IRAM_ATTR togglePorta(int pin){
   Serial.println("Last card: ");
   Serial.println(last_card);
   if(pin == last_card || last_card == -1){
@@ -211,29 +217,29 @@ String httpGETRequest(const char* serverName){
   HTTPClient http;
   //init and get the time
   configTime(gmtOffset_sec, 0, ntpServer);
-  
+
   httpRequestData =
     "&date=" + String(parseLocalDate())
   + "&time=" + String(parseLocalTime())
   + "&cartao=" + String(cartao)
   + "";
-  
+
   http.begin(serverName + httpRequestData);
   Serial.println(serverName + httpRequestData);
-  
+
   // Send key to authenticate on server
   http.addHeader("Cookie", "PHPSESSID=3027436a2a4e44517d2446555c");
-  
+
   // Send HTTP GET request
   httpResponseCode = http.GET();
-  
+
   String payload = "{}";
 
   if (httpResponseCode > 0) {
     Serial.print("(GET) HTTP Response code: ");
     Serial.println(httpResponseCode);
     payload = http.getString();
-    
+
     // Get page main content (JSON data)
     int openMainDiv = payload.indexOf("<div class=\"main\">");
     String offset = "<div class=\"main\">";
@@ -254,7 +260,7 @@ String httpGETRequest(const char* serverName){
 }
 
 void setup(void) {
-  
+
   Serial.begin(115200);
 
   pinMode(TRANCA, OUTPUT);
@@ -265,11 +271,11 @@ void setup(void) {
   pinMode(CARD3, INPUT);
 
   digitalWrite(TRANCA, HIGH);
-  
+
   // Connect to WiFi network
   WiFi.begin(ssid, password);
   Serial.println("Connecting");
-  
+
   // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -279,7 +285,7 @@ void setup(void) {
   Serial.print("Connected to WiFi network with IP Address: ");
   Serial.println(WiFi.localIP());
 
-  
+
   // use mdns for host name resolution
   if (!MDNS.begin(host)) { // http://esp32
     Serial.println("Error setting up MDNS responder!");
@@ -288,7 +294,7 @@ void setup(void) {
     }
   }
   Serial.println("mDNS responder started");
-  // return index page which is stored in serverIndex 
+  // return index page which is stored in serverIndex
   server.on("/", HTTP_GET, []() {
     server.sendHeader("Connection", "close");
     server.send(200, "text/html", loginIndex);
@@ -297,7 +303,7 @@ void setup(void) {
     server.sendHeader("Connection", "close");
     server.send(200, "text/html", serverIndex);
   });
-  // handling uploading firmware file 
+  // handling uploading firmware file
   server.on("/update", HTTP_POST, []() {
     server.sendHeader("Connection", "close");
     server.send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
@@ -325,13 +331,13 @@ void setup(void) {
   server.begin();
 }
 
-void loop(void) {  
+void loop(void) {
   if (WiFi.status() == WL_CONNECTED) { //Check WiFi connection status
   server.handleClient();
-  
+
     if((unsigned long)(millis() - duration) > period){ // Run code below every [period] ms
       duration = millis();
-    
+
       if(digitalRead(CARD1) == 1){ // Usuário com acesso a qualquer momento
         cartao = 1;
         if(digitalRead(TRANCA) == 0) {
@@ -340,19 +346,19 @@ void loop(void) {
         else {
           String webGET = httpGETRequest(serverEnvio);
           Serial.print("GET response: ");
-          Serial.println(webGET); 
-          
-          parseJSON(webGET); // Sets fromWeb array      
+          Serial.println(webGET);
+
+          parseJSON(webGET); // Sets fromWeb array
           boolean autorizado = fromWeb[0];
           if(autorizado == true) togglePorta(cartao);
           else notAuthorized();
         }
       }
-      
+
       // Simulação de autorização
       // Tem que ter autorização no horário para o requisitante poder entrar
       if(digitalRead(CARD2)){ // Requisitante que pediu autorização
-        
+
         cartao = 2;
         if(digitalRead(TRANCA) == 0) {
           togglePorta(cartao); // Se porta estiver aberta, feche
@@ -360,9 +366,9 @@ void loop(void) {
         else { // Tem horário reservado? Checar no sistema web
           String webGET = httpGETRequest(serverEnvio);
           Serial.print("GET response: ");
-          Serial.println(webGET); 
-          
-          parseJSON(webGET); // Sets fromWeb array      
+          Serial.println(webGET);
+
+          parseJSON(webGET); // Sets fromWeb array
           boolean autorizado = fromWeb[0];
           if(autorizado == true) togglePorta(cartao);
           else notAuthorized();
@@ -376,18 +382,18 @@ void loop(void) {
         else { // Tem horário reservado? Checar no sistema web
           String webGET = httpGETRequest(serverEnvio);
           Serial.print("GET response: ");
-          Serial.println(webGET); 
-          
-          parseJSON(webGET); // Sets fromWeb array      
+          Serial.println(webGET);
+
+          parseJSON(webGET); // Sets fromWeb array
           boolean autorizado = fromWeb[0];
           if(autorizado == true) togglePorta(cartao);
           else notAuthorized();
         }
       }
-     
+
     }
   }
   else {
     Serial.println("WiFi Disconnected");
-  }  
+  }
 }

@@ -1,5 +1,5 @@
 <?php
-
+    // define quais páginas carregar
     class Core{
         public function start($urlGet){
             if( isset($urlGet['action'])){
@@ -32,7 +32,7 @@
                 if($controller != 'LoginController' && $controller != 'HomeController') $controller = 'ErrorController';
                 if($controller != 'LoginController') $action = 'index';
 
-                if(session_id() === "3027436a2a4e44517d2446555c") { // se for a ESP32
+                if(session_id() === "3027436a2a4e44517d2446555c") { // se for a ESP32 (hash definido no firmware)
                     $controller = 'RegistroController';
                     $action = 'insert';
                 }

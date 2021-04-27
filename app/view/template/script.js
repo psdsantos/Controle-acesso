@@ -61,7 +61,7 @@ function definirColunas() {
     }
 }
 
-/* Custom filtering function which will search data in column four between two values */
+// Custom filtering function which will search between two dates (dmin and dmax)
 // só funciona pra autorizações e registros
 if(urlParams.get('pagina') == 'autorizacao' || urlParams.get('pagina') == 'registro'){
     var dmin;
@@ -149,8 +149,8 @@ $(document).ready(function() {
         },
         columnDefs: [{
             //className: "dt-center",
-            type: 'date-eu',
-            targets: 4,
+            type: 'date-eu', // formato dd/mm/YYYY
+            targets: [3, 4],
         }],
         order: ordenacao,
         dom: 'Blfrtip',
@@ -349,6 +349,8 @@ output.innerHTML = ('Horário inválido.');
 });
 
 // Show all autorizações by a requisitante
+// Procura variável 'search' na requisiçao GET (URL)
+// e a coloca na pesquisa da tabela DataTable
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split("&");

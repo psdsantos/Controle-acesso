@@ -1,5 +1,4 @@
 <?php
-
 // debug
 ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
 function print_r_pre($mixed = null) {
@@ -8,6 +7,8 @@ function print_r_pre($mixed = null) {
   echo '</pre>';
   return null;
 }
+
+// carregar todos os arquivos necessários
 require_once __DIR__ . '/vendor/autoload.php';
 
 require_once 'app/core/Core.php';
@@ -34,6 +35,7 @@ require_once 'app/model/Registro.php';
 require_once 'lib/database/Connection.php';
 require_once 'lib/Util.php';
 
+// preparar template para uso com Twig
 ob_start();
     $core = new Core;
     $core->start($_GET);
@@ -48,11 +50,13 @@ if(!isset($_SESSION)) session_start();
 $twig->addGlobal('session', $_SESSION);
 $template = $twig->load("estrutura.html");
 
+// para identificar o usuário logado
 $parametros = array();
 if(isset($_SESSION["matricula"])) $parametros['usuario'] = Usuario::selecionaPorId($_SESSION["matricula"]);
 
 $conteudo = $template->render($parametros);
 
+// substitui 'area_dinamica' no template pelo conteudo
 $conteudo = str_replace('area_dinamica', $saida, $conteudo);
 echo $conteudo;
 
